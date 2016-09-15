@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}"
+          href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.css" rel="stylesheet" media="screen"/>
+</head>
+<body>
+<div class="row container-fluid">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><h3 align="center">Register an account</h3></div>
+            <div class="panel-body">
+
+                <form action="#" th:action="@{/register}" th:object="${user}" method="post">
+                    <div class="row container-fluid form-group">
+                        <div class="col-md-12">
+                            <label for="firstName">First Name:</label>
+                            <input type="text" class="form-control" id="firstName" th:field="*{firstName}" />
+                        </div>
+                    </div>
+
+                    <div class="row container-fluid form-group">
+                        <div class="col-md-12">
+                            <label for="lastName">Last Name:</label>
+                            <input type="text" class="form-control" id="lastName" th:field="*{lastName}" />
+                        </div>
+                    </div>
+
+                    <div class="row container-fluid form-group">
+                        <div class="col-md-12">
+                            <label for="email">Email:</label>
+                            <input type="text" class="form-control" id="email" th:field="*{email}" />
+                        </div>
+                    </div>
+
+                    <div class="row container-fluid form-group">
+                        <div class="col-md-12">
+                            <label for="password">Password:</label>
+                            <input type="password" class="form-control" id="password" th:field="*{password}" />
+                        </div>
+                    </div>
+
+                    <div class="row container-fluid form-group">
+                        <div class="col-md-12">
+                            <label for="passwordconfirm">Confirm Password:</label>
+                            <input type="password" class="form-control" id="passwordconfirm" th:field="*{passwordConfirm}"/>
+                        </div>
+                    </div>
+
+                    <div class="row container-fluid">
+                        <div class="buttonGroup" align="right">
+                            <button class="btn btn-success">
+                                <i class="fa fa-upload"></i>
+                                Add
+                            </button>
+
+                            <button class="btn btn-info">
+                                <i class="fa fa-link"></i>
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
