@@ -13,25 +13,39 @@
             <div class="panel-heading"><h3 align="center">Register an account</h3></div>
             <div class="panel-body">
 
-                <div class="form">
+                <form action="#" th:action="@{/register}" th:object="${user}" method="post">
+                    <div class="row container-fluid form-group">
+                        <div class="col-md-12">
+                            <label for="firstName">First Name:</label>
+                            <input type="text" class="form-control" id="firstName" th:field="*{firstName}" />
+                        </div>
+                    </div>
+
+                    <div class="row container-fluid form-group">
+                        <div class="col-md-12">
+                            <label for="lastName">Last Name:</label>
+                            <input type="text" class="form-control" id="lastName" th:field="*{lastName}" />
+                        </div>
+                    </div>
+
                     <div class="row container-fluid form-group">
                         <div class="col-md-12">
                             <label for="email">Email:</label>
-                            <input type="text" class="form-control" id="email"/>
+                            <input type="text" class="form-control" id="email" th:field="*{email}" />
                         </div>
                     </div>
 
                     <div class="row container-fluid form-group">
                         <div class="col-md-12">
                             <label for="password">Password:</label>
-                            <input type="password" class="form-control" id="password"/>
+                            <input type="password" class="form-control" id="password" th:field="*{password}" />
                         </div>
                     </div>
 
                     <div class="row container-fluid form-group">
                         <div class="col-md-12">
-                            <label for="pwconfirm">Confirm Password:</label>
-                            <input type="password" class="form-control" id="pwconfirm"/>
+                            <label for="passwordconfirm">Confirm Password:</label>
+                            <input type="password" class="form-control" id="passwordconfirm" th:field="*{passwordConfirm}"/>
                         </div>
                     </div>
 
@@ -48,7 +62,7 @@
                             </button>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

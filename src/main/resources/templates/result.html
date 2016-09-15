@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Result</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}"
+          href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.css" rel="stylesheet" media="screen"/>
+</head>
+<body>
+<div class="row container-fluid">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><h3 align="center">Results</h3></div>
+            <div>
+                <div class="row container-fluid form-group">
+                    <div class="col-md-12">
+                        <p th:text="'First name: ' + ${user.firstName}" />
+                        <p th:text="'Last name: ' + ${user.lastName}" />
+                        <p th:text="'Email: ' + ${user.email}" />
+                        <p th:text="'Password: ' + ${user.password}" />
+                        <p th:text="'Password repeat: ' + ${user.passwordConfirm}" />
+                        <a href="/register">Register another account</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
