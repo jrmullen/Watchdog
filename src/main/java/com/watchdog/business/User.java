@@ -11,23 +11,18 @@ public class User {
     private int id;
     private int permissionId;
 
-    @NotNull
     @Size(min = 1, max = 64)
     private String firstName;
 
-    @NotNull
     @Size(min = 1, max = 64)
     private String lastName;
 
-    @NotNull
     @Size(min = 7, max = 254)
     private String email;
 
-    @NotNull
     @Size(min = 8, max = 50)
     private char[] password;
 
-    @NotNull
     @Size(min = 8, max = 50)
     private char[] passwordConfirm;
 
