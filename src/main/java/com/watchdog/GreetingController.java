@@ -19,7 +19,7 @@ public class GreetingController {
     }
 
     @RequestMapping(value="/register", method=RequestMethod.GET)
-    public String index(User user) {
+    public String register(User user) {
         return "register";
     }
 
