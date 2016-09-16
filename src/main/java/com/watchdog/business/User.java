@@ -1,6 +1,5 @@
 package com.watchdog.business;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -26,33 +25,6 @@ public class User {
     @Size(min = 8, max = 50)
     private char[] passwordConfirm;
 
-    public void setId(int id) {
-        this.id = id;
-    }
-    public void setPermissionId(int permissionId) {
-        this.permissionId = permissionId;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(char[] password) {
-        this.password = password;
-    }
-
-    public void setPasswordConfirm(char[] passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
-    }
-
     public int getId() {
         return id;
     }
@@ -61,23 +33,47 @@ public class User {
         return permissionId;
     }
 
+    public void setPermissionId(int permissionId) {
+        this.permissionId = permissionId;
+    }
+
     public String getFirstName() {
         return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
         return lastName;
     }
 
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public String getEmail() {
         return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public char[] getPassword() {
         return password;
     }
 
+    public void setPassword(char[] password) {
+        this.password = password;
+    }
+
     public char[] getPasswordConfirm() {
         return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(char[] passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
     }
 }
