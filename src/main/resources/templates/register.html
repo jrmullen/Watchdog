@@ -18,6 +18,7 @@
                         <div class="col-md-12">
                             <label for="firstName">First Name:</label>
                             <input type="text" class="form-control" id="firstName" th:field="*{firstName}" />
+                            <span class="help-block" th:if="${#fields.hasErrors('firstName')}">Please enter your first name</span>
                         </div>
                     </div>
 
@@ -25,6 +26,7 @@
                         <div class="col-md-12">
                             <label for="lastName">Last Name:</label>
                             <input type="text" class="form-control" id="lastName" th:field="*{lastName}" />
+                            <span class="help-block" th:if="${#fields.hasErrors('lastName')}">Please enter your last name</span>
                         </div>
                     </div>
 
@@ -32,6 +34,7 @@
                         <div class="col-md-12">
                             <label for="email">Email:</label>
                             <input type="text" class="form-control" id="email" th:field="*{email}" />
+                            <span class="help-block" th:if="${#fields.hasErrors('email')}">Invalid Email</span>
                         </div>
                     </div>
 
@@ -39,6 +42,8 @@
                         <div class="col-md-12">
                             <label for="password">Password:</label>
                             <input type="password" class="form-control" id="password" th:field="*{password}" />
+                            <span class="help-block" th:if="${#fields.hasErrors()}">Password must be
+                                        at least 8 characters long</span>
                         </div>
                     </div>
 
@@ -51,14 +56,14 @@
 
                     <div class="row container-fluid">
                         <div class="buttonGroup" align="right">
-                            <button class="btn btn-success">
-                                <i class="fa fa-upload"></i>
-                                Add
+                            <button type="reset" class="btn btn-info">
+                                <i class="fa fa-link"></i>
+                                Clear
                             </button>
 
-                            <button class="btn btn-info">
-                                <i class="fa fa-link"></i>
-                                Cancel
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa fa-upload"></i>
+                                Submit
                             </button>
                         </div>
                     </div>
