@@ -18,7 +18,6 @@ import java.util.Map;
 public class UserDaoImpl implements UserDao {
 
     private DataSource dataSource;
-
     private JdbcTemplate jdbcTemplate;
 
     public void setDataSource(DataSource dataSource) {
@@ -30,18 +29,18 @@ public class UserDaoImpl implements UserDao {
     public void save(User user) {
         String query = "insert into user (USER_ID, PERMISS_ID, USER_FNAME, USER_LNAME, USER_EMAIL, USER_PASSWORD) values (?,?,?,?,?,?)";
 
-        Object[] args = new Object[] {user.getId(), user.getPermissionId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword()};
+        Object[] args = new Object[]{user.getId(), user.getPermissionId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword()};
 
         int out = jdbcTemplate.update(query, args);
 
-        if(out !=0){
+        if (out != 0) {
             System.out.println("User saved with id= " + user.getId());
-        }else System.out.println("User save failed with id= " + user.getId());
+        } else System.out.println("User save failed with id= " + user.getId());
     }
 
     @Override
     public User getById(int id) {
-        String query = "select USER_FNAME, USER_LNAME, USER_EMAIL from user where USER_ID=?";
+        String query = "select USER_FNAME, USER_LNAME, USER_EMAIL from user where USER_ID = ?";
 
         //using RowMapper anonymous class, we can create a separate RowMapper for reuse
         User user = jdbcTemplate.queryForObject(query, new Object[]{id}, new RowMapper<User>() {
@@ -55,18 +54,19 @@ public class UserDaoImpl implements UserDao {
                 user.setLastName(rs.getString("USER_LNAME"));
                 user.setEmail(rs.getString("USER_EMAIL"));
                 return user;
-            }});
+            }
+        });
         return user;
     }
 
     @Override
     public void update(User user) {
-        String query = "update user set USER_FNAME = ?, USER_LNAME = ?, USER_EMAIL = ?, USER_PASSWORD = ? where USER_ID=?";
+        String query = "update user set USER_FNAME = ?, USER_LNAME = ?, USER_EMAIL = ?, USER_PASSWORD = ? where USER_ID = ?";
 
-        Object[] args = new Object[] {user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getId()};
+        Object[] args = new Object[]{user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getId()};
 
         int out = jdbcTemplate.update(query, args);
-        if(out !=0 ) {
+        if (out != 0) {
             System.out.println("User updated with id= " + user.getId());
         } else System.out.println("No User found with id= " + user.getId());
     }
@@ -78,7 +78,7 @@ public class UserDaoImpl implements UserDao {
         String query = "delete from user where USER_ID=?";
 
         int out = jdbcTemplate.update(query, id);
-        if(out !=0) {
+        if (out != 0) {
             System.out.println("User deleted with id= " + id);
         } else System.out.println("No User found with id= " + id);
     }
@@ -89,9 +89,9 @@ public class UserDaoImpl implements UserDao {
 
         List<User> userList = new ArrayList<User>();
 
-        List<Map<String,Object>> userRows = jdbcTemplate.queryForList(query);
+        List<Map<String, Object>> userRows = jdbcTemplate.queryForList(query);
 
-        for(Map<String,Object> userRow : userRows){
+        for (Map<String, Object> userRow : userRows) {
             User user = new User();
             user.setId(Integer.parseInt(String.valueOf(userRow.get("USER_ID"))));
             user.setFirstName(String.valueOf(userRow.get("USER_FNAME")));

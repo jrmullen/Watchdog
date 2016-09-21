@@ -1,5 +1,6 @@
 package com.watchdog.business;
 
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Size;
 
 /**
@@ -27,6 +28,11 @@ public class User {
 
     @Size(min = 8, max = 50)
     private char[] passwordConfirm;
+
+    @AssertTrue()
+    public boolean isDifferentPass() {
+        return !password.equals(passwordConfirm) ? false : true;
+    }
 
     public void setId(int id) {
         this.id = id;
