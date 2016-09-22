@@ -1,4 +1,4 @@
-package com.watchdog;
+package com.watchdog.controllers;
 
 
 import com.watchdog.business.User;
