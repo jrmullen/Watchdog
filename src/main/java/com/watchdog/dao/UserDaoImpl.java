@@ -5,15 +5,16 @@ package com.watchdog.dao;
  */
 
 import com.watchdog.business.User;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
-
-import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 public class UserDaoImpl implements UserDao {
 
@@ -27,9 +28,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void save(User user) {
-        String query = "insert into user (USER_ID, PERMISS_ID, USER_FNAME, USER_LNAME, USER_EMAIL, USER_PASSWORD) values (?,?,?,?,?,?)";
+        String query = "insert into user (USER_FNAME, USER_LNAME, USER_EMAIL, USER_PASSWORD) values (?,?,?,?)";
 
-        Object[] args = new Object[]{user.getId(), user.getPermissionId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword()};
+        Object[] args = new Object[]{user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword()};
 
         int out = jdbcTemplate.update(query, args);
 
@@ -49,7 +50,6 @@ public class UserDaoImpl implements UserDao {
             public User mapRow(ResultSet rs, int rowNum)
                     throws SQLException {
                 User user = new User();
-                user.setId(rs.getInt("USER_ID"));
                 user.setFirstName(rs.getString("USER_FNAME"));
                 user.setLastName(rs.getString("USER_LNAME"));
                 user.setEmail(rs.getString("USER_EMAIL"));

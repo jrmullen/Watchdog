@@ -22,19 +22,17 @@ public class Application {
 
         //Run some tests for JDBC CRUD operations
 //        User user = new User();
-//        user.setId(8);
-//        user.setPermissionId(4);
-//        user.setFirstName("name");
-//        user.setLastName("lastName");
-//        user.setEmail("test@email.com");
-//        user.setPassword("taco1234");
+//        user.setFirstName("boringFirstName");
+//        user.setLastName("boringLastName");
+//        user.setEmail("generic@email.com");
+//        user.setPassword("password5435234");
 
-        //Create
+//        Create
 //        userDao.save(user);
 
         //Read
-        User user1 = userDao.getById(7);
-        System.out.println("Employee Retrieved:" + user1);
+//        User user1 = userDao.getById(3);
+//        System.out.println("User Retrieved:" + user1);
 
         //Update
 //        user.setFirstName("John");
