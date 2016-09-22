@@ -11,22 +11,22 @@ public class User {
     private int id;
     private int permissionId;
 
-    @Size(min = 1, max = 64)
+    @Size(min = 1, max = 30)
     private String firstName;
 
-    @Size(min = 1, max = 64)
+    @Size(min = 1, max = 30)
     private String lastName;
 
-    @Size(min = 7, max = 254)
+    @Size(min = 7, max = 50)
     private String email;
 
-//    @Size(min = 8, max = 50)
+//    @Size(min = 8, max = 30)
 //    private char[] password;
 
-    @Size(min = 8, max = 50)
+    @Size(min = 8, max = 30)
     private String password;
 
-    @Size(min = 8, max = 50)
+    @Size(min = 8, max = 30)
     private char[] passwordConfirm;
 
     @AssertTrue()
