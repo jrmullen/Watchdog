@@ -51,6 +51,7 @@
                         <div class="col-md-12">
                             <label for="passwordconfirm">Confirm Password:</label>
                             <input type="password" class="form-control" id="passwordconfirm" th:field="*{passwordConfirm}"/>
+                            <span class="help-block" th:if="${#fields.hasErrors()}">Password must match</span>
                         </div>
                     </div>
 

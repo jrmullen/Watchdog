@@ -1,5 +1,6 @@
 package com.watchdog.business;
 
+import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Size;
 
 /**
@@ -19,11 +20,23 @@ public class User {
     @Size(min = 7, max = 254)
     private String email;
 
+//    @Size(min = 8, max = 50)
+//    private char[] password;
+
     @Size(min = 8, max = 50)
-    private char[] password;
+    private String password;
 
     @Size(min = 8, max = 50)
     private char[] passwordConfirm;
+
+    @AssertTrue()
+    public boolean isDifferentPass() {
+        return !password.equals(passwordConfirm) ? false : true;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getId() {
         return id;
@@ -61,11 +74,19 @@ public class User {
         this.email = email;
     }
 
-    public char[] getPassword() {
+//    public char[] getPassword() {
+//        return password;
+//    }
+
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(char[] password) {
+//    public void setPassword(char[] password) {
+//        this.password = password;
+//    }
+
+    public void setPassword(String password) {
         this.password = password;
     }
 

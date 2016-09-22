@@ -56,4 +56,16 @@ RDP into Raspberry Pi (Windows):
 	2. Type in username and password for aname.ddns.net
 
 
+$##Database setup
+You must set up a localhost MySQL schema. You can do this using WAMP/LAMP/XAMP/MySQLWorkbench/etc.
+Once you have your program set up, import the script on the google drive scripts page 'create and populate db.sql'.
+Create a new schema. It MUST be called bsbuckne.
+NOTE: Your login credentials must be set to username:root password:password (should be default). Port 3306
+Import the script to create and populate the tables.
+That's it.
 
+Database URL localhost:3306/bsbuckne  localhost DB, port 3306, schema name bsbuckne
+username: root
+password: password
+
+Queries for the User are written in the UserDaoImpl
