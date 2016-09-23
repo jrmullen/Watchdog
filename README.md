@@ -56,7 +56,7 @@ RDP into Raspberry Pi (Windows):
 	2. Type in username and password for aname.ddns.net
 
 
-$##Database setup
+##Database setup
 You must set up a localhost MySQL schema. You can do this using WAMP/LAMP/XAMP/MySQLWorkbench/etc.
 Once you have your program set up, import the script on the google drive scripts page 'create and populate db.sql'.
 Create a new schema. It MUST be called bsbuckne.

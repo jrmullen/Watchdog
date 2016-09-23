@@ -42,7 +42,7 @@
                         <div class="col-md-12">
                             <label for="password">Password:</label>
                             <input type="password" class="form-control" id="password" th:field="*{password}" />
-                            <span class="help-block" th:if="${#fields.hasErrors()}">Password must be
+                            <span class="help-block" th:if="${#fields.hasErrors()}" th:errors="*{password}">Password must be
                                         at least 8 characters long</span>
                         </div>
                     </div>

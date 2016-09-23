@@ -1,4 +1,4 @@
-package com.watchdog;
+package com.watchdog.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

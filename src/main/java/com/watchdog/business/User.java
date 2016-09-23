@@ -11,27 +11,31 @@ public class User {
     private int id;
     private int permissionId;
 
-    @Size(min = 1, max = 64)
+    @Size(min = 1, max = 30)
     private String firstName;
 
-    @Size(min = 1, max = 64)
+    @Size(min = 1, max = 30)
     private String lastName;
 
-    @Size(min = 7, max = 254)
+    @Size(min = 7, max = 50)
     private String email;
 
-//    @Size(min = 8, max = 50)
+//    @Size(min = 8, max = 30)
 //    private char[] password;
 
-    @Size(min = 8, max = 50)
+    @Size(min = 8, max = 30)
     private String password;
 
-    @Size(min = 8, max = 50)
-    private char[] passwordConfirm;
+//    @Size(min = 8, max = 30)
+//    private char[] passwordConfirm;
+
+    @Size(min = 8, max = 30)
+    private String passwordConfirm;
+
 
     @AssertTrue()
     public boolean isDifferentPass() {
-        return !password.equals(passwordConfirm) ? false : true;
+        return !passwordConfirm.equals(password) ? false : true;
     }
 
     public void setId(int id) {
@@ -90,11 +94,17 @@ public class User {
         this.password = password;
     }
 
-    public char[] getPasswordConfirm() {
+//    public char[] getPasswordConfirm() {
+//        return passwordConfirm;
+//    }
+    public String getPasswordConfirm() {
         return passwordConfirm;
     }
 
-    public void setPasswordConfirm(char[] passwordConfirm) {
+//    public void setPasswordConfirm(char[] passwordConfirm) {
+//        this.passwordConfirm = passwordConfirm;
+//    }
+    public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
     }
 }
