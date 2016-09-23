@@ -2,6 +2,9 @@ package com.watchdog.controllers;
 
 
 import com.watchdog.business.User;
+import com.watchdog.dao.UserDao;
+import com.watchdog.dao.UserDaoImpl;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,11 +25,20 @@ public class RegisterController {
         if (bindingResult.hasErrors()) {
             return "register";
         }
+
+        //Initialize database and create UserDao object
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+        UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class); //first parameter is the id found in the spring.xml file
+
         model.addAttribute("firstName", user.getFirstName());
         model.addAttribute("lastName", user.getLastName());
         model.addAttribute("email", user.getEmail());
         model.addAttribute("password", user.getPassword());
         model.addAttribute("passwordConfirm", user.getPasswordConfirm());
-        return "/result";
+
+        //Save user to DB
+        userDao.save(user);
+        //redirect to user_home page
+        return "/user_home";
     }
 }
