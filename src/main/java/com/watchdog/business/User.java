@@ -1,5 +1,7 @@
 package com.watchdog.business;
 
+import org.hibernate.validator.constraints.Email;
+
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Size;
 
@@ -17,6 +19,7 @@ public class User {
     @Size(min = 1, max = 30)
     private String lastName;
 
+    @Email
     @Size(min = 7, max = 50)
     private String email;
 
@@ -31,7 +34,6 @@ public class User {
 
     @Size(min = 8, max = 30)
     private String passwordConfirm;
-
 
     @AssertTrue()
     public boolean isDifferentPass() {
