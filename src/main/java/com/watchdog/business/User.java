@@ -1,5 +1,6 @@
 package com.watchdog.business;
 
+import com.watchdog.PasswordService;
 import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.AssertTrue;
@@ -10,6 +11,7 @@ import javax.validation.constraints.Size;
  */
 public class User {
 
+    PasswordService ps = new PasswordService();
     private int id;
     private int permissionId;
 
@@ -92,8 +94,8 @@ public class User {
 //        this.password = password;
 //    }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String password) throws Exception {
+        this.password = ps.encrypt(password);
     }
 
 //    public char[] getPasswordConfirm() {
@@ -106,7 +108,7 @@ public class User {
 //    public void setPasswordConfirm(char[] passwordConfirm) {
 //        this.passwordConfirm = passwordConfirm;
 //    }
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
+    public void setPasswordConfirm(String passwordConfirm) throws Exception {
+        this.passwordConfirm = ps.encrypt(passwordConfirm);
     }
 }

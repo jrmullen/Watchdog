@@ -11,7 +11,7 @@ import java.util.List;
 @SpringBootApplication
 public class Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         SpringApplication.run(Application.class, args);
 
         //Get the Spring Context
@@ -25,6 +25,10 @@ public class Application {
 //        user.setFirstName("boringFirstName");
 //        user.setLastName("boringLastName");
 //        user.setEmail("generic@email.com");
+
+        PasswordService ps = new PasswordService();
+        System.out.println(ps.encrypt("password123"));
+
 //        user.setPassword("password5435234");
 
 //        Create
@@ -47,8 +51,6 @@ public class Application {
 
         //Close Spring Context
         ctx.close();
-
-        System.out.println("DONE");
     }
 
 }
