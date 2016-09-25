@@ -26,8 +26,8 @@ public class Application {
 //        user.setLastName("boringLastName");
 //        user.setEmail("generic@email.com");
 
-        PasswordService ps = new PasswordService();
-        System.out.println(ps.encrypt("password123"));
+//        PasswordService ps = new PasswordService();
+//        System.out.println(ps.encrypt("password123"));
 
 //        user.setPassword("password5435234");
 
