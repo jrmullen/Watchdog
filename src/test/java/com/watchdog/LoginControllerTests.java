@@ -19,14 +19,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class RegisterControllerTests {
+public class LoginControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
 
 
     @Test
-    public void testRegisterControllerStatus() throws Exception {
-        mockMvc.perform(get("/register")).andExpect(status().isOk());
+    public void testLoginControllerStatus() throws Exception {
+        mockMvc.perform(get("/login")).andExpect(status().isOk());
     }
 }
