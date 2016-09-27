@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}"
+          href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.css" rel="stylesheet" media="screen"/>
+</head>
+<body>
+<div th:fragment="header">
+<div style="text-align:center"><img th:src="@{/images/sky_small_blue_lense_light_logo.PNG}" />
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+
+        <div class="collapse navbar-collapse" id="headerNavbar">
+            <ul class="nav nav-header nav-pills">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Log Viewer</a></li>
+                <li><a href="#">Device Manager</a></li>
+                <li><a href="#">Manage user permissions</a></li>
+                <li><a href="#">Edit Profile</a></li>
+
+                <li class="nav navbar-nav navbar-right" th:if="${true}"> <!--#authorization.expression('!isAuthenticated()')}"-->
+                    <a href="/login" th:href="@{/login}"><span class="glyphicon glyphicon-log-out"></span> Login</a>
+                </li>
+                <li class="nav navbar-nav navbar-right" th:if="${true}">
+                    <a href="/register" th:href="@{/register}">Register</a>
+                </li>
+                <li class="nav navbar-nav navbar-right" th:if="${false}">
+                    <a href="/logout" th:href="@{/logout}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+</div>
+</div>
+<!-- document.write(""); Note to self, get rid of all html tags up to body and put html into document.write for header when done -->
+
+
+</body>
+</html>

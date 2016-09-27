@@ -48,6 +48,13 @@
             <optional>true</optional>
         </dependency>
         <!--end DevTools-->
+
+        <!-- Spring security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <!--end spring security-->
         <!-- WebJars -->
         <dependency>
             <groupId>org.webjars</groupId>
