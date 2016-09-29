@@ -3,7 +3,7 @@ package com.watchdog.business;
 import com.watchdog.PasswordService;
 import org.hibernate.validator.constraints.Email;
 
-import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -28,26 +28,35 @@ public class User {
 //    @Size(min = 8, max = 30)
 //    private char[] password;
 
-    @Size(min = 8, max = 30)
+    @Size(min = 8, max = 50)
     private String password;
 
 //    @Size(min = 8, max = 30)
 //    private char[] passwordConfirm;
 
-    @Size(min = 8, max = 30)
+//    @AssertTrue()
+//    public boolean isDifferentPass() {
+//        return !passwordConfirm.equals(password) ? false : true;
+//    }
+
+    @NotNull //redundant?
+    @Size(min = 8, max = 50)
     private String passwordConfirm;
 
-    @AssertTrue()
-    public boolean isDifferentPass() {
-        return !passwordConfirm.equals(password) ? false : true;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    private void checkPassword() {
+        if (this.password == null || this.passwordConfirm == null) {
+            return;
+        } else if (!this.password.equals(passwordConfirm)) {
+            this.passwordConfirm = null;
+        }
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getPermissionId() {
@@ -96,19 +105,21 @@ public class User {
 
     public void setPassword(String password) throws Exception {
         this.password = ps.encrypt(password);
+        checkPassword();
     }
 
-//    public char[] getPasswordConfirm() {
+    //    public char[] getPasswordConfirm() {
 //        return passwordConfirm;
 //    }
     public String getPasswordConfirm() {
         return passwordConfirm;
     }
 
-//    public void setPasswordConfirm(char[] passwordConfirm) {
+    //    public void setPasswordConfirm(char[] passwordConfirm) {
 //        this.passwordConfirm = passwordConfirm;
 //    }
     public void setPasswordConfirm(String passwordConfirm) throws Exception {
         this.passwordConfirm = ps.encrypt(passwordConfirm);
+        checkPassword();
     }
 }
