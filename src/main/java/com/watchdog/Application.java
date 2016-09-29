@@ -48,7 +48,7 @@ public class Application {
         //Close Spring Context
         ctx.close();
 
-//        System.out.println("DONE");
+        System.out.println("DONE");
     }
 
 }
