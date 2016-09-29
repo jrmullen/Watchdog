@@ -37,10 +37,10 @@ public class User {
     @Size(min = 8, max = 30)
     private String passwordConfirm;
 
-    @AssertTrue()
+   /** @AssertTrue()
     public boolean isDifferentPass() {
         return !passwordConfirm.equals(password) ? false : true;
-    }
+    }**/
 
     public void setId(int id) {
         this.id = id;
