@@ -14,20 +14,20 @@
 
         <div class="collapse navbar-collapse" id="headerNavbar">
             <ul class="nav nav-header nav-pills">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="/" th:href="@{/}">Home</a></li>
                 <li><a href="#">Log Viewer</a></li>
                 <li><a href="#">Device Manager</a></li>
                 <li><a href="#">Manage user permissions</a></li>
                 <li><a href="#">Edit Profile</a></li>
 
-                <li class="nav navbar-nav navbar-right" th:if="${true}"> <!--#authorization.expression('!isAuthenticated()')}"-->
+                <li class="nav navbar-nav navbar-right" th:if="${false}"> <!--#authorization.expression('!isAuthenticated()')}"-->
                     <a href="/login" th:href="@{/login}"><span class="glyphicon glyphicon-log-out"></span> Login</a>
                 </li>
-                <li class="nav navbar-nav navbar-right" th:if="${true}">
+                <li class="nav navbar-nav navbar-right" th:if="${false}">
                     <a href="/register" th:href="@{/register}">Register</a>
                 </li>
-                <li class="nav navbar-nav navbar-right" th:if="${false}">
-                    <a href="/logout" th:href="@{/logout}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                <li class="nav navbar-nav navbar-right" th:if="${true}">
+                    <a href="/" th:href="@{/}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
                 </li>
             </ul>
         </div>
