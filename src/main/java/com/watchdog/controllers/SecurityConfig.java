@@ -19,26 +19,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-
         http
                 .authorizeRequests()
-                .antMatchers("/js/**").permitAll()
-                .antMatchers("/css/**").permitAll()
-                .antMatchers("/images/**").permitAll()
-                .antMatchers("/login*").anonymous()
-                .antMatchers("/fragments/**").permitAll()
-                .antMatchers("/").permitAll()
-                .antMatchers("/css").permitAll()
-                .antMatchers("/images").permitAll()
-                .antMatchers("/js").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login.html")
+                    .antMatchers("/webjars/bootstrap/3.3.1/**").permitAll()
+                    .antMatchers("/js/**").permitAll()
+                    .antMatchers("/css/**").permitAll()
+                    .antMatchers("/images/**").permitAll()
+                    .antMatchers("/login*").anonymous()
+                    .antMatchers("/register*").anonymous()
+                    .antMatchers("/fragments/**").permitAll()
+                    .antMatchers("/").permitAll()
+                    .anyRequest().authenticated()
+                    .and()
 
-                .defaultSuccessUrl("/user_home.html")
-                .failureUrl("/login.html?error=true")
-                .and()
-                .logout().logoutSuccessUrl("/");
+                .formLogin()
+                    .loginPage("/login.html")
+                    .defaultSuccessUrl("/user_home.html")
+                    .failureUrl("/login.html?error=true")
+                    .and()
+                .logout()
+                    .logoutSuccessUrl("/");
     }
 }
