@@ -1,6 +1,7 @@
 package com.watchdog.controllers;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,7 +14,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("user1").password("user1Pass").roles("USER");
+                .withUser("root").password("password").roles("USER"); //.and()
+                //.withUser("root").password("password").roles("USER", "ADMIN");
+
     }
 
     @Override
