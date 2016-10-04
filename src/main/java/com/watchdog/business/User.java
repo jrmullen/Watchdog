@@ -37,10 +37,10 @@ public class User {
     @Size(min = 8, max = 30)
     private String passwordConfirm;
 
-    @AssertTrue()
-    public boolean isDifferentPass() {
-        return !passwordConfirm.equals(password) ? false : true;
-    }
+    //@AssertTrue()
+    //public boolean isDifferentPass() {
+    //    return !passwordConfirm.equals(password) ? false : true;
+    //}
 
     public void setId(int id) {
         this.id = id;
@@ -98,17 +98,18 @@ public class User {
         this.password = ps.encrypt(password);
     }
 
-//    public char[] getPasswordConfirm() {
+    //    public char[] getPasswordConfirm() {
 //        return passwordConfirm;
 //    }
     public String getPasswordConfirm() {
         return passwordConfirm;
     }
 
-//    public void setPasswordConfirm(char[] passwordConfirm) {
+    //    public void setPasswordConfirm(char[] passwordConfirm) {
 //        this.passwordConfirm = passwordConfirm;
 //    }
     public void setPasswordConfirm(String passwordConfirm) throws Exception {
         this.passwordConfirm = ps.encrypt(passwordConfirm);
     }
 }
+

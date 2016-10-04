@@ -1,0 +1,43 @@
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Reset</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}"
+          href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.css" rel="stylesheet" media="screen"/>
+</head>
+<body>
+<div class="row container-fluid">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><h3 align="center">Resetting an account password</h3></div>
+            <div class="panel-body">
+
+                <form action="#" th:action="@{/reset}" th:object="${user}" method="post">
+
+                    <div class="row container-fluid form-group">
+                        <div class="col-md-12">
+                            <label for="email">Email:</label>
+                            <input type="text" class="form-control" id="email" th:field="*{email}" />
+                        </div>
+                    </div>
+
+                    <div class="row container-fluid">
+                        <div class="buttonGroup" align="center">
+                            <button class="btn btn-success">
+                                <i class="fa fa-upload"></i>
+                                Submit
+                            </button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/footer.js}" />
+</body>
+</html>
+
