@@ -1,4 +1,4 @@
-package com.watchdog.controllers;
+package com.watchdog;
 
 import org.springframework.web.servlet.support.*;
 
