@@ -51,7 +51,7 @@ public class ResetController {
         Random rnd = new Random();
         String pass = generateString(rnd, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",8);
         user.setPassword(pass);
-        //Sendmail(pass, user.getEmail());
+        Sendmail(pass, user.getEmail());
         return "/password";
     }
 
@@ -64,17 +64,17 @@ public class ResetController {
         }
         return new String(text);
     }
-    /*
+
     public static void Sendmail(String pass, String email)
     {
     final String username = "watchdogprojectcse480@gmail.com";
-    final String password = "watchdog480";
+    final String password = "Watchdog480";
 
     Properties props = new Properties();
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.port", "25");
 
     Session session = Session.getInstance(props,
             new javax.mail.Authenticator() {
@@ -100,6 +100,6 @@ public class ResetController {
     } catch (MessagingException e) {
         throw new RuntimeException(e);
     }
-}*/
+}
 }
 
