@@ -1,6 +1,7 @@
 package com.watchdog;
 
 
+import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,11 +12,25 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Override
+
+    @Autowired
+    private DataSource ds;
+
+    @Autowired
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("root").password("password").roles("USER"); //.and()
                 //.withUser("root").password("password").roles("USER", "ADMIN");
+
+        //In progress usersbyUserNameQuery currently throwing errors
+       /** auth
+                .jdbcAuthentication()
+                .dataSource(ds)
+                // Will need to modify this or write custom query(?) to select user_email instead of username
+                // See here for method documentation: http://docs.spring.io/autorepo/docs/spring-security/3.2.4.RELEASE/apidocs/org/springframework/security/core/userdetails/jdbc/JdbcDaoImpl.html#getUsersByUsernameQuery()
+                .usersByUsernameQuery("select user_email,password from user where user_email=?")
+                //.usersByUsernameQuery("select username,password, enabled from users where username=?")
+                .withUser("root").password("password").roles("USER"); **/
 
     }
 
