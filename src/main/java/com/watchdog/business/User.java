@@ -2,14 +2,18 @@ package com.watchdog.business;
 
 import com.watchdog.PasswordService;
 import org.hibernate.validator.constraints.Email;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Size;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by jmullen on 9/14/16.
  */
-public class User {
+public class User implements UserDetails {
 
     PasswordService ps = new PasswordService();
     private int id;
@@ -36,6 +40,14 @@ public class User {
 
     @Size(min = 8, max = 30)
     private String passwordConfirm;
+
+    public User(String user, String password, List<GrantedAuthority> authorities) {
+
+    }
+
+    public User() {
+        
+    }
 
     @AssertTrue()
     public boolean isDifferentPass() {
@@ -86,16 +98,50 @@ public class User {
 //        return password;
 //    }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
     }
 
 //    public void setPassword(char[] password) {
 //        this.password = password;
 //    }
 
-    public void setPassword(String password) throws Exception {
-        this.password = ps.encrypt(password);
+//    public void setPassword(String password) throws Exception {
+//        this.password = ps.encrypt(password);
+//    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 //    public char[] getPasswordConfirm() {
