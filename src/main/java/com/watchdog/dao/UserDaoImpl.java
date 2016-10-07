@@ -102,5 +102,11 @@ public class UserDaoImpl implements UserDao {
         return userList;
     }
 
+    @Override
+    public String getPasswordByEmail(String email) {
+        String query = "select USER_PASSWORD from user where USER_EMAIL = ?";
+        return jdbcTemplate.queryForObject(query, String.class, email);
+    }
+
 }
 
