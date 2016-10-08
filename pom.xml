@@ -67,10 +67,6 @@
             <version>3.3.1</version>
         </dependency>
         <!-- end webjar -->
-        <dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session</artifactId>
-        </dependency>
     </dependencies>
 
     <properties>
