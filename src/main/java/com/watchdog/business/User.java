@@ -1,14 +1,16 @@
 package com.watchdog.business;
 
-import com.watchdog.PasswordService;
+import com.watchdog.security.PasswordService;
 import org.hibernate.validator.constraints.Email;
+import org.springframework.security.core.GrantedAuthority;
 
-import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * Created by jmullen on 9/14/16.
  */
+
 public class User {
 
     PasswordService ps = new PasswordService();
@@ -37,17 +39,31 @@ public class User {
     @Size(min = 8, max = 30)
     private String passwordConfirm;
 
+<<<<<<< HEAD
    /** @AssertTrue()
     public boolean isDifferentPass() {
         return !passwordConfirm.equals(password) ? false : true;
     }**/
+=======
+    public User(String user, String password, List<GrantedAuthority> authorities) {
 
-    public void setId(int id) {
-        this.id = id;
     }
+>>>>>>> c029662da0336539e7f5707c913c4870f53388c8
+
+    public User() {
+
+    }
+
+//    public boolean isDifferentPass() {
+//        return !passwordConfirm.equals(password) ? false : true;
+//    }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getPermissionId() {
@@ -86,26 +102,23 @@ public class User {
 //        return password;
 //    }
 
+
     public String getPassword() {
         return password;
     }
 
-//    public void setPassword(char[] password) {
-//        this.password = password;
-//    }
-
-    public void setPassword(String password) throws Exception {
-        this.password = ps.encrypt(password);
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-//    public char[] getPasswordConfirm() {
+    //    public char[] getPasswordConfirm() {
 //        return passwordConfirm;
 //    }
     public String getPasswordConfirm() {
         return passwordConfirm;
     }
 
-//    public void setPasswordConfirm(char[] passwordConfirm) {
+    //    public void setPasswordConfirm(char[] passwordConfirm) {
 //        this.passwordConfirm = passwordConfirm;
 //    }
     public void setPasswordConfirm(String passwordConfirm) throws Exception {
