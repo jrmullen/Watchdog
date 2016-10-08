@@ -1,19 +1,17 @@
 package com.watchdog.business;
 
-import com.watchdog.PasswordService;
+import com.watchdog.security.PasswordService;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Size;
-import java.util.Collection;
 import java.util.List;
 
 /**
  * Created by jmullen on 9/14/16.
  */
-public class User implements UserDetails {
+
+public class User {
 
     PasswordService ps = new PasswordService();
     private int id;
@@ -46,20 +44,19 @@ public class User implements UserDetails {
     }
 
     public User() {
-        
+
     }
 
-    @AssertTrue()
-    public boolean isDifferentPass() {
-        return !passwordConfirm.equals(password) ? false : true;
+//    public boolean isDifferentPass() {
+//        return !passwordConfirm.equals(password) ? false : true;
+//    }
+
+    public int getId() {
+        return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public int getPermissionId() {
@@ -98,60 +95,23 @@ public class User implements UserDetails {
 //        return password;
 //    }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
 
     public String getPassword() {
         return password;
     }
 
-    @Override
-    public String getUsername() {
-        return null;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
-
-//    public void setPassword(char[] password) {
-//        this.password = password;
-//    }
-
-//    public void setPassword(String password) throws Exception {
-//        this.password = ps.encrypt(password);
-//    }
-
     public void setPassword(String password) {
         this.password = password;
     }
 
-//    public char[] getPasswordConfirm() {
+    //    public char[] getPasswordConfirm() {
 //        return passwordConfirm;
 //    }
     public String getPasswordConfirm() {
         return passwordConfirm;
     }
 
-//    public void setPasswordConfirm(char[] passwordConfirm) {
+    //    public void setPasswordConfirm(char[] passwordConfirm) {
 //        this.passwordConfirm = passwordConfirm;
 //    }
     public void setPasswordConfirm(String passwordConfirm) throws Exception {
