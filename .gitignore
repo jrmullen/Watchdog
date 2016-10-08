@@ -2,8 +2,4 @@
 .idea
 /target/
 Watchdog.iml
-<<<<<<< HEAD
 *.iml
-=======
-*.iml
->>>>>>> c029662da0336539e7f5707c913c4870f53388c8

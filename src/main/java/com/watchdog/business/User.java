@@ -39,16 +39,9 @@ public class User {
     @Size(min = 8, max = 30)
     private String passwordConfirm;
 
-<<<<<<< HEAD
-   /** @AssertTrue()
-    public boolean isDifferentPass() {
-        return !passwordConfirm.equals(password) ? false : true;
-    }**/
-=======
     public User(String user, String password, List<GrantedAuthority> authorities) {
 
     }
->>>>>>> c029662da0336539e7f5707c913c4870f53388c8
 
     public User() {
 
