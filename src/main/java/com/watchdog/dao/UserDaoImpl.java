@@ -33,13 +33,13 @@ public class UserDaoImpl implements UserDao {
     public void save(User user) {
         String query = "insert into user (USER_FNAME, USER_LNAME, USER_EMAIL, USER_PASSWORD) values (?,?,?,?)";
 
-        Object[] args = new Object[]{user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword()};
+        Object[] args = new Object[]{user.getFirstName(), user.getLastName(), user.getEmail(), user.getEncodedPassword()};
 
         int out = jdbcTemplate.update(query, args);
 
         if (out != 0) {
-            System.out.println("User saved with id= " + user.getId());
-        } else System.out.println("User save failed with id= " + user.getId());
+            System.out.println("User saved");
+        } else System.out.println("User save failed");
     }
 
     @Override
