@@ -54,10 +54,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authoritiesByUsernameQuery("select user.USER_EMAIL, permissions.ROLE from user, permissions "
                                                             + "where user.USER_EMAIL = ?");
     }
-
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-        return encoder;
-    }
 }

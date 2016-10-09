@@ -33,7 +33,7 @@ public class UserDaoImpl implements UserDao {
     public void save(User user) {
         String query = "insert into user (USER_FNAME, USER_LNAME, USER_EMAIL, USER_PASSWORD) values (?,?,?,?)";
 
-        Object[] args = new Object[]{user.getFirstName(), user.getLastName(), user.getEmail(), user.getEncodedPassword()};
+        Object[] args = new Object[]{user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword()};
 
         int out = jdbcTemplate.update(query, args);
 
