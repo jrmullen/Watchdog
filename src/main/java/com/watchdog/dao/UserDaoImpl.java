@@ -13,12 +13,15 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 public class UserDaoImpl implements UserDao {
 
+    @Autowired
     private DataSource dataSource;
+    
     private JdbcTemplate jdbcTemplate;
 
     public void setDataSource(DataSource dataSource) {
@@ -100,6 +103,12 @@ public class UserDaoImpl implements UserDao {
             userList.add(user);
         }
         return userList;
+    }
+
+    @Override
+    public String getPasswordByEmail(String email) {
+        String query = "select USER_PASSWORD from user where USER_EMAIL = ?";
+        return jdbcTemplate.queryForObject(query, String.class, email);
     }
 
 }

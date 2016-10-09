@@ -11,18 +11,20 @@ import java.util.List;
 public interface UserDao {
 
     //Create
-    public void save(User user);
+    void save(User user);
 
     //Read
-    public User getById(int id);
+    User getById(int id);
 
     //Update
-    public void update(User user);
+    void update(User user);
 
     //Delete
-    public void deleteById(int id);
+    void deleteById(int id);
 
     //Get All
-    public List<User> getAll();
+    List<User> getAll();
+
+    String getPasswordByEmail(String email);
 }
 

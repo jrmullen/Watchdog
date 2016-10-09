@@ -1,15 +1,16 @@
 package com.watchdog.business;
 
-import com.watchdog.PasswordService;
+import com.watchdog.security.PasswordService;
 import org.hibernate.validator.constraints.Email;
+import org.springframework.security.core.GrantedAuthority;
 
-import javax.validation.constraints.AssertTrue;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * Created by jmullen on 9/14/16.
  */
+
 public class User {
 
     PasswordService ps = new PasswordService();
@@ -29,28 +30,26 @@ public class User {
 //    @Size(min = 8, max = 30)
 //    private char[] password;
 
-    @Size(min = 8, max = 50)
+    @Size(min = 8, max = 30)
     private String password;
 
 //    @Size(min = 8, max = 30)
 //    private char[] passwordConfirm;
 
-//    @AssertTrue()
+    @Size(min = 8, max = 30)
+    private String passwordConfirm;
+
+    public User(String user, String password, List<GrantedAuthority> authorities) {
+
+    }
+
+    public User() {
+
+    }
+
 //    public boolean isDifferentPass() {
 //        return !passwordConfirm.equals(password) ? false : true;
 //    }
-
-    @NotNull //redundant?
-    @Size(min = 8, max = 50)
-    private String passwordConfirm;
-
-    private void checkPassword() {
-        if (this.password == null || this.passwordConfirm == null) {
-            return;
-        } else if (!this.password.equals(passwordConfirm)) {
-            this.passwordConfirm = null;
-        }
-    }
 
     public int getId() {
         return id;
@@ -96,17 +95,13 @@ public class User {
 //        return password;
 //    }
 
+
     public String getPassword() {
         return password;
     }
 
-//    public void setPassword(char[] password) {
-//        this.password = password;
-//    }
-
-    public void setPassword(String password) throws Exception {
-        this.password = ps.encrypt(password);
-        checkPassword();
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     //    public char[] getPasswordConfirm() {
@@ -121,6 +116,5 @@ public class User {
 //    }
     public void setPasswordConfirm(String passwordConfirm) throws Exception {
         this.passwordConfirm = ps.encrypt(passwordConfirm);
-        checkPassword();
     }
 }

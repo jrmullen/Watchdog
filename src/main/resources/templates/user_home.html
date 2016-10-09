@@ -11,17 +11,28 @@
 <div th:include="fragments/header :: header"></div>
     <div class="panel panel-default">
         <div class="panel-heading"><h3 align="center">Welcome User!</h3></div>
+
+
+        <!--TEMPORARY TESTING-->
+        <div>
+            <form action="/logout" method="post">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <button type="submit">Log out</button>
+            </form>
+        </div>
+        <!--END TEMP-->
+
+
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-4 col-md-offset-1">
                     <h5>Cam 1</h5><p><iframe width="400" height="250" src="https://www.youtube.com/embed/4i_GFrlaStQ" frameborder="0"></iframe></p>
                     <h5>Cam 2</h5><p><iframe width="400" height="250" src="https://www.youtube.com/embed/zLCG96WiziM" frameborder="0"></iframe></p>
-
                 </div>
+
                 <div class="col-md-4 col-md-offset-1">
                     <h5>Cam 3</h5><p><iframe width="400" height="250" src="https://www.youtube.com/embed/k9Mpv0cEp7M" frameborder="0"></iframe></p>
                     <h5>Cam 4</h5><p><iframe width="400" height="250" src="https://www.youtube.com/embed/TtaBPK8oUo8" frameborder="0"></iframe></p>
-
                 </div>
             </div>
         </div>

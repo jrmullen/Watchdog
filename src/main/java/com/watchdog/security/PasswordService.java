@@ -1,4 +1,4 @@
-package com.watchdog;
+package com.watchdog.security;
 
 /**
  * Created by jmullen on 9/25/16.
