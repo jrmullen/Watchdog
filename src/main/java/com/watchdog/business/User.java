@@ -3,12 +3,8 @@ package com.watchdog.business;
 import com.watchdog.security.PasswordService;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.validation.FieldError;
 
-import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Size;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -17,7 +13,7 @@ import java.util.List;
 
 public class User {
 
-    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    PasswordService ps = new PasswordService();
     private int id;
     private int permissionId;
 
@@ -31,27 +27,29 @@ public class User {
     @Size(min = 7, max = 50)
     private String email;
 
+//    @Size(min = 8, max = 30)
+//    private char[] password;
+
     @Size(min = 8, max = 30)
-    private char[] password;
+    private String password;
 
+//    @Size(min = 8, max = 30)
+//    private char[] passwordConfirm;
 
     @Size(min = 8, max = 30)
-    private char[] passwordConfirm;
+    private String passwordConfirm;
 
-    private String encodedPassword;
+    public User(String user, String password, List<GrantedAuthority> authorities) {
+
+    }
 
     public User() {
 
     }
 
-    @AssertTrue
-    public boolean isSamePassword(char[] password, char[] passwordConfirm) {
-        if(!(Arrays.equals(password, passwordConfirm))) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+//    public boolean isDifferentPass() {
+//        return !passwordConfirm.equals(password) ? false : true;
+//    }
 
     public int getId() {
         return id;
@@ -93,29 +91,30 @@ public class User {
         this.email = email;
     }
 
-    public char[] getPassword() {
+//    public char[] getPassword() {
+//        return password;
+//    }
+
+
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(char[] password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public char[] getPasswordConfirm() {
+    //    public char[] getPasswordConfirm() {
+//        return passwordConfirm;
+//    }
+    public String getPasswordConfirm() {
         return passwordConfirm;
     }
 
-    public void setPasswordConfirm(char[] passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
+    //    public void setPasswordConfirm(char[] passwordConfirm) {
+//        this.passwordConfirm = passwordConfirm;
+//    }
+    public void setPasswordConfirm(String passwordConfirm) throws Exception {
+        this.passwordConfirm = ps.encrypt(passwordConfirm);
     }
-
-    public String getEncodedPassword() {
-        return encodedPassword;
-    }
-
-    public void setEncodedPassword(char[] password) {
-        String str = String.valueOf(password);
-        this.encodedPassword = passwordEncoder.encode(str);
-    }
-
 }
