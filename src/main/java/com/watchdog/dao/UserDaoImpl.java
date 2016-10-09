@@ -13,12 +13,15 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 public class UserDaoImpl implements UserDao {
 
+    @Autowired
     private DataSource dataSource;
+    
     private JdbcTemplate jdbcTemplate;
 
     public void setDataSource(DataSource dataSource) {
