@@ -3,9 +3,8 @@ package com.watchdog.business;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Arrays;
 
 /**
  * Created by jmullen on 9/14/16.
@@ -31,6 +30,7 @@ public class User {
 //    @Size(min = 8, max = 30)
 //    private char[] password;
 
+    @NotNull
     @Size(min = 8, max = 30)
     private String password;
 
@@ -38,6 +38,7 @@ public class User {
 //    @Size(min = 8, max = 30)
 //    private char[] passwordConfirm;
 
+    @NotNull
     @Size(min = 8, max = 30)
     private String passwordConfirm;
 
@@ -50,12 +51,11 @@ public class User {
 //        }
 //    }
 
-    @AssertTrue
-    public boolean isSamePassword(String password, String passwordConfirm) {
-        if (!password.equals(passwordConfirm)) {
-            return false;
-        } else {
-            return true;
+    private void checkPassword() {
+        if (this.password == null || this.passwordConfirm == null) {
+            return;
+        } else if (!this.password.equals(passwordConfirm)) {
+            this.passwordConfirm = null;
         }
     }
 
@@ -125,10 +125,12 @@ public class User {
 
 //    public void setPasswordConfirm(char[] passwordConfirm) {
 //        this.passwordConfirm = passwordConfirm;
+//        checkPassword();
 //    }
 
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
+        checkPassword();
     }
 
 //    public String getEncodedPassword() {

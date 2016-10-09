@@ -39,14 +39,10 @@ public class RegisterController {
         model.addAttribute("password", user.getPassword());
         model.addAttribute("passwordConfirm", user.getPasswordConfirm());
 
-        if(user.isSamePassword(user.getPassword(), user.getPasswordConfirm()) == true){
-            //Save user to DB
-            userDao.save(user);
-            //redirect to login page
-            return "login";
-        } else {
-            return "register";
-        }
+        //Save user to DB
+        userDao.save(user);
 
+        //redirect to login page
+        return "login";
     }
 }
