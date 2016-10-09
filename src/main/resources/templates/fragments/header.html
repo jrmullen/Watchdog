@@ -29,15 +29,15 @@
                 <li class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
                     <a href="/register" th:href="@{/register}">Register</a>
                 </li>
-                <!--<li class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">-->
-                    <!--<form action="/logout" method="post">-->
-                        <!--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
-                        <!--<button type="submit" class="btn btn-primary navbar-btn">Log out</button>-->
-                    <!--</form>-->
-                <!--</li>-->
                 <li class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
-                    <a href="/" th:href="@{/}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                    <form action="/logout" method="post">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <button type="submit" class="btn btn-primary navbar-btn">Log out</button>
+                    </form>
                 </li>
+                <!--<li class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">-->
+                    <!--<a href="/" th:href="@{/}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>-->
+                <!--</li>-->
             </ul>
         </div>
     </div>
