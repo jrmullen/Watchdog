@@ -21,8 +21,6 @@
                 <li><a href="#">Manage user permissions</a></li>
                 <li><a href="#">Edit Profile</a></li>
 
-
-
                 <li class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()"> <!--#authorization.expression('!isAuthenticated()')}"-->
                     <a href="/login" th:href="@{/login}"><span class="glyphicon glyphicon-log-out"></span> Login</a>
                 </li>
@@ -35,9 +33,12 @@
                         <button type="submit" class="btn btn-primary navbar-btn">Log out</button>
                     </form>
                 </li>
-                <!--<li class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">-->
-                    <!--<a href="/" th:href="@{/}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>-->
-                <!--</li>-->
+
+                <li class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+                    <p class="navbar-text">Logged in as: </p>
+                    <span class="navbar-text" sec:authentication="name"></span>
+                </li>
+
             </ul>
         </div>
     </div>
