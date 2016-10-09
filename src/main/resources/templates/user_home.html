@@ -11,18 +11,6 @@
 <div th:include="fragments/header :: header"></div>
     <div class="panel panel-default">
         <div class="panel-heading"><h3 align="center">Welcome User!</h3></div>
-
-
-        <!--TEMPORARY TESTING-->
-        <div>
-            <form action="/logout" method="post">
-                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                <button type="submit">Log out</button>
-            </form>
-        </div>
-        <!--END TEMP-->
-
-
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-4 col-md-offset-1">
