@@ -11,21 +11,23 @@
 <body>
 <div th:include="fragments/header :: header"></div>
 
-<form method="post" class="form-inline">
+<form method="post" name="form" id="form" class="form-inline">
 
     <div>
-        <input type="text" class="form-control" name="id" placeholder="ID#" />
+        <input type="text" class="form-control" name="id" placeholder="ID Num" />
         <input type="text" class="form-control" name="name" placeholder="Device Name" />
         <input type="text" class="form-control" name="type" placeholder="Device Type" />
         <button type="button" class="btn btn-info" id="btn-add">Add New</button>
         <button type="button" class="btn btn-success" id="btn-update">Update</button>
+        <button type="reset" class="btn btn-info" id="btn-reset">Clear</button>
+
     </div>
 </form>
 
 <table class="table">
     <thead>
     <tr>
-        <th>ID#</th>
+        <th>ID Num</th>
         <th>Device Name</th>
         <th>Device Type</th>
         <th>Action</th>
@@ -82,6 +84,7 @@
                 $(this).closest('tr').remove();
             }
         });
+
     });
 </script>
 </body>
