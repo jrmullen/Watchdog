@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.security.auth.login.LoginException;
 import javax.validation.Valid;
 
 @Controller
@@ -38,10 +39,14 @@ public class RegisterController {
         model.addAttribute("password", user.getPassword());
         model.addAttribute("passwordConfirm", user.getPasswordConfirm());
 
-        //Save user to DB
-        userDao.save(user);
+        if(user.isSamePassword(user.getPassword(), user.getPasswordConfirm()) == true){
+            //Save user to DB
+            userDao.save(user);
+            //redirect to login page
+            return "login";
+        } else {
+            return "register";
+        }
 
-        //redirect to login page
-        return "login";
     }
 }

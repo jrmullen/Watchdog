@@ -41,9 +41,18 @@ public class User {
     @Size(min = 8, max = 30)
     private String passwordConfirm;
 
+//    @AssertTrue
+//    public boolean isSamePassword(char[] password, char[] passwordConfirm) {
+//        if (!(Arrays.equals(password, passwordConfirm))) {
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
+
     @AssertTrue
-    public boolean isSamePassword(char[] password, char[] passwordConfirm) {
-        if (!(Arrays.equals(password, passwordConfirm))) {
+    public boolean isSamePassword(String password, String passwordConfirm) {
+        if (!password.equals(passwordConfirm)) {
             return false;
         } else {
             return true;
