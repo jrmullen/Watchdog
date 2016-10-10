@@ -32,33 +32,9 @@ public class User {
     @Size(min = 8, max = 30)
     private char[] password;
 
-    //    @NotNull
-//    @Size(min = 8, max = 30)
-//    private String password;
-
     @NotNull
     @Size(min = 8, max = 30)
     private char[] passwordConfirm;
-
-//    @NotNull
-//    @Size(min = 8, max = 30)
-//    private String passwordConfirm;
-
-//    private void checkPassword() {
-//        if (this.password == null || this.passwordConfirm == null) {
-//            return;
-//        } else if (!this.password.equals(passwordConfirm)) {
-//            this.passwordConfirm = null;
-//        }
-//    }
-
-    private void checkPassword() {
-        if (this.password == null || this.passwordConfirm == null) {
-            return;
-        } else if (!(Arrays.equals(password, passwordConfirm))) {
-            this.passwordConfirm = null;
-        }
-    }
 
     public int getId() {
         return id;
@@ -104,35 +80,18 @@ public class User {
         return password;
     }
 
-//    public String getPassword() {
-//        return password;
-//    }
-
     public void setPassword(char[] password) {
         this.password = password;
     }
-
-//    public void setPassword(String password) {
-//        this.password = password;
-//    }
 
     public char[] getPasswordConfirm() {
         return passwordConfirm;
     }
 
-//    public String getPasswordConfirm() {
-//        return passwordConfirm;
-//    }
-
     public void setPasswordConfirm(char[] passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
         checkPassword();
     }
-
-//    public void setPasswordConfirm(String passwordConfirm) {
-//        this.passwordConfirm = passwordConfirm;
-//        checkPassword();
-//    }
 
     public String getEncodedPassword() {
         return encodedPassword;
@@ -141,6 +100,14 @@ public class User {
     public void setEncodedPassword(char[] password) {
         String str = String.valueOf(password);
         this.encodedPassword = passwordEncoder.encode(str);
+    }
+
+    private void checkPassword() {
+        if (this.password == null || this.passwordConfirm == null) {
+            return;
+        } else if (!(Arrays.equals(password, passwordConfirm))) {
+            this.passwordConfirm = null;
+        }
     }
 
 }
