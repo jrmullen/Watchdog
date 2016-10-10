@@ -1,19 +1,21 @@
 package com.watchdog.business;
 
-import com.watchdog.PasswordService;
 import org.hibernate.validator.constraints.Email;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
  * Created by jmullen on 9/14/16.
  */
+
 public class User {
 
-    PasswordService ps = new PasswordService();
+    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private int id;
     private int permissionId;
+    private String encodedPassword;
 
     @Size(min = 1, max = 30)
     private String firstName;
@@ -28,26 +30,41 @@ public class User {
 //    @Size(min = 8, max = 30)
 //    private char[] password;
 
+    @NotNull
     @Size(min = 8, max = 30)
     private String password;
+
 
 //    @Size(min = 8, max = 30)
 //    private char[] passwordConfirm;
 
+    @NotNull
     @Size(min = 8, max = 30)
     private String passwordConfirm;
 
-    @AssertTrue()
-    public boolean isDifferentPass() {
-        return !passwordConfirm.equals(password) ? false : true;
-    }
+//    @AssertTrue
+//    public boolean isSamePassword(char[] password, char[] passwordConfirm) {
+//        if (!(Arrays.equals(password, passwordConfirm))) {
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
 
-    public void setId(int id) {
-        this.id = id;
+    private void checkPassword() {
+        if (this.password == null || this.passwordConfirm == null) {
+            return;
+        } else if (!this.password.equals(passwordConfirm)) {
+            this.passwordConfirm = null;
+        }
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getPermissionId() {
@@ -94,21 +111,35 @@ public class User {
 //        this.password = password;
 //    }
 
-    public void setPassword(String password) throws Exception {
-        this.password = ps.encrypt(password);
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 //    public char[] getPasswordConfirm() {
 //        return passwordConfirm;
 //    }
+
     public String getPasswordConfirm() {
         return passwordConfirm;
     }
 
 //    public void setPasswordConfirm(char[] passwordConfirm) {
 //        this.passwordConfirm = passwordConfirm;
+//        checkPassword();
 //    }
-    public void setPasswordConfirm(String passwordConfirm) throws Exception {
-        this.passwordConfirm = ps.encrypt(passwordConfirm);
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+        checkPassword();
     }
+
+//    public String getEncodedPassword() {
+//        return encodedPassword;
+//    }
+
+//    public void setEncodedPassword(char[] password) {
+//        String str = String.valueOf(password);
+//        this.encodedPassword = passwordEncoder.encode(str);
+//    }
+
 }

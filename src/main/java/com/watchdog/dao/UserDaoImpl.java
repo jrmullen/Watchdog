@@ -13,12 +13,15 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 public class UserDaoImpl implements UserDao {
 
+    @Autowired
     private DataSource dataSource;
+    
     private JdbcTemplate jdbcTemplate;
 
     public void setDataSource(DataSource dataSource) {
@@ -35,8 +38,8 @@ public class UserDaoImpl implements UserDao {
         int out = jdbcTemplate.update(query, args);
 
         if (out != 0) {
-            System.out.println("User saved with id= " + user.getId());
-        } else System.out.println("User save failed with id= " + user.getId());
+            System.out.println("User saved");
+        } else System.out.println("User save failed");
     }
 
     @Override
@@ -100,6 +103,12 @@ public class UserDaoImpl implements UserDao {
             userList.add(user);
         }
         return userList;
+    }
+
+    @Override
+    public String getPasswordByEmail(String email) {
+        String query = "select USER_PASSWORD from user where USER_EMAIL = ?";
+        return jdbcTemplate.queryForObject(query, String.class, email);
     }
 
 }
