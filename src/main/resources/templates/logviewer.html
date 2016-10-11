@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Log Viewer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}"
+          href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.css" rel="stylesheet" media="screen"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th><h1>Log Viewer</h1></th>
+                    <th></th>
+                    <th><button type="button" class="btn btn-default">Play</button></th>
+                    <th><button type="button" class="btn btn-default">Save</button></th>
+                    <th><button type="button" class="btn btn-default">Delete</button></th>
+                    <th>Sort by:
+                        <select>
+                            <option value="date">Date</option>
+                            <option value="camera">Camera</option>
+                        </select>
+                    </th>
+                </tr>
+                </thead>
+            </table>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Date</th>
+                        <th>Start</th>
+                        <th>Length</th>
+                        <th>Camera</th>
+                        <th>Tags</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="checkbox" name="entry1" value="logEntry"></input></td>
+                        <td>VID_DATE</td>
+                        <td>VID_TIME</td>
+                        <td>VID_LENGTH</td>
+                        <td>DEVICE_NAME</td>
+                        <td>TAG_NAME</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
