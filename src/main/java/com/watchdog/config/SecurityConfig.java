@@ -50,8 +50,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .jdbcAuthentication().dataSource(dataSource)
+                .passwordEncoder(passwordEncoder())
                 .usersByUsernameQuery("SELECT USER_EMAIL, USER_PASSWORD, enabled FROM user WHERE USER_EMAIL = ?")
                 .authoritiesByUsernameQuery("select user.USER_EMAIL, permissions.ROLE from user, permissions "
                                                             + "where user.USER_EMAIL = ?");
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 }

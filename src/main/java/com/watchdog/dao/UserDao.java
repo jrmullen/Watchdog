@@ -24,7 +24,5 @@ public interface UserDao {
 
     //Get All
     List<User> getAll();
-
-    String getPasswordByEmail(String email);
 }
 
