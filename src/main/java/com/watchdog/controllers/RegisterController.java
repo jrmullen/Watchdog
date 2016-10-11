@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.security.auth.login.LoginException;
 import javax.validation.Valid;
 
 @Controller
@@ -30,6 +31,8 @@ public class RegisterController {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
         UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class); //first parameter is the id found in the spring.xml file
 
+        user.setEncodedPassword(user.getPassword());
+
         model.addAttribute("firstName", user.getFirstName());
         model.addAttribute("lastName", user.getLastName());
         model.addAttribute("email", user.getEmail());
@@ -38,7 +41,8 @@ public class RegisterController {
 
         //Save user to DB
         userDao.save(user);
-        //redirect to user_home page
-        return "/user_home";
+
+        //redirect to login page
+        return "login";
     }
 }

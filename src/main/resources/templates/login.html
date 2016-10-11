@@ -13,21 +13,26 @@
             <div class="panel-heading"><h3 align="center">Welcome back!</h3></div>
             <div class="panel-body">
 
-                <form action="#" th:action="@{/login}" th:object="${user}" method="post">
+                <form th:action="@{/login}" method="post">
+
+                    <div th:if="${param.error}" class="col-md-12">
+                        <p style="color:red">Invalid username and password.</p>
+                    </div>
+                    <div th:if="${param.logout}" class="col-md-12">
+                        <p style="color:red">You have been logged out.</p>
+                    </div>
 
                     <div class="row container-fluid form-group">
                         <div class="col-md-12">
-                            <label for="email">Email:</label>
-                            <input type="text" class="form-control" id="email" th:field="*{email}" />
-                            <span class="help-block" th:if="${#fields.hasErrors('email')}">Please enter your email address</span>
+                            <label>Email:</label>
+                            <input type="text" class="form-control" name="username" />
                         </div>
                     </div>
 
                     <div class="row container-fluid form-group">
                         <div class="col-md-12">
-                            <label for="password">Password:</label>
-                            <input type="password" class="form-control" id="password" th:field="*{password}" />
-                            <span class="help-block" th:if="${#fields.hasErrors()}">Please enter your password</span>
+                            <label>Password:</label>
+                            <input type="password" class="form-control" name="password" />
                         </div>
                     </div>
 
@@ -44,6 +49,7 @@
                                 Submit
                             </button>
                         </div>
+                        <li><a href="/resetpassword">Forgot your password?</a></li>
                     </div>
                 </form>
             </div>
