@@ -50,7 +50,7 @@ public class ResetController {
         //UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class); //first parameter is the id found in the spring.xml file
         Random rnd = new Random();
         String pass = generateString(rnd, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",8);
-        user.setPassword(pass);
+        user.setPassword(pass.toCharArray());
         Sendmail(pass, user.getEmail());
         return "/password";
     }

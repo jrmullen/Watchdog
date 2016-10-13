@@ -36,16 +36,9 @@ public class User {
     @Size(min = 8, max = 30)
     private char[] passwordConfirm;
 
-<<<<<<< HEAD
-    //@AssertTrue()
-    //public boolean isDifferentPass() {
-    //    return !passwordConfirm.equals(password) ? false : true;
-    //}
-=======
     public int getId() {
         return id;
     }
->>>>>>> refs/remotes/origin/master
 
     public void setId(int id) {
         this.id = id;
@@ -91,20 +84,6 @@ public class User {
         this.password = password;
     }
 
-<<<<<<< HEAD
-    //    public char[] getPasswordConfirm() {
-//        return passwordConfirm;
-//    }
-    public String getPasswordConfirm() {
-        return passwordConfirm;
-    }
-
-    //    public void setPasswordConfirm(char[] passwordConfirm) {
-//        this.passwordConfirm = passwordConfirm;
-//    }
-    public void setPasswordConfirm(String passwordConfirm) throws Exception {
-        this.passwordConfirm = ps.encrypt(passwordConfirm);
-=======
     public char[] getPasswordConfirm() {
         return passwordConfirm;
     }
@@ -112,7 +91,6 @@ public class User {
     public void setPasswordConfirm(char[] passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
         checkPassword();
->>>>>>> refs/remotes/origin/master
     }
 
     public String getEncodedPassword() {
@@ -133,4 +111,3 @@ public class User {
     }
 
 }
-
