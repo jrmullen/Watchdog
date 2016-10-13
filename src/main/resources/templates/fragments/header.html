@@ -19,7 +19,6 @@
                 <li><a href="/logview" th:href="@{/logview}">Log Viewer</a></li>
                 <li><a href="/device_manager" th:href="@{/device_manager}">Device Manager</a></li>
                 <li><a href="#">Manage user permissions</a></li>
-                <li><a href="#">Edit Profile</a></li>
 
                 <li class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()"> <!--#authorization.expression('!isAuthenticated()')}"-->
                     <a href="/login" th:href="@{/login}"><span class="glyphicon glyphicon-log-out"></span> Login</a>
