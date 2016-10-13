@@ -2,15 +2,11 @@ package com.watchdog.controllers;
 
 import com.watchdog.business.Video;
 import com.watchdog.dao.VideoDao;
-import com.watchdog.dao.VideoDaoImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class User_HomeController {
@@ -37,10 +33,10 @@ public class User_HomeController {
         //Initialize database and create DeviceDao object
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
         VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class); //first parameter is the id found in the spring.xml file
-        video = new Video();
-        video = videoDao.getById(2);
+        //video = new Video();
+        //video = videoDao.getById(2);
 
-        model.addAttribute("title", video.getTitle());
+        model.addAttribute("videoList", videoDao.getAll());
 
         return "user_home";
     }

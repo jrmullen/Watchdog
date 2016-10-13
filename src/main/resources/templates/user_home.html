@@ -23,12 +23,16 @@
                     <h5>Cam 4</h5><p><iframe width="400" height="250" src="https://www.youtube.com/embed/TtaBPK8oUo8" frameborder="0"></iframe></p>
                     <!--<div th:if=""${not #lists.isEmpty(user_home)}">-->
 
-                    <!-- <div th:each="video : ${video}">-->
-                    <p th:text="${title}">hhhh</p>
+                    <table th:if="${not #lists.isEmpty(videoList)}">
+
+                        <tr th:each="video : ${videoList}">
+                            <td th:text="${video.title}"></td>
+                        </tr>
+                    </table>
                     <!--</div>-->
 
-                    <!-- </div>-->
-                </div>
+                    </div>-->
+
 
             </div>
         </div>
