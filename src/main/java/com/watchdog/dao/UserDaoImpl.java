@@ -62,6 +62,24 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public User getByEmail(String email){
+        //using RowMapper anonymous class, we can create a separate RowMapper for reuse
+        User user = jdbcTemplate.queryForObject(Constants.GET_BY_EMAIL_QUERY, new Object[]{email}, new RowMapper<User>() {
+
+            @Override
+            public User mapRow(ResultSet rs, int rowNum)
+                    throws SQLException {
+                User user = new User();
+                user.setFirstName(rs.getString("USER_FNAME"));
+                user.setLastName(rs.getString("USER_LNAME"));
+                user.setId(rs.getInt("USER_ID"));
+                return user;
+            }
+        });
+        return user;
+    }
+
+    @Override
     public void update(User user) {
 
         Object[] args = new Object[]{user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getId()};
