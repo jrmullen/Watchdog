@@ -5,6 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Arrays;
 
 /**
  * Created by jmullen on 9/14/16.
@@ -27,37 +28,13 @@ public class User {
     @Size(min = 7, max = 50)
     private String email;
 
-//    @Size(min = 8, max = 30)
-//    private char[] password;
+    @NotNull
+    @Size(min = 8, max = 30)
+    private char[] password;
 
     @NotNull
     @Size(min = 8, max = 30)
-    private String password;
-
-
-//    @Size(min = 8, max = 30)
-//    private char[] passwordConfirm;
-
-    @NotNull
-    @Size(min = 8, max = 30)
-    private String passwordConfirm;
-
-//    @AssertTrue
-//    public boolean isSamePassword(char[] password, char[] passwordConfirm) {
-//        if (!(Arrays.equals(password, passwordConfirm))) {
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
-
-    private void checkPassword() {
-        if (this.password == null || this.passwordConfirm == null) {
-            return;
-        } else if (!this.password.equals(passwordConfirm)) {
-            this.passwordConfirm = null;
-        }
-    }
+    private char[] passwordConfirm;
 
     public int getId() {
         return id;
@@ -99,47 +76,38 @@ public class User {
         this.email = email;
     }
 
-//    public char[] getPassword() {
-//        return password;
-//    }
-
-    public String getPassword() {
+    public char[] getPassword() {
         return password;
     }
 
-//    public void setPassword(char[] password) {
-//        this.password = password;
-//    }
-
-    public void setPassword(String password) {
+    public void setPassword(char[] password) {
         this.password = password;
     }
 
-//    public char[] getPasswordConfirm() {
-//        return passwordConfirm;
-//    }
-
-    public String getPasswordConfirm() {
+    public char[] getPasswordConfirm() {
         return passwordConfirm;
     }
 
-//    public void setPasswordConfirm(char[] passwordConfirm) {
-//        this.passwordConfirm = passwordConfirm;
-//        checkPassword();
-//    }
-
-    public void setPasswordConfirm(String passwordConfirm) {
+    public void setPasswordConfirm(char[] passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
         checkPassword();
     }
 
-//    public String getEncodedPassword() {
-//        return encodedPassword;
-//    }
+    public String getEncodedPassword() {
+        return encodedPassword;
+    }
 
-//    public void setEncodedPassword(char[] password) {
-//        String str = String.valueOf(password);
-//        this.encodedPassword = passwordEncoder.encode(str);
-//    }
+    public void setEncodedPassword(char[] password) {
+        String str = String.valueOf(password);
+        this.encodedPassword = passwordEncoder.encode(str);
+    }
+
+    private void checkPassword() {
+        if (this.password == null || this.passwordConfirm == null) {
+            return;
+        } else if (!(Arrays.equals(password, passwordConfirm))) {
+            this.passwordConfirm = null;
+        }
+    }
 
 }
