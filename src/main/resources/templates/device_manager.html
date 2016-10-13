@@ -14,9 +14,9 @@
 <form method="post" name="form" id="form" class="form-inline">
 
     <div>
-        <input type="text" class="form-control" name="id" placeholder="ID Num" />
         <input type="text" class="form-control" name="name" placeholder="Device Name" />
-        <input type="text" class="form-control" name="type" placeholder="Device Type" />
+        <input type="text" class="form-control" name="ip" placeholder="Device IP" />
+        <input type="text" class="form-control" name="mac" placeholder="Device MAC" />
         <button type="button" class="btn btn-info" id="btn-add">Add New</button>
         <button type="button" class="btn btn-success" id="btn-update">Update</button>
         <button type="reset" class="btn btn-info" id="btn-reset">Clear</button>
@@ -27,9 +27,9 @@
 <table class="table">
     <thead>
     <tr>
-        <th>ID Num</th>
         <th>Device Name</th>
-        <th>Device Type</th>
+        <th>Device IP</th>
+        <th>Device MAC</th>
         <th>Action</th>
     </tr>
     </thead>
@@ -43,37 +43,38 @@
         // if we use id we need $('#some-name'); or class we use $('.some-name');
         $('#btn-add').click(function(){
             // declare variable
-            var _id = $('input [name="id"]').val();
             var _name = $('input[name="name"]').val();
-            var _type = $('input[name="type"]').val();
+            var _ip = $('input [name="ip"]').val();
+            var _mac = $('input[name="mac"]').val();
 
 
-            var _tr = '<tr><td>'+ _id +'</td> <td>'+ _name +'</td>	<td>'+ _type +'</td>  <td><button type="button" class="btn btn-success btn-edit">Edit </button> | <button type="button" class="btn btn-danger btn-delete">Delete </button></td></tr>';
+            var _tr = '<tr><td>'+ _name +'</td>	<td>'+ _ip +'</td> <td>'+ _mac +'</td>  <td><button type="button" class="btn btn-success btn-edit">Edit </button> | <button type="button" class="btn btn-danger btn-delete">Delete </button></td></tr>';
 
             $('tbody').append(_tr);
         });
 
         var _trEdit = null;
+
         $(document).on('click', '.btn-edit', function(){
             _trEdit = $(this).closest('tr');
-            var _id = $(_trEdit).find('td:eq(0)').text();
-            var _name = $(_trEdit).find('td:eq(1)').text();
-            var _type = $(_trEdit).find('td:eq(2)').text();
+            var _name = $(_trEdit).find('td:eq(0)').text();
+            var _ip = $(_trEdit).find('td:eq(1)').text();
+            var _mac = $(_trEdit).find('td:eq(2)').text();
 
-            $('input[name="id"]').val(_id);
             $('input[name="name"]').val(_name);
-            $('input[name="type"]').val(_type);
+            $('input[name="ip"]').val(_ip);
+            $('input[name="mac"]').val(_mac);
         });
 
         $('#btn-update').click(function(){
             if(_trEdit){
-                var _id = $('input[name="id"]').val();
                 var _name = $('input[name="name"]').val();
-                var _type = $('input[name="type"]').val();
+                var _ip = $('input[name="ip"]').val();
+                var _mac = $('input[name="mac"]').val();
 
-                $(_trEdit).find('td:eq(0)').text(_id);
-                $(_trEdit).find('td:eq(1)').text(_name);
-                $(_trEdit).find('td:eq(2)').text(_type);
+                $(_trEdit).find('td:eq(0)').text(_name);
+                $(_trEdit).find('td:eq(1)').text(_ip);
+                $(_trEdit).find('td:eq(2)').text(_mac);
                 alert("Record has been updated!");
                 _trEdit = null;
             }

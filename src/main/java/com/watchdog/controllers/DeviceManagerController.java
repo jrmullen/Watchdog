@@ -31,7 +31,8 @@ public class DeviceManagerController {
         DeviceDao deviceDao = ctx.getBean("DeviceDaoImpl", DeviceDao.class); //first parameter is the id found in the spring.xml file
 
         model.addAttribute("deviceName", device.getDeviceName());
-        model.addAttribute("deviceType", device.getDeviceType());
+        model.addAttribute("deviceIp", device.getDeviceIp());
+        model.addAttribute("deviceMac", device.getDeviceMac());
 
 
         //Save device to DB
