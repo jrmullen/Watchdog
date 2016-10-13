@@ -7,6 +7,10 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
+	<bean id="VideoDaoImpl" class="com.watchdog.dao.VideoDaoImpl">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
 	<bean id="deviceDaoImpl" class="com.watchdog.dao.DeviceDaoImpl">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
