@@ -6,7 +6,7 @@ public class Video {
     private String length;
     private String date;
     private String time;
-    private String title = "null";
+    private String title = "";
     private String location;
     private String description;
     private boolean isCompressed = false;
