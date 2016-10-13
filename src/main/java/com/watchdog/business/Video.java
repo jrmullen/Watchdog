@@ -1,47 +1,59 @@
 package com.watchdog.business;
 
+import java.sql.Date;
+import java.sql.Time;
+// import java.math.BigDecimal; Might be used later if we store video location as decimal instead of a String
+
 public class Video {
 
-    private int id;
-    private String length;
-    private String date;
-    private String time;
+    private int vid_id;
+    private int user_id;
+    private int device_id;
+    private Time length;
+    private Date date;
+    private Time time;
     private String title;
-    private String location;
+    private String location; //BigDecimal location;
     private String description;
     private boolean isCompressed;
     private boolean isEncrypted;
     private long size;
 
-    public void setID(int id){
-        this.id = id;
+    public void setVidID(int vid_id){
+        this.vid_id = vid_id;
     }
 
-    public int getID(){
-        return id;
-    }
+    public int getVidID(){return vid_id; }
 
-    public void setLength(String length){
+    public int getUserID() { return user_id; }
+
+    public void setUserID(int user_id) { this.user_id = user_id; }
+
+    public int getDeviceID() {return device_id; }
+
+    public void setDeviceID(int device_id) { this.device_id = device_id; }
+
+    public void setLength(Time length){
         this.length = length;
     }
 
-    public String getLength(){
+    public Time getLength(){
         return length;
     }
 
-    public void setDate(String date){
+    public void setDate(Date date){
         this.date = date;
     }
 
-    public String getDate(){
+    public Date getDate(){
         return date;
     }
 
-    public void setTime(String time){
+    public void setTime(Time time){
         this.time = time;
     }
 
-    public String getTime(){
+    public Time getTime(){
         return time;
     }
 
@@ -92,4 +104,5 @@ public class Video {
     public long getSize(){
         return size;
     }
+
 }
