@@ -6,12 +6,12 @@ public class Video {
     private String length;
     private String date;
     private String time;
-    private String title;
+    private String title = "null";
     private String location;
     private String description;
-    private boolean isCompressed;
-    private boolean isEncrypted;
-    private long size;
+    private boolean isCompressed = false;
+    private boolean isEncrypted = false;
+    private long size = 0;
 
     public void setID(int id){
         this.id = id;

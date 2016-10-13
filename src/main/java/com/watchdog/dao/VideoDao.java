@@ -9,17 +9,16 @@ import java.util.List;
 public interface VideoDao {
 
     //Create
+    void save(Video video);
 
     //Read
-    Video getById(int id);
-
-    Video getByDate(String date);
+    Video getByID(int id);
 
     //Update
     void update(Video video);
 
     //Delete
-    void deleteById(int id);
+    void deleteByID(int id);
 
     //Get All
     List<Video> getAll();
