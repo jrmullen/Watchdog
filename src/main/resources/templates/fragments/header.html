@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
+      sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -15,21 +16,29 @@
 
         <div class="collapse navbar-collapse" id="headerNavbar">
             <ul class="nav nav-header nav-pills">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#">Log Viewer</a></li>
-                <li><a href="#">Device Manager</a></li>
+                <li><a href="/user_home" th:href="@{/user_home}">Home</a></li>
+                <li><a href="/logviewer" th:href="@{/logviewer}">Log Viewer</a></li>
+                <li><a href="/device_manager" th:href="@{/device_manager}">Device Manager</a></li>
                 <li><a href="#">Manage user permissions</a></li>
-                <li><a href="#">Edit Profile</a></li>
 
-                <li class="nav navbar-nav navbar-right" th:if="${true}"> <!--#authorization.expression('!isAuthenticated()')}"-->
+                <li class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()"> <!--#authorization.expression('!isAuthenticated()')}"-->
                     <a href="/login" th:href="@{/login}"><span class="glyphicon glyphicon-log-out"></span> Login</a>
                 </li>
-                <li class="nav navbar-nav navbar-right" th:if="${true}">
+                <li class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
                     <a href="/register" th:href="@{/register}">Register</a>
                 </li>
-                <li class="nav navbar-nav navbar-right" th:if="${false}">
-                    <a href="/logout" th:href="@{/logout}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                <li class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+                    <form action="/logout" method="post">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                        <button type="submit" class="btn btn-primary navbar-btn">Log out</button>
+                    </form>
                 </li>
+
+                <li class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+                    <p class="navbar-text">Logged in as: </p>
+                    <span class="navbar-text" sec:authentication="name"></span>
+                </li>
+
             </ul>
         </div>
     </div>
