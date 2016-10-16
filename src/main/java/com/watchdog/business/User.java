@@ -28,11 +28,9 @@ public class User {
     @Size(min = 7, max = 50)
     private String email;
 
-    @NotNull
     @Size(min = 8, max = 30)
     private char[] password;
 
-    @NotNull
     @Size(min = 8, max = 30)
     private char[] passwordConfirm;
 
@@ -106,7 +104,7 @@ public class User {
         if (this.password == null || this.passwordConfirm == null) {
             return;
         } else if (!(Arrays.equals(password, passwordConfirm))) {
-            this.passwordConfirm = null;
+            this.passwordConfirm = "".toCharArray();
         }
     }
 
