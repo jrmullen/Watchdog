@@ -22,4 +22,10 @@ public class Constants {
     public static final String DELETE_VIDEO_BY_ID_QUERY = "delete from video where VID_ID=?";
     public static final String GET_ALL_VIDEOS_QUERY = "select VID_ID, USER_ID, DEVICE_ID, VID_LENGTH, VID_IS_COMPRESSED, VID_IS_ENCRYPTED, VID_SIZE_ON_DISK, VID_DATE, VID_TIME, VID_TITLE, VID_LOCATION, VID_DESCRIPTION from video";
 
+    //Tag queries
+    public static final String GET_ALL_TAGS_QUERY = "select TAG_ID, VID_ID, TAG_NAME from tag";
+    public static final String DELETE_TAG_BY_ID_QUERY = "delete from tag where TAG_ID=?";
+    public static final String UPDATE_TAG_BY_ID_QUERY = "update tag set TAG_ID = ?, VID_ID = ?, TAG_NAME = ?";
+    public static final String GET_TAG_BY_TAG_ID = "select TAG_ID, VID_ID, TAG_NAME from tag where TAG_ID = ?";
+    public static final String CREATE_TAG_QUERY = "insert into tag (VID_ID, TAG_NAME) values (?,?)";
 }
