@@ -53,22 +53,22 @@ public class VideoDaoImpl implements VideoDao {
     public Video getById(int id) {
 
         //using RowMapper anonymous class, we can create a separate RowMapper for reuse
-        Video video = jdbcTemplate.queryForObject(Constants.GET_VIDEO_BY_USER_ID, new Object[]{id}, new RowMapper<Video>() {
+        Video video = jdbcTemplate.queryForObject(Constants.GET_VIDEO_BY_ID, new Object[]{id}, new RowMapper<Video>() {
 
             @Override
             public Video mapRow(ResultSet rs, int rowNum)
                     throws SQLException {
                 Video video = new Video();
 
-                /**video.setLength(rs.getTime("VID_LENGTH"));
+                video.setLength(rs.getTime("VID_LENGTH"));
                 video.setIsCompressed(rs.getBoolean("VID_IS_COMPRESSED"));
                 video.setIsEncrypted(rs.getBoolean("VID_IS_ENCRYPTED"));
                 video.setSize(rs.getLong("VID_SIZE_ON_DISK"));
                 video.setDate(rs.getDate("VID_DATE"));
-                video.setTime(rs.getTime("VID_TIME"));**/
+                video.setTime(rs.getTime("VID_TIME"));
                 video.setTitle(rs.getString("VID_TITLE"));
-                //video.setLocation(rs.getString("VID_LOCATION"));
-                //video.setDescription(rs.getString("VID_DESCRIPTION"));
+                video.setLocation(rs.getString("VID_LOCATION"));
+                video.setDescription(rs.getString("VID_DESCRIPTION"));
 
                 return video;
             }
@@ -123,8 +123,6 @@ public class VideoDaoImpl implements VideoDao {
             video.setLocation(String.valueOf(videoRow.get("VID_LOCATION")));
             video.setDescription(String.valueOf(videoRow.get("VID_DESCRIPTION")));
 
-            //video.setId(Integer.parseInt(String.valueOf(videoRow.get("USER_ID"))));
-            //video.setEmail(String.valueOf(videoRow.get("USER_EMAIL")));
             videoList.add(video);
         }
         return videoList;
