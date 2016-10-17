@@ -33,16 +33,14 @@ public class DeviceDaoImpl implements DeviceDao {
     @Override
     public void save (Device device) {
 
-        Objects[] args = (Objects[]) new Object[]{
-            device.getDeviceName(), device.getDeviceIp(), device.getDeviceMac()
-        };
+        Object[] args = new Object[]{device.getDeviceName(), device.getDeviceMac(), device.getDeviceIp()};
 
         int out = jdbcTemplate.update(Constants.CREATE_DEVICE_QUERY, args);
 
         if (out !=0) {
-            System.out.println("Device " + device.getDeviceName() + " " + device.getDeviceIp() + " " + device.getDeviceMac()
+            System.out.println("Device " + device.getDeviceName() + " " + device.getDeviceMac() + " " + device.getDeviceIp()
             + " saved");
-        } else System.out.println("Device " + device.getDeviceName() + " " + device.getDeviceIp() + " " + device.getDeviceMac()
+        } else System.out.println("Device " + device.getDeviceName() + " " + device.getDeviceMac() + " " + device.getDeviceIp()
                 + " failed");
 
     }
@@ -58,8 +56,8 @@ public class DeviceDaoImpl implements DeviceDao {
                     throws SQLException {
                 Device device = new Device();
                 device.setDeviceName(rs.getString("DEVICE_NAME"));
-                device.setDeviceIp(rs.getString ("DEVICE_IP"));
-                device.setDeviceMac(rs.getString("DEVICE_MAC"));
+                device.setDeviceMac(rs.getString ("DEVICE_MAC"));
+                device.setDeviceIp(rs.getString("DEVICE_IP"));
                 return device;
             }
         });
@@ -98,8 +96,8 @@ public class DeviceDaoImpl implements DeviceDao {
         for (Map<String, Object> deviceRow : deviceRows) {
             Device device = new Device();
             device.setDeviceName(String.valueOf(deviceRow.get("DEVICE_NAME")));
-            device.setDeviceIp(String.valueOf(deviceRow.get("DEVICE_IP")));
             device.setDeviceMac(String.valueOf(deviceRow.get("DEVICE_MAC")));
+            device.setDeviceIp(String.valueOf(deviceRow.get("DEVICE_IP")));
             deviceList.add(device);
         }
         return deviceList;

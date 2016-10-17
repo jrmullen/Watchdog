@@ -22,20 +22,6 @@ public class Device {
     @NotNull
     String deviceName;
 
-    public String getDeviceIp() {
-
-        return deviceIp;
-    }
-
-    public void setDeviceIp(String deviceIp) {
-
-        this.deviceIp = deviceIp;
-    }
-
-    @NotNull
-    String deviceIp;
-
-
     public String getDeviceMac() {
 
         return deviceMac;
@@ -48,6 +34,20 @@ public class Device {
 
     @NotNull
     String deviceMac;
+
+
+    public String getDeviceIp() {
+
+        return deviceIp;
+    }
+
+    public void setDeviceIp(String deviceIp) {
+
+        this.deviceIp = deviceIp;
+    }
+
+    @NotNull
+    String deviceIp;
 
     public void setId(int id) {
 
