@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface VideoDao {
 
+    //List<Video> listVideos();
+
     //Create
     void save(Video video);
 
