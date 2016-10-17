@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
       sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
+    <link rel="stylesheet" type="text/css" href="src/main/resources/static/css/bootstrap.custom.css"/>
     <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}"
@@ -18,6 +19,11 @@
 
                 <div class="collapse navbar-collapse" id="headerNavbar">
                     <ul class="nav nav-header nav-pills">
+                        <li>
+                            <div class="navbar-header navbar-brand">
+                                <a th:href="@{/user_home}">Watchdog</a>
+                            </div>
+                        </li>
                         <li><a href="/user_home" th:href="@{/user_home}">Home</a></li>
                         <li><a href="/logview" th:href="@{/logview}">Log View</a></li>
                         <li><a href="/device_manager" th:href="@{/device_manager}">Device Manager</a></li>

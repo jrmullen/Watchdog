@@ -1,6 +1,11 @@
 
+/*Navbar styling*/
 .navbar-inverse {
     background-color: #161616;
+}
+
+.navbar-inverse .nav > li > div > a {
+    color: #a1c3e2;
 }
 
 .navbar-inverse .nav > li > a {
@@ -31,11 +36,21 @@
     background-color: #2b53af;
     font-size: 1.2em;
 }
+/* End navbar styling */
 
+/* Styling for panel */
+div.panel {
+    background-color: #e5ecf9;
+}
+
+/* Footer styling */
 footer {
     text-align: center;
 }
 
-div.panel {
-    background-color: #e5ecf9;
+
+/* Page heading styling */
+h3.text-center {
+    color: #0041ce;
+    font-weight: bold;
 }
