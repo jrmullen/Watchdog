@@ -1,0 +1,41 @@
+
+.navbar {
+    background-color: #161616;
+}
+
+.navbar .nav > li > a {
+    background-color: #000000;
+    color: #a1c3e2;
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.navbar .nav > li > p {
+    color: #ffffff;
+    font-size: 1em;
+}
+
+.navbar .nav > li > span {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1em;
+}
+
+.navbar .nav > li > form > button {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1em;
+}
+
+.navbar .nav > li > a:hover {
+    background-color: #2b53af;
+    font-size: 1.2em;
+}
+
+footer {
+    text-align: center;
+}
+
+/*div {
+    background-color: #a1c3e2;
+}*/
