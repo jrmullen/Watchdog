@@ -82,7 +82,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void update(User user) {
 
-        Object[] args = new Object[]{user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getId()};
+        Object[] args = new Object[]{user.getFirstName(), user.getLastName(), user.getEmail(), user.getEncodedPassword(), user.getId()};
 
         int out = jdbcTemplate.update(Constants.UPDATE_USER_BY_ID_QUERY, args);
         if (out != 0) {

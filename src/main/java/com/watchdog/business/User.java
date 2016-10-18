@@ -28,11 +28,11 @@ public class User {
     @Size(min = 7, max = 50)
     private String email;
 
-    @NotNull
+
     @Size(min = 8, max = 30)
     private char[] password;
 
-    @NotNull
+
     @Size(min = 8, max = 30)
     private char[] passwordConfirm;
 

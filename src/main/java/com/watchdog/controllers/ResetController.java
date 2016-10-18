@@ -44,22 +44,17 @@ public class ResetController {
         {
             return "reset";
         }
-
+        model.addAttribute("email", user.getEmail());
         //Initialize database and create UserDao object
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
         UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class); //first parameter is the id found in the spring.xml file
-        model.addAttribute("email", user.getEmail());
-        user = userDao.getByEmail(user.getEmail());
+        User user2 = userDao.getByEmail(user.getEmail());
+        user2.setEmail(user.getEmail());
         Random rnd = new Random();
         String pass = generateString(rnd, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",8);
-        user.setPassword(pass.toCharArray());
-        user.setEncodedPassword(user.getPassword());
-        //System.out.print(user.getPassword());
-        //System.out.print(user.getEmail());
-        //System.out.print(user.getFirstName());
-        //System.out.print(user.getId());
-        //System.out.print(user.getLastName());
-        userDao.update(user);
+        user2.setPassword(pass.toCharArray());
+        user2.setEncodedPassword(pass.toCharArray());
+        userDao.update(user2);
         Sendmail(pass, user.getEmail());
         return "/password";
     }
