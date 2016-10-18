@@ -7,6 +7,16 @@ import javax.validation.constraints.NotNull;
  */
 public class Device {
 
+    public void setId(int id) {
+
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+
     private int id;
 
     public String getDeviceName() {
@@ -20,7 +30,7 @@ public class Device {
     }
 
     @NotNull
-    String deviceName;
+    private String deviceName;
 
     public String getDeviceMac() {
 
@@ -33,7 +43,7 @@ public class Device {
     }
 
     @NotNull
-    String deviceMac;
+    private String deviceMac;
 
 
     public String getDeviceIp() {
@@ -47,15 +57,7 @@ public class Device {
     }
 
     @NotNull
-    String deviceIp;
+    private String deviceIp;
 
-    public void setId(int id) {
-
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
 
 }
