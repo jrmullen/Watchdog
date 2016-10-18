@@ -1,4 +1,4 @@
-package com.watchdog.Services;
+package com.watchdog.services;
 
 import com.watchdog.business.User;
 import com.watchdog.dao.UserDao;
