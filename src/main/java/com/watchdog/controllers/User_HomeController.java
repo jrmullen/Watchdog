@@ -1,7 +1,9 @@
 package com.watchdog.controllers;
 
+import com.watchdog.business.Device;
 import com.watchdog.business.User;
 import com.watchdog.business.Video;
+import com.watchdog.dao.DeviceDao;
 import com.watchdog.dao.UserDao;
 import com.watchdog.dao.VideoDao;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -18,11 +20,11 @@ import java.security.Principal;
 public class User_HomeController {
 
     @RequestMapping(value = "/user_home", method = RequestMethod.GET)
-    public String listVideos(Video video, User user, Model model){
+    public String listVideos(Device device, User user, Model model){
 
         //Initialize database and create Dao object
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
-        VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class); //first parameter is the id found in the spring.xml file
+        DeviceDao deviceDao = ctx.getBean("deviceDaoImpl", DeviceDao.class); //first parameter is the id found in the spring.xml file
         UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -30,7 +32,7 @@ public class User_HomeController {
 
         // String userId = userDao.getIdByEmail(userEmail);
         // model.addAttribute("user", userDao.getById(userId));
-        model.addAttribute("videoList", videoDao.getAll());
+        model.addAttribute("deviceList", deviceDao.getAll());
 
         return "user_home";
     }

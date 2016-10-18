@@ -13,6 +13,12 @@ public class Constants {
     public static final String GET_ALL_USERS_QUERY = "select USER_ID, USER_FNAME, USER_LNAME, USER_EMAIL from user";
 
     //Device queries
+    public static final String CREATE_DEVICE_QUERY = "insert into device (DEVICE_NAME, DEVICE_MAC, DEVICE_IP) values (?,?,?)";
+    public static final String GET_BY_DEVICE_ID_QUERY = "select DEVICE_NAME, DEVICE_MAC, DEVICE_IP from device where DEVICE_ID = ?";
+    public static final String UPDATE_BY_DEVICE_ID_QUERY = "update device set DEVICE_NAME = ?, DEVICE_MAC = ?, DEVICE_IP = ? where DEVICE_ID = ?";
+    public static final String DELETE_DEVICE_BY_ID_QUERY = "delete from device where DEVICE_ID = ?";
+    public static final String GET_ALL_DEVICES_QUERY = "select DEVICE_NAME, DEVICE_MAC, DEVICE_IP from device";
+
 
 
     // Video queries
