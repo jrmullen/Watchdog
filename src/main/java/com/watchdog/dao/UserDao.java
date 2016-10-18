@@ -26,5 +26,6 @@ public interface UserDao {
 
     //Get All
     List<User> getAll();
+
 }
 
