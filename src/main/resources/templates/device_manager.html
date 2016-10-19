@@ -11,7 +11,7 @@
 <body>
 <div th:include="fragments/header :: header"></div>
 
- <form th:action="@{/device_manager.html?addDevice}" th:object="${device}" method="post" id="devices" class="in-line">
+ <form th:action="@{?addDevice}" th:object="${device}" method="post" id="devices" class="in-line">
 
     <div>
         <input type="text" class="in-line" id="deviceName" th:field="*{deviceName}" placeholder="Device Name" />

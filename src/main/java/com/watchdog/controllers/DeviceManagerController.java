@@ -15,7 +15,7 @@ import javax.validation.Valid;
 @RequestMapping(value = "/device_manager", method = { RequestMethod.GET, RequestMethod.POST })
 public class DeviceManagerController {
 
-    @RequestMapping//(value = "/device_manager", method = RequestMethod.GET)
+    @RequestMapping
     public String listAll(@Valid Device device, BindingResult bindingResult, Model model) {
 
         //Initialize database and create DeviceDao object
@@ -28,8 +28,8 @@ public class DeviceManagerController {
         return "/device_manager";
     }
 
-    @PostMapping(params = "addDevice")//(value = "/device_manager")
-    public String addNew(@Valid Device device, BindingResult bindingResult, Model model) {
+    @PostMapping(params = "addDevice")
+    public String addNew(@Valid Device device, Model model) {
 
         //Initialize database and create DeviceDao object
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
