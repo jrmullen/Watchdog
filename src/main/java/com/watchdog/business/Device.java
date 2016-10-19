@@ -7,7 +7,10 @@ import javax.validation.constraints.NotNull;
  */
 public class Device {
 
-    private int id, userId, permissId;
+    private int id,
+            userId,
+            permissId;
+
     @NotNull
     private String deviceName;
     @NotNull
@@ -72,7 +75,5 @@ public class Device {
 
         this.deviceIp = deviceIp;
     }
-
-
 
 }

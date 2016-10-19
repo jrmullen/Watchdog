@@ -11,7 +11,7 @@
 <body>
 <div th:include="fragments/header :: header"></div>
 
-<form th:action="@{/device_manager}" th:object="${device}" method="post" id="devices" class="in-line">
+ <form th:action="@{/device_manager.html?addDevice}" th:object="${device}" method="post" id="devices" class="in-line">
 
     <div>
         <input type="text" class="in-line" id="deviceName" th:field="*{deviceName}" placeholder="Device Name" />
@@ -32,12 +32,19 @@
         <th>Action</th>
     </tr>
 
-    <tr th:each="device : ${deviceList}">
 
-        <td th:text="${device.deviceName}"></td>
-        <td th:text="${device.deviceMac}"></td>
-        <td th:text="${device.deviceIp}"></td>
-    </tr>
+        <tr th:each="device, iter : ${deviceList}">
+
+            <td th:text="${device.deviceName}"></td>
+            <td th:text="${device.deviceMac}"></td>
+            <td th:text="${device.deviceIp}"></td>
+            <td>
+                <form th:action="@{?deleteDevice}" th:object="${device}" method="post" class="in-line">
+                    <input type="hidden" th:value="${device.id}" name="id" />
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
 
     </thead>
     <tbody>

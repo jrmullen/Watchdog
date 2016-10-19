@@ -55,6 +55,9 @@ public class DeviceDaoImpl implements DeviceDao {
             public Device mapRow(ResultSet rs, int rowNum)
                     throws SQLException {
                 Device device = new Device();
+                device.setId(rs.getInt("DEVICE_ID"));
+                device.setUserId(rs.getInt("USER_ID"));
+                device.setPermissId(rs.getInt("PERMISS_ID"));
                 device.setDeviceName(rs.getString("DEVICE_NAME"));
                 device.setDeviceMac(rs.getString ("DEVICE_MAC"));
                 device.setDeviceIp(rs.getString("DEVICE_IP"));
@@ -95,6 +98,9 @@ public class DeviceDaoImpl implements DeviceDao {
 
         for (Map<String, Object> deviceRow : deviceRows) {
             Device device = new Device();
+            device.setId(Integer.parseInt(String.valueOf(deviceRow.get("DEVICE_ID"))));
+            device.setUserId(Integer.parseInt(String.valueOf(deviceRow.get("USER_ID"))));
+            device.setPermissId(Integer.parseInt(String.valueOf(deviceRow.get("PERMISS_ID"))));
             device.setDeviceName(String.valueOf(deviceRow.get("DEVICE_NAME")));
             device.setDeviceMac(String.valueOf(deviceRow.get("DEVICE_MAC")));
             device.setDeviceIp(String.valueOf(deviceRow.get("DEVICE_IP")));
