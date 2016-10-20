@@ -44,7 +44,7 @@ public class UserDaoImpl implements UserDao {
     public User getById(int id) {
 
         //using RowMapper anonymous class, we can create a separate RowMapper for reuse
-        User user = jdbcTemplate.queryForObject(Constants.GET_BY_ID_QUERY, new Object[]{id}, new RowMapper<User>() {
+        User user = jdbcTemplate.queryForObject(Constants.GET_BY_USER_ID_QUERY, new Object[]{id}, new RowMapper<User>() {
 
             @Override
             public User mapRow(ResultSet rs, int rowNum)

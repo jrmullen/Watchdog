@@ -5,18 +5,16 @@ package com.watchdog.dao;
  */
 
 import com.watchdog.business.Device;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+
+import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-
-import javax.sql.DataSource;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 
 
 public class DeviceDaoImpl implements DeviceDao {
@@ -39,7 +37,7 @@ public class DeviceDaoImpl implements DeviceDao {
 
         if (out !=0) {
             System.out.println("Device " + device.getDeviceName() + " " + device.getDeviceMac() + " " + device.getDeviceIp()
-                    + " saved");
+            + " saved");
         } else System.out.println("Device " + device.getDeviceName() + " " + device.getDeviceMac() + " " + device.getDeviceIp()
                 + " failed");
 
@@ -55,6 +53,9 @@ public class DeviceDaoImpl implements DeviceDao {
             public Device mapRow(ResultSet rs, int rowNum)
                     throws SQLException {
                 Device device = new Device();
+                device.setId(rs.getInt("DEVICE_ID"));
+                device.setUserId(rs.getInt("USER_ID"));
+                device.setPermissId(rs.getInt("PERMISS_ID"));
                 device.setDeviceName(rs.getString("DEVICE_NAME"));
                 device.setDeviceMac(rs.getString ("DEVICE_MAC"));
                 device.setDeviceIp(rs.getString("DEVICE_IP"));
@@ -95,6 +96,9 @@ public class DeviceDaoImpl implements DeviceDao {
 
         for (Map<String, Object> deviceRow : deviceRows) {
             Device device = new Device();
+            device.setId(Integer.parseInt(String.valueOf(deviceRow.get("DEVICE_ID"))));
+            device.setUserId(Integer.parseInt(String.valueOf(deviceRow.get("USER_ID"))));
+            device.setPermissId(Integer.parseInt(String.valueOf(deviceRow.get("PERMISS_ID"))));
             device.setDeviceName(String.valueOf(deviceRow.get("DEVICE_NAME")));
             device.setDeviceMac(String.valueOf(deviceRow.get("DEVICE_MAC")));
             device.setDeviceIp(String.valueOf(deviceRow.get("DEVICE_IP")));

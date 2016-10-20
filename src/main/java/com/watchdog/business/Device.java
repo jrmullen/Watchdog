@@ -7,55 +7,46 @@ import javax.validation.constraints.NotNull;
  */
 public class Device {
 
-    private int id;
-
-    public String getDeviceName() {
-
-        return deviceName;
-    }
-
-    public void setDeviceName(String deviceName) {
-
-        this.deviceName = deviceName;
-    }
+    private int id,
+            userId,
+            permissId;
 
     @NotNull
-    String deviceName;
-
-    public String getDeviceMac() {
-
-        return deviceMac;
-    }
-
-    public void setDeviceMac(String deviceMac) {
-
-        this.deviceMac = deviceMac;
-    }
-
+    private String deviceName;
     @NotNull
-    String deviceMac;
-
-
-    public String getDeviceIp() {
-
-        return deviceIp;
-    }
-
-    public void setDeviceIp(String deviceIp) {
-
-        this.deviceIp = deviceIp;
-    }
-
+    private String deviceMac;
     @NotNull
-    String deviceIp;
+    private String deviceIp;
 
-    public void setId(int id) {
+    public void setId(int id) { this.id = id; }
 
-        this.id = id;
+    public int getId() { return id; }
+
+    public int getUserId() {
+        return userId;
     }
 
-    public int getId() {
-        return id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
+    public int getPermissId() {
+        return permissId;
+    }
+
+    public void setPermissId(int permissId) {
+        this.permissId = permissId;
+    }
+
+    public String getDeviceName() { return deviceName; }
+
+    public void setDeviceName(String deviceName) { this.deviceName = deviceName; }
+
+    public String getDeviceMac() { return deviceMac; }
+
+    public void setDeviceMac(String deviceMac) { this.deviceMac = deviceMac; }
+
+    public String getDeviceIp() { return deviceIp; }
+
+    public void setDeviceIp(String deviceIp) { this.deviceIp = deviceIp; }
 }
