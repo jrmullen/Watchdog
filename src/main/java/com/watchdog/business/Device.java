@@ -18,16 +18,9 @@ public class Device {
     @NotNull
     private String deviceIp;
 
+    public void setId(int id) { this.id = id; }
 
-    public void setId(int id) {
-
-        this.id = id;
-    }
-
-    public int getId() {
-
-        return id;
-    }
+    public int getId() { return id; }
 
     public int getUserId() {
         return userId;
@@ -45,35 +38,15 @@ public class Device {
         this.permissId = permissId;
     }
 
-    public String getDeviceName() {
+    public String getDeviceName() { return deviceName; }
 
-        return deviceName;
-    }
+    public void setDeviceName(String deviceName) { this.deviceName = deviceName; }
 
-    public void setDeviceName(String deviceName) {
+    public String getDeviceMac() { return deviceMac; }
 
-        this.deviceName = deviceName;
-    }
+    public void setDeviceMac(String deviceMac) { this.deviceMac = deviceMac; }
 
+    public String getDeviceIp() { return deviceIp; }
 
-    public String getDeviceMac() {
-
-        return deviceMac;
-    }
-
-    public void setDeviceMac(String deviceMac) {
-
-        this.deviceMac = deviceMac;
-    }
-
-    public String getDeviceIp() {
-
-        return deviceIp;
-    }
-
-    public void setDeviceIp(String deviceIp) {
-
-        this.deviceIp = deviceIp;
-    }
-
+    public void setDeviceIp(String deviceIp) { this.deviceIp = deviceIp; }
 }
