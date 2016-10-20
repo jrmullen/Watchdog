@@ -1,24 +1,19 @@
-package com.watchdog.business;
+package com.watchdog.services;
 
+import com.watchdog.business.User;
 import com.watchdog.dao.UserDao;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import java.io.UnsupportedEncodingException;
-import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
+
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
-import java.io.IOException;
+import java.util.Properties;
 import java.util.Random;
+
 /**
  * Created by Richard on 10/18/2016.
  */
-public class Reset {
+public class PasswordResetService {
 
     public static void resetPass(User user) {
         //Initialize database and create UserDao object
@@ -33,18 +28,16 @@ public class Reset {
         userDao.update(user2);
         Sendmail(pass, user.getEmail());
     }
-    public static String generateString(Random rng, String characters, int length)
-    {
+
+    public static String generateString(Random rng, String characters, int length) {
         char[] text = new char[length];
-        for (int i = 0; i < length; i++)
-        {
+        for (int i = 0; i < length; i++) {
             text[i] = characters.charAt(rng.nextInt(characters.length()));
         }
         return new String(text);
     }
 
-    public static void Sendmail(String pass, String email)
-    {
+    public static void Sendmail(String pass, String email) {
         final String username = "watchdogprojectcse480@gmail.com";
         final String password = "Watchdog480";
 
@@ -67,9 +60,9 @@ public class Reset {
             message.setFrom(new InternetAddress("watchdogprojectcse480@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(email));
-            message.setSubject("New Password Reset");
+            message.setSubject("New Password PasswordResetService");
             message.setText("User, your password has been reset to "
-                    + pass +" if this was not done by you please notify us as soon as possible.");
+                    + pass + " if this was not done by you please notify us as soon as possible.");
 
             Transport.send(message);
 

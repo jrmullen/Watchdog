@@ -6,32 +6,32 @@ import java.sql.Time;
 
 public class Video {
 
-    private int vid_id;
-    private int user_id;
-    private int device_id;
+    private int vidId;
+    private int userId;
+    private int deviceId;
     private Time length;
     private Date date;
     private Time time;
     private String title;
-    private String location; //BigDecimal location;
+    private String location;
     private String description;
     private boolean isCompressed;
     private boolean isEncrypted;
     private long size;
 
-    public void setVidID(int vid_id){
-        this.vid_id = vid_id;
+    public void setVidId(int vidId){
+        this.vidId = vidId;
     }
 
-    public int getVidID(){return vid_id; }
+    public int getVidId(){return vidId; }
 
-    public int getUserID() { return user_id; }
+    public int getUserId() { return userId; }
 
-    public void setUserID(int user_id) { this.user_id = user_id; }
+    public void setUserId(int userId) { this.userId= userId; }
 
-    public int getDeviceID() {return device_id; }
+    public int getDeviceId() {return deviceId; }
 
-    public void setDeviceID(int device_id) { this.device_id = device_id; }
+    public void setDeviceId(int deviceId) { this.deviceId = deviceId; }
 
     public void setLength(Time length){
         this.length = length;

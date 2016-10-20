@@ -1,5 +1,7 @@
 package com.watchdog.business;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Created by BBuck on 10/4/16.
  */
@@ -8,30 +10,52 @@ public class Device {
     private int id;
 
     public String getDeviceName() {
+
         return deviceName;
     }
 
     public void setDeviceName(String deviceName) {
+
         this.deviceName = deviceName;
     }
 
+    @NotNull
     String deviceName;
 
+    public String getDeviceMac() {
 
-    public String getDeviceType() {
-        return deviceType;
+        return deviceMac;
     }
 
-    public void setDeviceType(String deviceType) {
-        this.deviceType = deviceType;
+    public void setDeviceMac(String deviceMac) {
+
+        this.deviceMac = deviceMac;
     }
 
-    String deviceType;
+    @NotNull
+    String deviceMac;
+
+
+    public String getDeviceIp() {
+
+        return deviceIp;
+    }
+
+    public void setDeviceIp(String deviceIp) {
+
+        this.deviceIp = deviceIp;
+    }
+
+    @NotNull
+    String deviceIp;
 
     public void setId(int id) {
+
         this.id = id;
     }
+
     public int getId() {
         return id;
     }
+
 }
