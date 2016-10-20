@@ -60,6 +60,14 @@
         </dependency>
         <!--end spring security-->
 
+        <!--Mail dependency-->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <!--end mail dependency-->
+
         <!-- WebJars -->
         <dependency>
             <groupId>org.webjars</groupId>

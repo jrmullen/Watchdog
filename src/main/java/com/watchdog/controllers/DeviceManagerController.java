@@ -28,15 +28,18 @@ public class DeviceManagerController {
 
         //Initialize database and create DeviceDao object
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
-        DeviceDao deviceDao = ctx.getBean("DeviceDaoImpl", DeviceDao.class); //first parameter is the id found in the spring.xml file
+        DeviceDao deviceDao = ctx.getBean("deviceDaoImpl", DeviceDao.class); //first parameter is the id found in the spring.xml file
 
         model.addAttribute("deviceName", device.getDeviceName());
-        model.addAttribute("deviceType", device.getDeviceType());
+        model.addAttribute("deviceMac", device.getDeviceMac());
+        model.addAttribute("deviceIp", device.getDeviceIp());
 
 
         //Save device to DB
         deviceDao.save(device);
-        //redirect to user_home page
-        return "/user_home";
+        model.addAttribute("deviceList", deviceDao.getAll());
+
+        //redirect to device manager page
+        return "/device_manager";
     }
 }
