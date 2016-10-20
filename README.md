@@ -69,3 +69,15 @@ username: root
 password: password
 
 Queries for the User are written in the UserDaoImpl
+
+##opencv setup
+- install OpenCV version 2.4.13 at http://opencv.org/downloads.html. Remember where you save as you will need to know the filepath.
+- in IntelliJ -- File-> Project Structure -> Libraries -> Click green + -> 'From Maven...'
+    -> Type in "openvc" -> Click magnifying glass -> Scroll to the bottom and select 'org.openpnp:opencv:2.4.13-0'
+    -> Right side of the screen should have a filepath #:\path\to\the\repository\org\openpnp\opencv\2.4.13-0\opencv-2.4.13-0.jar
+    -> Apply -> OK
+- Try to run your class and it will fail. There is a dropdown to the left of the Run button in the top right of IntelliJ. Click it
+    -> 'Edit configurations' -> in the VM options field path type the following: -Djava.library.path="#:\path\to\opencv\build\java\x64". This is the path to opencv_java2413.dll file. 
+
+Copy the Code from http://computervisionandjava.blogspot.com/2013/10/java-opencv-webcam.html into a new Maven project. Assuming you have
+a webcam, the program should work.

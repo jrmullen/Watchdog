@@ -58,7 +58,7 @@ public class DeviceManagerController {
         //Initialize database and create DeviceDao object
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
         DeviceDao deviceDao = ctx.getBean("deviceDaoImpl", DeviceDao.class); //first parameter is the id found in the spring.xml file
-        
+
         deviceDao.deleteById(id);
         model.addAttribute("deviceList", deviceDao.getAll());
 
