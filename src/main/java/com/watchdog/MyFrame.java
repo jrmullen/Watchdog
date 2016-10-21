@@ -1,29 +1,28 @@
 package com.watchdog;
 
-// Add imports for openCV
-/*import java.awt.EventQueue;
+import java.awt.EventQueue;
 import java.awt.Graphics;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;*/
-// End imports for openCV
+import javax.swing.border.EmptyBorder;
 
+// Imports required from Application.java
 import com.watchdog.business.User;
 import com.watchdog.dao.UserDao;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+public class MyFrame extends JFrame {
+    private JPanel contentPane;
 
-import java.util.List;
-
-@SpringBootApplication
-public class Application {
-
-    //Add variable for openCV
-    // private JPanel contentPane;
-
-    public static void main(String[] args) throws Exception {
+    /**
+     * Launch the application.
+     */
+    public static void main(String[] args) {
+        /**
+        // Start code from Application.java
+         **/
         SpringApplication.run(Application.class, args);
 
         //Get the Spring Context
@@ -64,8 +63,12 @@ public class Application {
         //Close Spring Context
         ctx.close();
 
-        // Code for openCV that must be in main method
-/*        EventQueue.invokeLater(new Runnable() {
+        /**
+         * End code from Application.java
+         **/
+
+
+        EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
                     MyFrame frame = new MyFrame();
@@ -75,13 +78,12 @@ public class Application {
                 }
             }
         });
-    }*/
+    }
 
-/*    // Methods required for openCV
-    *//**
+    /**
      * Create the frame.
-     *//*
-    public Application() {
+     */
+    public MyFrame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 650, 490);
         contentPane = new JPanel();
@@ -92,14 +94,11 @@ public class Application {
         new MyThread().start();
     }
 
-    private void setDefaultCloseOperation(int exitOnClose) {
-    }
-
-    VideoCap videoCap = new com.watchdog.VideoCap();
+    //com.watchdog.VideoCap videoCap = new com.watchdog.VideoCap();
 
     public void paint(Graphics g){
         g = contentPane.getGraphics();
-        g.drawImage(videoCap.getOneFrame(), 0, 0, this);
+        //g.drawImage(videoCap.getOneFrame(), 0, 0, this);
     }
 
     class MyThread extends Thread{
@@ -110,7 +109,6 @@ public class Application {
                 try { Thread.sleep(30);
                 } catch (InterruptedException e) {    }
             }
-        }*/
+        }
     }
-
 }
