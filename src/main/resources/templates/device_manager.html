@@ -17,8 +17,8 @@
         <input type="text" class="in-line" id="deviceName" th:field="*{deviceName}" placeholder="Device Name" />
         <input type="text" class="in-line" id="deviceMac" th:field="*{deviceMac}" placeholder="Device MAC"/>
         <input type="text" class="in-line" id="deviceIp" th:field="*{deviceIp}" placeholder="Device IP"/>
-        <button type="submit" class="btn btn-info" id="btn-add">Add New</button>
-        <button type="reset" class="btn btn-info" id="btn-reset">Clear</button>
+        <button type="submit" class="btn btn-success" id="btn-add">Add New</button>
+        <input type="button" class="btn btn-info" onclick="clearText()" value="Clear" />
 
     </div>
 </form>
@@ -41,7 +41,7 @@
             <td>
                 <form th:action="@{?deleteDevice}" th:object="${device}" method="post" class="in-line">
                     <input type="hidden" th:value="${device.id}" name="id" />
-                    <button type="submit">Delete</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </td>
         </tr>
@@ -69,6 +69,18 @@
 
 
     });
+
+    // clear form data after submission
+    function clearText(){
+        // declare textbox variables
+        var tb0 = document.getElementById("deviceName")
+        var tb1 = document.getElementById("deviceMac")
+        var tb2 = document.getElementById("deviceIp")
+        // clear textbox
+        tb0.value = '';
+        tb1.value = '';
+        tb2.value = '';
+    }
 </script>
 </body>
 </html>
