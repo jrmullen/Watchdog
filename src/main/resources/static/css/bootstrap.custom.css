@@ -38,8 +38,12 @@
 }
 /* End navbar styling */
 
-/* Styling for panel */
+/* Styling for panel and body*/
 div.panel {
+     background-color: #e5ecf9;
+ }
+
+body {
     background-color: #e5ecf9;
 }
 
