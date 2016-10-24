@@ -1,0 +1,64 @@
+
+/*Navbar styling*/
+.navbar-inverse {
+    background-color: #161616;
+}
+
+.navbar-inverse .nav > li > div > a {
+    color: #a1c3e2;
+}
+
+.navbar-inverse .nav > li > a {
+    background-color: #000000;
+    color: #a1c3e2;
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.navbar-inverse .nav > li > p {
+    color: #ffffff;
+    font-size: 1em;
+}
+
+.navbar-inverse .nav > li > span {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1em;
+}
+
+.navbar-inverse .nav > li > form > button {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1em;
+}
+
+.navbar-inverse .nav > li > a:hover {
+    background-color: #2b53af;
+    font-size: 1.2em;
+}
+/* End navbar styling */
+
+/* Styling for panel and body*/
+div.panel {
+     background-color: #e5ecf9;
+ }
+
+body {
+    background-color: #e5ecf9;
+}
+
+/* Footer styling */
+footer {
+    text-align: center;
+}
+
+
+/* Page heading styling */
+h3.text-center {
+    color: #0041ce;
+    font-weight: bold;
+}
+
+h5 {
+    font-weight: bold;
+}
