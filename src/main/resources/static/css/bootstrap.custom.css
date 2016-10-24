@@ -1,5 +1,5 @@
 
-/*Navbar styling*/
+/* Navbar styling */
 .navbar-inverse {
     background-color: #161616;
 }
@@ -48,7 +48,6 @@ footer {
     text-align: center;
 }
 
-
 /* Page heading styling */
 h3.text-center {
     color: #0041ce;
@@ -58,3 +57,44 @@ h3.text-center {
 h5 {
     font-weight: bold;
 }
+
+
+.margin {
+    margin-bottom: 45px;
+}
+
+/* Our image and login/register section on index.html */
+.bg-1 {
+    background-color: black;
+    color: #ffffff;
+
+}
+
+/* Feature columns on index.html */
+.bg-2 {
+    background-color: white;
+    color: #555555;
+}
+
+/* Add space below header image on index.html */
+#index-index-image {
+    padding-bottom: 70px;
+}
+
+/* Start glyphicon section on index.html */
+span.glyphicon-cloud {
+    font-size: 4em;
+    color: black;
+}
+
+span.glyphicon-floppy-disk {
+    font-size: 4em;
+    color: black;
+}
+
+span.glyphicon-home {
+    font-size: 4em;
+    color: black;
+}
+
+/* End glyphicon section  on index.html */

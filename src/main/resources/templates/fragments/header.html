@@ -13,7 +13,6 @@
 
     <link rel="stylesheet" type="text/css" media="all" href="../static/css/bootstrap.custom.css" th:href="@{/css/bootstrap.custom.css}" />
     <div style="text-align:center"><img class="img-responsive" th:src="@{/images/sky_small_blue_lense_light_logo.PNG}" />
-
         <div class="navbar-inverse">
             <div class="container-fluid">
 
@@ -32,6 +31,43 @@
                         <li sec:authorize="hasAuthority('ROLE_ADMIN')">
                             <a href="#">Manage user permissions</a>
                         </li>
+
+                        <li class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
+                            <a href="/login" th:href="@{/login}"><span class="glyphicon glyphicon-log-out"></span> Login</a>
+                        </li>
+                        <li class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
+                            <a href="/register" th:href="@{/register}">Register</a>
+                        </li>
+                        <li class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+                            <form action="/logout" method="post">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                <button type="submit" class="btn btn-primary navbar-btn">Log out</button>
+                            </form>
+                        </li>
+
+                        <li class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+                            <p class="navbar-text">Logged in as: </p>
+                            <span class="navbar-text" sec:authentication="name"></span>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div th:fragment="indexHeader">
+
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/bootstrap.custom.css" th:href="@{/css/bootstrap.custom.css}" />
+    <div style="text-align:center">
+        <div class="navbar-inverse">
+            <div class="container-fluid">
+
+                <div class="collapse navbar-collapse" id="headerNavbar">
+
+                    <ul class="nav nav-header nav-pills">
 
                         <li class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
                             <a href="/login" th:href="@{/login}"><span class="glyphicon glyphicon-log-out"></span> Login</a>
