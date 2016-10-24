@@ -1,5 +1,5 @@
 
-/* Navbar styling for regular header*/
+/* Navbar styling */
 .navbar-inverse {
     background-color: #161616;
 }
@@ -48,7 +48,7 @@
     background-color: #2b53af;
     font-size: 1.2em;
 }
-/* End navbar styling for regular header*/
+/* End navbar styling */
 
 /* Navbar styling for index header */
 #index-navbar-inverse {
@@ -56,19 +56,18 @@
 }
 
 /* Applied to links on index with tags .navbar-inverse
- .nav > li > a */
+ .nav > li > a  on index header*/
 #a-style {
     color: white;
 }
-
-.navbar-inverse .nav > li > a:hover {
-    background-color: #2b53af;
-    font-size: 1.2em;
-}
 /* End navbar styling for index header */
 
-/* Styling for panel */
+/* Styling for panel and body */
 div.panel {
+     background-color: #e5ecf9;
+ }
+
+body {
     background-color: #e5ecf9;
 }
 
@@ -87,7 +86,7 @@ h5 {
     font-weight: bold;
 }
 
-
+/* Margin styling */
 .margin {
     margin-bottom: 45px;
 }
@@ -111,7 +110,6 @@ h5 {
 }
 
 /* Start glyphicon section */
-
 span.glyphicon-user {
     font-size: 0.9em;
 }
@@ -130,5 +128,4 @@ span.glyphicon-home {
     font-size: 4em;
     color: black;
 }
-
-/* End glyphicon section  on index.html */
+/* End glyphicon section */
