@@ -1,5 +1,5 @@
 
-/* Navbar styling */
+/* Navbar styling for regular header*/
 .navbar-inverse {
     background-color: #161616;
 }
@@ -11,6 +11,18 @@
 .navbar-inverse .nav > li > a {
     background-color: #000000;
     color: #a1c3e2;
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+/* Styling for links on right side of navbar */
+.navbar-inverse .nav > li > a.glyphicon-user {
+    font-size: 1em;
+}
+
+.navbar-inverse .navbar-right > li > a {
+    background-color: #000000;
+    color: white;
     font-weight: 600;
     font-size: 1.1em;
 }
@@ -36,7 +48,24 @@
     background-color: #2b53af;
     font-size: 1.2em;
 }
-/* End navbar styling */
+/* End navbar styling for regular header*/
+
+/* Navbar styling for index header */
+#index-navbar-inverse {
+    background-color: black;
+}
+
+/* Applied to links on index with tags .navbar-inverse
+ .nav > li > a */
+#a-style {
+    color: white;
+}
+
+.navbar-inverse .nav > li > a:hover {
+    background-color: #2b53af;
+    font-size: 1.2em;
+}
+/* End navbar styling for index header */
 
 /* Styling for panel */
 div.panel {
@@ -81,7 +110,12 @@ h5 {
     padding-bottom: 70px;
 }
 
-/* Start glyphicon section on index.html */
+/* Start glyphicon section */
+
+span.glyphicon-user {
+    font-size: 0.9em;
+}
+
 span.glyphicon-cloud {
     font-size: 4em;
     color: black;
