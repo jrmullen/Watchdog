@@ -4,7 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 public class Log {
-    private int radioEntry;
+    private int id;
+    public int vid_id;
     private Date date;
     private String startTime;
     private String length;
@@ -13,7 +14,7 @@ public class Log {
     private String tags;
 
 
-    //pull all tags for log and construct into string
+    //pull all tags for log and construct into comma separated string
     public String getTagsString(){
         List<Tag> alpha = this.tagList;
         String beta;
@@ -38,13 +39,13 @@ public class Log {
         return beta;
     }
 
-    public int getRadioEntry() {
-        return radioEntry;
-    }
+    public int getVidId() { return vid_id;}
 
-    public void setRadioEntry(int radioEntry) {
-        this.radioEntry = radioEntry;
-    }
+    public void setVidId(int id) { this.vid_id = id;}
+
+    public int getId() { return id;}
+
+    public void setId(int id) { this.id = id;}
 
     public Date getDate() {
         return date;
@@ -85,7 +86,6 @@ public class Log {
     public void setTagList(List<Tag> tagList) {
         this.tagList = tagList;
     }
-
 
     public String getTags() { return tags;}
 

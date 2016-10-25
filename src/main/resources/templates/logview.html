@@ -19,25 +19,9 @@
                 <thead>
                 <tr>
                     <th><h1>Log View</h1></th>
-                    <th></th>
-                    <th><button type="button" class="btn btn-default">Play</button></th>
-                    <th><button type="button" class="btn btn-default">Delete</button></th>
-                    <th><button type="button" class="btn btn-default">Edit Tags</button></th>
-                    <th>Sort by:
-                        <select>
-                            <option value="date">Date</option>
-                            <option value="camera">Camera</option>
-                            <option value="camera">Tag</option>
-                        </select>
-                    </th>
                 </tr>
                 </thead>
             </table>
-            <!--<input type="text" class="in-line" id="deviceName" th:field="*{deviceName}" placeholder="Device Name" />-->
-            <!--<input type="text" class="in-line" id="deviceMac" th:field="*{deviceMac}" placeholder="Device MAC"/>-->
-            <!--<input type="text" class="in-line" id="deviceIp" th:field="*{deviceIp}" placeholder="Device IP"/>-->
-            <!--<button type="submit" class="btn btn-info" id="btn-add">Add New</button>-->
-            <!--<button type="reset" class="btn btn-info" id="btn-reset">Clear</button>-->
         </form>
 
         <table class="table" th:if="${not #lists.isEmpty(logList)}">
@@ -49,16 +33,33 @@
                 <th>Length</th>
                 <th>Camera</th>
                 <th>Tags</th>
+                <th></th>
+                <th>Sort by:
+                    <select>
+                        <option value="date">Date</option>
+                        <option value="camera">Camera</option>
+                        <option value="camera">Tag</option>
+                    </select>
+                </th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="log : ${logList}">
-                <td><input type="radio" name="entry1" th:value="${log.radioEntry}"></input></td>
+                <td><button type="button" class="btn btn-primary">Play</button></td>
                 <td th:text="${log.date}"></td>
                 <td th:text="${log.startTime}"></td>
                 <td th:text="${log.length}"></td>
                 <td th:text="${log.camera}"></td>
                 <td th:text="${log.tags}"></td>
+                <td><button type="button" class="btn btn-info">Edit Tags</button></td>
+                <td>
+                    <form th:action="@{?deleteLog}" th:object="${log}" method="post" class="in-line">
+                        <input type="hidden" th:value="${log.vid_id}" name="vid_id" />
+                        <input type="hidden" th:value="${log.id}" name="id" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+
             </tr>
             </tbody>
         </table>

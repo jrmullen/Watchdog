@@ -101,6 +101,15 @@ public class TagDaoImpl implements TagDao {
         } else System.out.println("No Tag found with id= " + tag_id);
     }
 
+    @Override
+    public void deleteByVidId(int vid_id) {
+
+        int out = jdbcTemplate.update(Constants.DELETE_TAG_BY_VID_ID_QUERY, vid_id);
+        if (out != 0) {
+            System.out.println("Tag deleted with id= " + vid_id);
+        } else System.out.println("No Tag found with id= " + vid_id);
+    }
+
     //Get All
     @Override
     public List<Tag> getAll() {

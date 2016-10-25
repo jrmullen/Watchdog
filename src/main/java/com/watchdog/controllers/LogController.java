@@ -8,10 +8,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,10 +19,16 @@ import com.watchdog.dao.UserDao;
 
 
 @Controller
+@RequestMapping(value = "/logview", method = { RequestMethod.GET, RequestMethod.POST })
 public class LogController {
 
-    @RequestMapping(value = "/logview", method = RequestMethod.GET)
-    public String listLogs(Model model){
+    List<Log> logList = new ArrayList<>();
+    List<Log> previousList = new ArrayList<>();
+    List<Log> blankList = new ArrayList<>();
+    Model blankModel;
+
+    @RequestMapping
+    public String listLogs(@Valid Model model){
 
         //Initialize database and create Dao object
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
@@ -32,7 +36,6 @@ public class LogController {
         TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
         DeviceDao deviceDao = ctx.getBean("deviceDaoImpl", DeviceDao.class);
 
-        List<Log> logList = new ArrayList<>();
         List<Video> videoList = videoDao.getAll();
 
         for (int i = 0; i < videoList.size(); i++) {
@@ -42,7 +45,8 @@ public class LogController {
 
             String camera = deviceDao.getDeviceNameByVidId(video.getVidId());
 
-            log.setRadioEntry(i);
+            log.setId(i);
+            log.setVidId(video.getVidId());
             log.setDate(video.getDate());
             log.setStartTime(String.valueOf(video.getTime()));
             log.setLength(String.valueOf(video.getLength()));
@@ -56,6 +60,26 @@ public class LogController {
         model.addAttribute("logList", logList);
 
         //redirect to logview page
+        return "/logview";
+    }
+
+    //delete device
+    @RequestMapping(params = "deleteLog")
+    public String delete(@RequestParam int vid_id, int id, Log log, Model model) {
+
+        //Initialize database and create videoDao, tagDao object
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+        VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
+        TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
+
+        tagDao.deleteByVidId(vid_id);
+        videoDao.deleteById(vid_id);
+
+        if(logList.size() == 1) {
+            logList.remove(id);
+            model.addAttribute("logList", logList);
+        }
+        
         return "/logview";
     }
 

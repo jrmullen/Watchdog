@@ -62,6 +62,6 @@ public class DeviceManagerController {
         deviceDao.deleteById(id);
         model.addAttribute("deviceList", deviceDao.getAll());
 
-        return "/device_manager";
+        return "/logview";
     }
 }

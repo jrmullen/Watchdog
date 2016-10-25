@@ -38,5 +38,6 @@ public class Constants {
     public static final String GET_TAG_BY_TAG_ID = "select TAG_ID, VID_ID, TAG_NAME from tag where TAG_ID = ?";
     public static final String CREATE_TAG_QUERY = "insert into tag (VID_ID, TAG_NAME) values (?,?)";
     public static final String GET_TAG_BY_VIDEO_ID = "select TAG_ID, VID_ID, TAG_NAME from tag where VID_ID = ?";
+    public static final String DELETE_TAG_BY_VID_ID_QUERY = "delete from tag where VID_ID=?";
 
 }
