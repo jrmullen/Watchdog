@@ -1,5 +1,5 @@
 
-/*Navbar styling*/
+/* Navbar styling */
 .navbar-inverse {
     background-color: #161616;
 }
@@ -11,6 +11,18 @@
 .navbar-inverse .nav > li > a {
     background-color: #000000;
     color: #a1c3e2;
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+/* Styling for links on right side of navbar */
+.navbar-inverse .nav > li > a.glyphicon-user {
+    font-size: 1em;
+}
+
+.navbar-inverse .navbar-right > li > a {
+    background-color: #000000;
+    color: white;
     font-weight: 600;
     font-size: 1.1em;
 }
@@ -38,7 +50,19 @@
 }
 /* End navbar styling */
 
-/* Styling for panel and body*/
+/* Navbar styling for index header */
+#index-navbar-inverse {
+    background-color: black;
+}
+
+/* Applied to links on index with tags .navbar-inverse
+ .nav > li > a  on index header*/
+#a-style {
+    color: white;
+}
+/* End navbar styling for index header */
+
+/* Styling for panel and body */
 div.panel {
      background-color: #e5ecf9;
  }
@@ -52,7 +76,6 @@ footer {
     text-align: center;
 }
 
-
 /* Page heading styling */
 h3.text-center {
     color: #0041ce;
@@ -62,3 +85,47 @@ h3.text-center {
 h5 {
     font-weight: bold;
 }
+
+/* Margin styling */
+.margin {
+    margin-bottom: 45px;
+}
+
+/* Our image and login/register section on index.html */
+.bg-1 {
+    background-color: black;
+    color: #ffffff;
+
+}
+
+/* Feature columns on index.html */
+.bg-2 {
+    background-color: white;
+    color: #555555;
+}
+
+/* Add space below header image on index.html */
+#index-index-image {
+    padding-bottom: 70px;
+}
+
+/* Start glyphicon section */
+span.glyphicon-user {
+    font-size: 0.9em;
+}
+
+span.glyphicon-cloud {
+    font-size: 4em;
+    color: black;
+}
+
+span.glyphicon-floppy-disk {
+    font-size: 4em;
+    color: black;
+}
+
+span.glyphicon-home {
+    font-size: 4em;
+    color: black;
+}
+/* End glyphicon section */
