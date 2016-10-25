@@ -75,11 +75,9 @@ public class LogController {
         tagDao.deleteByVidId(vid_id);
         videoDao.deleteById(vid_id);
 
-        if(logList.size() == 1) {
-            logList.remove(id);
-            model.addAttribute("logList", logList);
-        }
-        
+        logList.remove(id);
+        model.addAttribute("logList", logList);
+
         return "/logview";
     }
 
