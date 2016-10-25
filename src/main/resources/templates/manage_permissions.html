@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Permissions</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}"
+          href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.css" rel="stylesheet" media="screen"/>
+    <script src='http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js'></script>
+</head>
+
+<body>
+<div th:include="fragments/header :: header"></div>
+
+<form th:action="@{?addDevice}" th:object="${device}" method="post" id="devices" class="in-line">
+
+    <div>
+        <input type="text" class="in-line" id="deviceName" th:field="*{deviceName}" placeholder="Device Name" />
+        <input type="text" class="in-line" id="deviceMac" th:field="*{deviceMac}" placeholder="Device MAC"/>
+        <input type="text" class="in-line" id="deviceIp" th:field="*{deviceIp}" placeholder="Device IP"/>
+
+    </div>
+</form>
+
+<table class="table" th:if="${not #lists.isEmpty(deviceList)}">
+    <thead>
+    <tr>
+        <th>Device Name</th>
+        <th>Device MAC</th>
+        <th>Device IP</th>
+        <th>Action</th>
+    </tr>
+
+
+    <tr th:each="device, iter : ${deviceList}">
+
+        <td th:text="${device.deviceName}"></td>
+        <td th:text="${device.deviceMac}"></td>
+        <td th:text="${device.deviceIp}"></td>
+        <td>
+            <form th:action="@{?deleteDevice}" th:object="${device}" method="post" class="in-line">
+                <input type="hidden" th:value="${device.id}" name="id" />
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </td>
+    </tr>
+
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+<script>
+    // test alert
+    $(function(){
+        // if we use id we need $('#some-name'); or class we use $('.some-name');
+        $('#btn-add').click(function(){
+            // declare variable
+            var _name = $('input[name="name"]').val();
+            var _mac = $('input [name="mac"]').val();
+            var _ip = $('input[name="ip"]').val();
+
+
+            var _tr = '<tr><td>'+ _name +'</td> <td>'+ _mac +'</td> <td>'+ _ip +'</td> <td><button type="button" class="btn btn-danger btn-delete">Delete </button></td></tr>';
+
+            $('tbody').append(_tr);
+        });
+
+
+    });
+
+</script>
+</body>
+</html>
