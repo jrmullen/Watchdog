@@ -7,46 +7,35 @@ import javax.validation.constraints.NotNull;
  */
 public class Permissions {
 
-    private int id,
-            userId,
-            permissId;
+    private int id;
 
     @NotNull
-    private String permissionsName;
-    @NotNull
-    private String permissionsMac;
-    @NotNull
-    private String permissionsIp;
+    private String role,
+            description;
 
-    public void setId(int id) { this.id = id; }
-
-    public int getId() { return id; }
-
-    public int getUserId() {
-        return userId;
+    public int getId() {
+        return id;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getPermissId() {
-        return permissId;
+    public String getRole() {
+        return role;
     }
 
-    public void setPermissId(int permissId) {
-        this.permissId = permissId;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public String getPermissionsName() { return permissionsName; }
+    public String getDescription() {
+        return description;
+    }
 
-    public void setPermissionsName(String permissionsName) { this.permissionsName = permissionsName; }
-
-    public String getPermissionsMac() { return permissionsMac; }
-
-    public void setPermissionsMac(String permissionsMac) { this.permissionsMac = permissionsMac; }
-
-    public String getPermissionsIp() { return permissionsIp; }
-
-    public void setPermissionsIp(String permissionsIp) { this.permissionsIp = permissionsIp; }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
+
+

@@ -4,9 +4,6 @@ import com.watchdog.business.Permissions;
 
 import java.util.List;
 
-/**
- * Created by BBuck on 10/4/16.
- */
 
 // CRUD operations
 public interface PermissionsDao {

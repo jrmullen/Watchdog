@@ -20,8 +20,6 @@ public class Constants {
     public static final String DELETE_DEVICE_BY_ID_QUERY = "delete from device where DEVICE_ID = ?";
     public static final String GET_ALL_DEVICES_QUERY = "select DEVICE_ID, USER_ID, PERMISS_ID, DEVICE_NAME, DEVICE_MAC, DEVICE_IP from device";
 
-
-
     // Video queries
     public static final String CREATE_VIDEO_QUERY = "insert into video (USER_ID, DEVICE_ID, VID_LENGTH, VID_IS_COMPRESSED, VID_IS_ENCRYPTED, VID_SIZE_ON_DISK, VID_DATE, VID_TIME, VID_TITLE, VID_LOCATION, VID_DESCRIPTION) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     public static final String GET_VIDEO_BY_ID = "select VID_LENGTH, VID_IS_COMPRESSED, VID_IS_ENCRYPTED, VID_SIZE_ON_DISK, VID_DATE, VID_TIME, VID_TITLE, VID_LOCATION, VID_DESCRIPTION from video where VID_ID = ?";
@@ -36,4 +34,14 @@ public class Constants {
     public static final String UPDATE_TAG_BY_ID_QUERY = "update tag set TAG_ID = ?, VID_ID = ?, TAG_NAME = ?";
     public static final String GET_TAG_BY_TAG_ID = "select TAG_ID, VID_ID, TAG_NAME from tag where TAG_ID = ?";
     public static final String CREATE_TAG_QUERY = "insert into tag (VID_ID, TAG_NAME) values (?,?)";
+
+    // Permissions
+    public static final String CREATE_PERMISSIONS_QUERY = "insert into permissions (ROLE, PERMISS_DESCRIPTION) values (?,?)";
+    public static final String GET_BY_PERMISSIONS_ID_QUERY = "select PERMISS_ID, ROLE, PERMISS_DESCRIPTION from permissions where PERMISS_ID = ?";
+    public static final String UPDATE_BY_PERMISSIONS_ID_QUERY = "update permissions set ROLE = ?, PERMISS_DESCRIPTION = ?";
+    public static final String DELETE_PERMISSIONS_BY_ID_QUERY = "delete from permissions where PERMISS_ID = ?";
+    public static final String GET_ALL_PERMISSIONS_QUERY = "select PERMISS_ID, ROLE, PERMISS_DESCRIPTION from permissions";
+
+
+
 }

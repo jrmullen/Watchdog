@@ -31,15 +31,13 @@ public class PermissionsDaoImpl implements PermissionsDao {
     @Override
     public void save (Permissions permissions) {
 
-        Object[] args = new Object[]{permissions.getPermissionsName(), permissions.getPermissionsMac(), permissions.getPermissionsIp()};
+        Object[] args = new Object[]{permissions.getRole(), permissions.getDescription()};
 
-        int out = jdbcTemplate.update(Constants.CREATE_DEVICE_QUERY, args);
+        int out = jdbcTemplate.update(Constants.CREATE_PERMISSIONS_QUERY, args);
 
         if (out !=0) {
-            System.out.println("Permissions " + permissions.getPermissionsName() + " " + permissions.getPermissionsMac() + " " + permissions.getPermissionsIp()
-                    + " saved");
-        } else System.out.println("Permissions " + permissions.getPermissionsName() + " " + permissions.getPermissionsMac() + " " + permissions.getPermissionsIp()
-                + " failed");
+            System.out.println("Permissions " + permissions.getRole() + " " + permissions.getDescription() + " saved");
+        } else System.out.println("Permissions " + permissions.getRole() + " " + permissions.getDescription() + " failed");
 
     }
 
@@ -47,18 +45,16 @@ public class PermissionsDaoImpl implements PermissionsDao {
     public Permissions getById(int id) {
 
         //using RowMapper anonymous clas, we can create a separate RowMapper for reuse
-        Permissions permissions = jdbcTemplate.queryForObject(Constants.GET_BY_DEVICE_ID_QUERY, new Object[]{id}, new RowMapper<Permissions>() {
+        Permissions permissions = jdbcTemplate.queryForObject(Constants.GET_BY_PERMISSIONS_ID_QUERY, new Object[]{id}, new RowMapper<Permissions>() {
 
             @Override
             public Permissions mapRow(ResultSet rs, int rowNum)
                     throws SQLException {
                 Permissions permissions = new Permissions();
-                permissions.setId(rs.getInt("DEVICE_ID"));
-                permissions.setUserId(rs.getInt("USER_ID"));
-                permissions.setPermissId(rs.getInt("PERMISS_ID"));
-                permissions.setPermissionsName(rs.getString("DEVICE_NAME"));
-                permissions.setPermissionsMac(rs.getString ("DEVICE_MAC"));
-                permissions.setPermissionsIp(rs.getString("DEVICE_IP"));
+                permissions.setId(rs.getInt("PERMISS_ID"));
+                permissions.setRole(rs.getString("ROLE"));
+                permissions.setDescription(rs.getString("PERMISS_DESCRIPTION"));
+
                 return permissions;
             }
         });
@@ -68,9 +64,9 @@ public class PermissionsDaoImpl implements PermissionsDao {
     @Override
     public void update(Permissions permissions) {
 
-        Object[] args = new Object[]{permissions.getPermissionsName(), permissions.getPermissionsIp(), permissions.getPermissionsMac()};
+        Object[] args = new Object[]{permissions.getRole(), permissions.getDescription()};
 
-        int out = jdbcTemplate.update(Constants.UPDATE_BY_DEVICE_ID_QUERY, args);
+        int out = jdbcTemplate.update(Constants.UPDATE_BY_PERMISSIONS_ID_QUERY, args);
         if (out !=0) {
             System.out.println("Permissions updated with id= " + permissions.getId());
         } else System.out.println("No permissions found with id= " + permissions.getId());
@@ -80,7 +76,7 @@ public class PermissionsDaoImpl implements PermissionsDao {
     @Override
     public void deleteById(int id) {
 
-        int out = jdbcTemplate.update(Constants.DELETE_DEVICE_BY_ID_QUERY, id);
+        int out = jdbcTemplate.update(Constants.DELETE_PERMISSIONS_BY_ID_QUERY, id);
         if (out !=0) {
             System.out.println("Permissions deleted with id= " + id);
         } else System.out.println("No permissions found with id= " + id);
@@ -89,19 +85,14 @@ public class PermissionsDaoImpl implements PermissionsDao {
     @Override
     public List<Permissions> getAll() {
 
-
         List<Permissions> permissionsList = new ArrayList<Permissions>();
-
-        List<Map<String, Object>> permissionsRows = jdbcTemplate.queryForList(Constants.GET_ALL_DEVICES_QUERY);
+        List<Map<String, Object>> permissionsRows = jdbcTemplate.queryForList(Constants.GET_ALL_PERMISSIONS_QUERY);
 
         for (Map<String, Object> permissionsRow : permissionsRows) {
             Permissions permissions = new Permissions();
-            permissions.setId(Integer.parseInt(String.valueOf(permissionsRow.get("DEVICE_ID"))));
-            permissions.setUserId(Integer.parseInt(String.valueOf(permissionsRow.get("USER_ID"))));
-            permissions.setPermissId(Integer.parseInt(String.valueOf(permissionsRow.get("PERMISS_ID"))));
-            permissions.setPermissionsName(String.valueOf(permissionsRow.get("DEVICE_NAME")));
-            permissions.setPermissionsMac(String.valueOf(permissionsRow.get("DEVICE_MAC")));
-            permissions.setPermissionsIp(String.valueOf(permissionsRow.get("DEVICE_IP")));
+            permissions.setId(Integer.parseInt(String.valueOf(permissionsRow.get("PERMISS_ID"))));
+            permissions.setRole(String.valueOf(permissionsRow.get("ROLE")));
+            permissions.setDescription(String.valueOf(permissionsRow.get("PERMISS_DESCRIPTION")));
             permissionsList.add(permissions);
         }
         return permissionsList;
