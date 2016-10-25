@@ -43,7 +43,7 @@ public class TagDaoImpl implements TagDao {
 
     //Read
     @Override
-    public Tag getById(int id) {
+    public Tag getByTagId(int id) {
 
         //using RowMapper anonymous class, we can create a separate RowMapper for reuse
         Tag tag = jdbcTemplate.queryForObject(Constants.GET_TAG_BY_TAG_ID, new Object[]{id}, new RowMapper<Tag>() {
@@ -60,6 +60,23 @@ public class TagDaoImpl implements TagDao {
             }
         });
         return tag;
+    }
+
+    public List<Tag> getByVidId(int id){
+        List<Tag> tagList = new ArrayList<>();
+
+        List<Map<String, Object>> tagRows = jdbcTemplate.queryForList(Constants.GET_TAG_BY_VIDEO_ID, id);
+
+        for (Map<String, Object> tagRow : tagRows) {
+            Tag tag = new Tag();
+
+            tag.setTag_id(Integer.parseInt(String.valueOf(tagRow.get("TAG_ID"))));
+            tag.setVid_id(Integer.parseInt(String.valueOf(tagRow.get("VID_ID"))));
+            tag.setTag_name(String.valueOf(tagRow.get("TAG_NAME")));
+            tagList.add(tag);
+        }
+
+        return tagList;
     }
 
     //Update

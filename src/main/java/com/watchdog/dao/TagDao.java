@@ -11,7 +11,9 @@ public interface TagDao {
     void save(Tag tag);
 
     //Read
-    Tag getById(int id);
+    Tag getByTagId(int id);
+
+    List<Tag> getByVidId(int id);
 
     //Update
     void update(Tag tag);

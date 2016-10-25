@@ -10,10 +10,11 @@
 </head>
 <body>
 
-    <div th:include="fragments/header :: header"></div>
+<div th:include="fragments/header :: header"></div>
 
-    <div class="container">
-        <div class="table-responsive">
+<div class="container">
+    <div class="table-responsive">
+        <form method="post" id="devices" class="in-line">
             <table class="table">
                 <thead>
                 <tr>
@@ -32,30 +33,37 @@
                 </tr>
                 </thead>
             </table>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Date</th>
-                        <th>Start</th>
-                        <th>Length</th>
-                        <th>Camera</th>
-                        <th>Tags</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="radio" name="entry1" value="logEntry1"></input></td>
-                        <td>VID_DATE</td>
-                        <td>VID_TIME</td>
-                        <td>VID_LENGTH</td>
-                        <td>DEVICE_NAME</td>
-                        <td>TAG_NAME</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            <!--<input type="text" class="in-line" id="deviceName" th:field="*{deviceName}" placeholder="Device Name" />-->
+            <!--<input type="text" class="in-line" id="deviceMac" th:field="*{deviceMac}" placeholder="Device MAC"/>-->
+            <!--<input type="text" class="in-line" id="deviceIp" th:field="*{deviceIp}" placeholder="Device IP"/>-->
+            <!--<button type="submit" class="btn btn-info" id="btn-add">Add New</button>-->
+            <!--<button type="reset" class="btn btn-info" id="btn-reset">Clear</button>-->
+        </form>
+
+        <table class="table" th:if="${not #lists.isEmpty(logList)}">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Start</th>
+                <th>Length</th>
+                <th>Camera</th>
+                <th>Tags</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="log : ${logList}">
+                <td><input type="radio" name="entry1" th:value="${log.radioEntry}"></input></td>
+                <td th:text="${log.date}"></td>
+                <td th:text="${log.startTime}"></td>
+                <td th:text="${log.length}"></td>
+                <td th:text="${log.camera}"></td>
+                <td th:text="${log.tags}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-    <script type="text/javascript" th:src="@{/js/footer.js}" />
+</div>
+<script type="text/javascript" th:src="@{/js/footer.js}" />
 </body>
 </html>

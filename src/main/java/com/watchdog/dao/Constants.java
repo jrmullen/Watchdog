@@ -14,6 +14,7 @@ public class Constants {
     public static final String GET_BY_EMAIL_QUERY = "select USER_FNAME, USER_LNAME, USER_ID from user where USER_EMAIL = ?";
 
     //Device queries
+    public static final String GET_DEVICE_NAME_BY_VID_ID_QUERY = "select device.device_name from device, video where device.device_id = video.device_id and video.vid_id = ?";
     public static final String CREATE_DEVICE_QUERY = "insert into device (DEVICE_NAME, DEVICE_MAC, DEVICE_IP) values (?,?,?)";
     public static final String GET_BY_DEVICE_ID_QUERY = "select DEVICE_ID, USER_ID, PERMISS_ID, DEVICE_NAME, DEVICE_MAC, DEVICE_IP from device where DEVICE_ID = ?";
     public static final String UPDATE_BY_DEVICE_ID_QUERY = "update device set DEVICE_NAME = ?, DEVICE_MAC = ?, DEVICE_IP = ? where DEVICE_ID = ?";
@@ -36,4 +37,6 @@ public class Constants {
     public static final String UPDATE_TAG_BY_ID_QUERY = "update tag set TAG_ID = ?, VID_ID = ?, TAG_NAME = ?";
     public static final String GET_TAG_BY_TAG_ID = "select TAG_ID, VID_ID, TAG_NAME from tag where TAG_ID = ?";
     public static final String CREATE_TAG_QUERY = "insert into tag (VID_ID, TAG_NAME) values (?,?)";
+    public static final String GET_TAG_BY_VIDEO_ID = "select TAG_ID, VID_ID, TAG_NAME from tag where VID_ID = ?";
+
 }

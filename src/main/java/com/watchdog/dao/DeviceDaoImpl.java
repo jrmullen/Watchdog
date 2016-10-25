@@ -66,6 +66,25 @@ public class DeviceDaoImpl implements DeviceDao {
     }
 
     @Override
+    public String getDeviceNameByVidId(int id) {
+        String device_name = "null";
+
+        //using RowMapper anonymous clas, we can create a separate RowMapper for reuse
+        Device device = jdbcTemplate.queryForObject(Constants.GET_DEVICE_NAME_BY_VID_ID_QUERY, new Object[]{id}, new RowMapper<Device>() {
+
+            @Override
+            public Device mapRow(ResultSet rs, int rowNum)
+                    throws SQLException {
+                Device device = new Device();
+                device.setDeviceName(rs.getString("DEVICE_NAME"));
+                return device;
+            }
+
+        });
+        return device.getDeviceName();
+    }
+
+    @Override
     public void update(Device device) {
 
         Object[] args = new Object[]{device.getDeviceName(), device.getDeviceIp(), device.getDeviceMac()};
