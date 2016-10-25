@@ -17,35 +17,101 @@
             <div class="container-fluid">
 
                 <div class="collapse navbar-collapse" id="headerNavbar">
-                    <ul class="nav nav-header nav-pills">
+
+                    <ul class="nav navbar-nav">
+
                         <li>
-                            <div class="navbar-header navbar-brand">
-                                <a th:href="@{/user_home}">Watchdog</a>
+                            <div class="navbar-header">
+                                <a class="navbar-brand" th:href="@{/}">Watchdog</a>
                             </div>
                         </li>
-                        <li><a href="/logview" th:href="@{/logview}">Log View</a></li>
-                        <li><a href="/device_manager" th:href="@{/device_manager}">Device Manager</a></li>
-                        <li><a href="#">Manage user permissions</a></li>
 
-                        <li class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()"> <!--#authorization.expression('!isAuthenticated()')}"-->
+                        <li sec:authorize="isAuthenticated()">
+                            <a href="/user_home" th:href="@{/user_home}">Home</a>
+                        </li>
+
+                        <li sec:authorize="hasAuthority('ROLE_ADMIN')">
+                            <a href="/logview" th:href="@{/logview}">Log View</a>
+                        </li>
+
+                        <li sec:authorize="hasAuthority('ROLE_ADMIN')">
+                            <a href="/device_manager" th:href="@{/device_manager}">Device Manager</a>
+                        </li>
+                        <li sec:authorize="hasAuthority('ROLE_ADMIN')">
+                            <a href="#">Manage user permissions</a>
+                        </li>
+                    </ul>
+                    <ul  class="nav navbar-nav navbar-right">
+                        <li sec:authorize="isAnonymous()">
                             <a href="/login" th:href="@{/login}"><span class="glyphicon glyphicon-log-out"></span> Login</a>
                         </li>
-                        <li class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
-                            <a href="/register" th:href="@{/register}">Register</a>
+                        <li  sec:authorize="isAnonymous()">
+                            <a href="/register" th:href="@{/register}"><span class="glyphicon glyphicon-user"></span> Register</a>
                         </li>
-                        <li class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+                        <li sec:authorize="isAuthenticated()">
+                            <p class="navbar-text">Logged in as: </p>
+                            <span class="navbar-text" sec:authentication="name"></span>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
                             <form action="/logout" method="post">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                 <button type="submit" class="btn btn-primary navbar-btn">Log out</button>
                             </form>
                         </li>
+                    </ul>
 
-                        <li class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div th:fragment="indexHeader">
+
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/bootstrap.custom.css" th:href="@{/css/bootstrap.custom.css}" />
+    <div style="text-align:center">
+        <div id="index-navbar-inverse" class="navbar-inverse">
+            <div class="container-fluid">
+
+                <div class="collapse navbar-collapse" id="headerNavbar">
+
+                    <ul class="nav navbar-nav">
+
+                        <li sec:authorize="isAuthenticated()">
+                            <a id="a-style" href="/user_home" th:href="@{/user_home}">Home</a>
+                        </li>
+
+                        <li sec:authorize="hasAuthority('ROLE_ADMIN')">
+                            <a id="a-style" href="/logview" th:href="@{/logview}">Log View</a>
+                        </li>
+
+                        <li sec:authorize="hasAuthority('ROLE_ADMIN')">
+                            <a id="a-style" href="/device_manager" th:href="@{/device_manager}">Device Manager</a>
+                        </li>
+                        <li sec:authorize="hasAuthority('ROLE_ADMIN')">
+                            <a id="a-style" href="#">Manage user permissions</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li sec:authorize="isAnonymous()">
+                            <a href="/login" th:href="@{/login}"><span class="glyphicon glyphicon-log-out"></span> Login</a>
+                        </li>
+                        <li  sec:authorize="isAnonymous()">
+                            <a href="/register" th:href="@{/register}"><span class="glyphicon glyphicon-user"></span> Register</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
                             <p class="navbar-text">Logged in as: </p>
                             <span class="navbar-text" sec:authentication="name"></span>
                         </li>
-
+                        <li sec:authorize="isAuthenticated()">
+                            <form action="/logout" method="post">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                <button type="submit" class="btn btn-primary navbar-btn">Log out</button>
+                            </form>
+                        </li>
                     </ul>
+
                 </div>
             </div>
         </div>
