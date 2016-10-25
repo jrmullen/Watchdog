@@ -20,6 +20,7 @@ public class ResetController {
     public String reset(User user) {
         return "reset";
     }
+
     @RequestMapping("/password")
     public String password(User user){
         return "password";
