@@ -39,6 +39,7 @@ public class LogController {
             Log log = new Log();
             Video video = videoList.get(i);
             List<Tag> tagList = tagDao.getByVidId(video.getVidId());
+
             String camera = deviceDao.getDeviceNameByVidId(video.getVidId());
 
             log.setRadioEntry(i);
@@ -46,7 +47,8 @@ public class LogController {
             log.setStartTime(String.valueOf(video.getTime()));
             log.setLength(String.valueOf(video.getLength()));
             log.setCamera(camera);
-
+            log.setTagList(tagList);
+            log.setTags(log.getTagsString());
             logList.add(log);
         }
 

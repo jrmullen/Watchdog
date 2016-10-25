@@ -1,6 +1,7 @@
 package com.watchdog.business;
 
 import java.util.Date;
+import java.util.List;
 
 public class Log {
     private int radioEntry;
@@ -8,14 +9,33 @@ public class Log {
     private String startTime;
     private String length;
     private String camera;
-    private String[] tagArray;
+    private List<Tag> tagList;
+    private String tags;
 
 
     //pull all tags for log and construct into string
-    public String getTags(){
-        String tagList = "null";
+    public String getTagsString(){
+        List<Tag> alpha = this.tagList;
+        String beta;
 
-        return tagList;
+        //The string builder used to construct the string
+        StringBuilder commaSepValueBuilder = new StringBuilder();
+        //Looping through the list
+        for ( int i = 0; i < alpha.size(); i++){
+            Tag j = alpha.get(i);
+            //append the value into the builder
+            commaSepValueBuilder.append(j.getTag_name());
+
+            //if the value is not the last element of the list
+            //then append the comma(,) as well
+            if ( i != alpha.size()-1){
+                commaSepValueBuilder.append(", ");
+            }
+        }
+
+        beta = commaSepValueBuilder.toString();
+
+        return beta;
     }
 
     public int getRadioEntry() {
@@ -58,11 +78,16 @@ public class Log {
         this.camera = camera;
     }
 
-    public String[] getTagArray() {
-        return tagArray;
+    public List<Tag> getTagList() {
+        return tagList;
     }
 
-    public void setTagArray(String[] tagArray) {
-        this.tagArray = tagArray;
+    public void setTagList(List<Tag> tagList) {
+        this.tagList = tagList;
     }
+
+
+    public String getTags() { return tags;}
+
+    public void setTags(String tags) { this.tags = tags;}
 }
