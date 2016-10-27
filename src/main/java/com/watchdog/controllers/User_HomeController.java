@@ -26,8 +26,8 @@ public class User_HomeController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = auth.getName(); //get logged in username
 
-        // String userId = userDao.getIdByEmail(userEmail);
-        // model.addAttribute("user", userDao.getById(userId));
+        int userId = userDao.getByEmail(userEmail).getId();
+        model.addAttribute("user", userDao.getById(userId));
         model.addAttribute("deviceList", deviceDao.getAll());
 
         return "user_home";
