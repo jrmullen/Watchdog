@@ -33,7 +33,7 @@
     <tr th:each="user, iter : ${userList}">
         <td th:text="${user.email}"></td>
         <td th:text="${user.firstName}"></td>
-        <td th:text="${user.lastname}"></td>
+        <td th:text="${user.lastName}"></td>
         <td>
             <form th:action="@{?changePermissionRoleUser}" th:object="${user}" method="post" class="in-line">
                 <input type="hidden" th:value="${user.permissionId}" name="id" />
