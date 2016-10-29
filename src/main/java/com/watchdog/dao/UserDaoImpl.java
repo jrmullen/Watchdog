@@ -29,7 +29,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void save(User user) {
-        Object[] args = new Object[]{user.getFirstName(), user.getLastName(), user.getEmail(), user.getEncodedPassword()};
+        Object[] args = new Object[]{1, user.getFirstName(), user.getLastName(), user.getEmail(), user.getEncodedPassword()};
 
         int out = jdbcTemplate.update(Constants.CREATE_USER_QUERY, args);
 
@@ -50,6 +50,8 @@ public class UserDaoImpl implements UserDao {
             public User mapRow(ResultSet rs, int rowNum)
                     throws SQLException {
                 User user = new User();
+                user.setId(rs.getInt("USER_ID"));
+                user.setPermissionId(rs.getInt("PERMISS_ID"));
                 user.setFirstName(rs.getString("USER_FNAME"));
                 user.setLastName(rs.getString("USER_LNAME"));
                 user.setEmail(rs.getString("USER_EMAIL"));
@@ -68,9 +70,11 @@ public class UserDaoImpl implements UserDao {
             public User mapRow(ResultSet rs, int rowNum)
                     throws SQLException {
                 User user = new User();
+                user.setId(rs.getInt("USER_ID"));
+                user.setPermissionId(rs.getInt("PERMISS_ID"));
                 user.setFirstName(rs.getString("USER_FNAME"));
                 user.setLastName(rs.getString("USER_LNAME"));
-                user.setId(rs.getInt("USER_ID"));
+                user.setEmail(rs.getString("USER_EMAIL"));
                 return user;
             }
         });
@@ -110,6 +114,7 @@ public class UserDaoImpl implements UserDao {
         for (Map<String, Object> userRow : userRows) {
             User user = new User();
             user.setId(Integer.parseInt(String.valueOf(userRow.get("USER_ID"))));
+            user.setPermissionId(Integer.parseInt(String.valueOf(userRow.get("PERMISS_ID"))));
             user.setFirstName(String.valueOf(userRow.get("USER_FNAME")));
             user.setLastName(String.valueOf(userRow.get("USER_LNAME")));
             user.setEmail(String.valueOf(userRow.get("USER_EMAIL")));
