@@ -29,7 +29,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void save(User user) {
-        Object[] args = new Object[]{1, user.getFirstName(), user.getLastName(), user.getEmail(), user.getEncodedPassword()};
+        Object[] args = new Object[]{2, user.getFirstName(), user.getLastName(), user.getEmail(), user.getEncodedPassword()};
 
         int out = jdbcTemplate.update(Constants.CREATE_USER_QUERY, args);
 
