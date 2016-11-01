@@ -1,4 +1,4 @@
-package com.watchdog;
+package com.watchdog.ControllerTests;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,20 +12,20 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Created by Jeremy on 11/1/2016.
+ * Created by jmullen on 9/26/16.
  */
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ResetControllerTests {
+public class LoginControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
 
+
     @Test
-    public void testDeviceManagerControllerStatus() throws Exception {
-        mockMvc.perform(get("/password.html")).andExpect(status().isOk());
-        mockMvc.perform(get("/reset.html")).andExpect(status().isOk());
+    public void testLoginControllerStatus() throws Exception {
+        mockMvc.perform(get("/login")).andExpect(status().isOk());
     }
 }

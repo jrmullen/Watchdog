@@ -1,8 +1,6 @@
-package com.watchdog;
+package com.watchdog.BusinessTests;
 
-import com.watchdog.business.User;
 import com.watchdog.business.Video;
-import com.watchdog.dao.UserDao;
 import com.watchdog.dao.VideoDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;

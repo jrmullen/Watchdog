@@ -1,4 +1,4 @@
-package com.watchdog;
+package com.watchdog.ControllerTests;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,14 +18,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class IndexControllerTests {
+public class User_HomeControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
 
 
     @Test
-    public void testIndexControllerStatus() throws Exception {
-        mockMvc.perform(get("/index.html")).andExpect(status().isOk());
+    public void testUser_HomeControllerStatus() throws Exception {
+        mockMvc.perform(get("/user_home")).andExpect(status().isOk());
     }
 }
