@@ -32,14 +32,6 @@
 
                     <div class="row container-fluid form-group">
                         <div class="col-md-12">
-                            <label for="email">Email:</label>
-                            <input type="text" class="form-control" id="email" th:value="${user.email}" th:field="*{email}" />
-                            <span class="help-block" th:if="${#fields.hasErrors('email')}">Invalid Email</span>
-                        </div>
-                    </div>
-
-                    <div class="row container-fluid form-group">
-                        <div class="col-md-12">
                             <label for="password">Password:</label>
                             <input type="password" class="form-control" id="password" th:field="*{password}" />
                             <span class="help-block" th:if="${#fields.hasErrors('password')}">Password must be
