@@ -1,10 +1,12 @@
-package com.watchdog.dao;
+package com.watchdog.dao.device;
 
 /**
  * Created by BBuck on 10/4/16.
  */
 
 import com.watchdog.business.Device;
+import com.watchdog.dao.Constants;
+import com.watchdog.dao.device.DeviceDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

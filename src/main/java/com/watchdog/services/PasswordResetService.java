@@ -1,7 +1,7 @@
 package com.watchdog.services;
 
 import com.watchdog.business.User;
-import com.watchdog.dao.UserDao;
+import com.watchdog.dao.user.UserDao;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.mail.*;

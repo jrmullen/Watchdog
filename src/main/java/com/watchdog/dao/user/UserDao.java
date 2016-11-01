@@ -1,4 +1,4 @@
-package com.watchdog.dao;
+package com.watchdog.dao.user;
 
 import com.watchdog.business.User;
 

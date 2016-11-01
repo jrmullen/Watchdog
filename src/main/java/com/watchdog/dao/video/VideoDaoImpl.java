@@ -1,21 +1,23 @@
-package com.watchdog.dao;
+package com.watchdog.dao.video;
 
 /**
  * Created by theNextThing on 10/12/2016.
  */
 
 import com.watchdog.business.Video;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.sql.*;
-import javax.sql.DataSource;
-
+import com.watchdog.dao.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+
+import javax.sql.DataSource;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class VideoDaoImpl implements VideoDao {
 

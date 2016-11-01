@@ -1,8 +1,7 @@
 package com.watchdog.controllers;
 
 import com.watchdog.business.Device;
-import com.watchdog.dao.DeviceDao;
-import com.watchdog.dao.DeviceDaoImpl;
+import com.watchdog.dao.device.DeviceDao;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

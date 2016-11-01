@@ -8,13 +8,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;*/
 // End imports for openCV
 
-import com.watchdog.business.User;
-import com.watchdog.dao.UserDao;
+import com.watchdog.dao.user.UserDao;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.util.List;
 
 @SpringBootApplication
 public class Application {

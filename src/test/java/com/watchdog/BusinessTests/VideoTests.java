@@ -1,7 +1,7 @@
 package com.watchdog.BusinessTests;
 
 import com.watchdog.business.Video;
-import com.watchdog.dao.VideoDao;
+import com.watchdog.dao.video.VideoDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;

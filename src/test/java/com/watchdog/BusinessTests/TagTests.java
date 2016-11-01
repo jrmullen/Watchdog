@@ -1,7 +1,7 @@
 package com.watchdog.BusinessTests;
 
 import com.watchdog.business.Tag;
-import com.watchdog.dao.TagDao;
+import com.watchdog.dao.tag.TagDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;

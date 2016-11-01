@@ -1,7 +1,7 @@
 package com.watchdog.BusinessTests;
 
 import com.watchdog.business.User;
-import com.watchdog.dao.UserDao;
+import com.watchdog.dao.user.UserDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
