@@ -23,6 +23,8 @@ public interface UserDao {
     //Update
     void update(User user);
 
+    void updatePermission(User user, int id);
+
     //Delete
     void deleteById(int id);
 

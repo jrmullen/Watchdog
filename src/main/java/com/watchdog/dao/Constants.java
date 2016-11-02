@@ -13,6 +13,7 @@ public class Constants {
     public static final String GET_ALL_USERS_QUERY = "select USER_ID, PERMISS_ID, USER_FNAME, USER_LNAME, USER_EMAIL from user";
     public static final String GET_BY_EMAIL_QUERY = "select USER_ID, PERMISS_ID, USER_FNAME, USER_LNAME, USER_EMAIL from user where USER_EMAIL = ?";
     public static final String GET_EMAIL_BY_EMAIL_QUERY = "select USER_EMAIL from user where USER_EMAIL = ?";
+    public static final String UPDATE_USER_PERMISSION_BY_EMAIL_QUERY = "update user set PERMISS_ID = ? where USER_EMAIL = ?";
 
 
     //Device queries

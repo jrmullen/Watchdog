@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Manage Permissions</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -30,50 +30,43 @@
 
 <h3 class="col-md-offset-1">Users</h3>
 <div th:if="${not #lists.isEmpty(userList)}">
-    <form th:action="@{?changePermissionRoleUser}" th:object="${user}" method="post" class="in-line">
-        <table id="less-margin-top">
-            <thead>
-                <tr>
-                    <th>Email</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Current Permission of User</th>
-                </tr>
 
-            </thead>
-            <tbody>
-                <tr th:each="user, iter : ${userList}">
-                    <td th:text="${user.email}"></td>
-                    <td th:text="${user.firstName}"></td>
-                    <td th:text="${user.lastName}"></td>
-                    <td>
-                        <select th:value="${user.id}" th:name="id">
+    <table id="less-margin-top">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Current Permission of User</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr th:each="user, iter : ${userList}">
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td>
+                    <form th:action="@{?changePermissionRoleUser}" th:object="${user}" method="post" class="in-line">
+                        <select th:value="${user.id}" th:id="${user.id}" th:name="id">
                             <div th:if="${user.permissionId == 2}">
-                                <option th:value="2" name="permissionId" th:selected="selected">User</option>
-                                <option th:value="1" name="permissionId">Admin</option>
+                                <option th:value="2" name="id" th:selected="selected">User</option>
+                                <option th:value="1" name="id">Admin</option>
                             </div>
                             <div  th:if="${user.permissionId == 1}">
-                                <option th:value="2" name="permissionId">User</option>
-                                <option th:value="1" name="permissionId" th:selected="selected">Admin</option>
+                                <option th:value="2" name="id">User</option>
+                                <option th:value="1" name="id" th:selected="selected">Admin</option>
                             </div>
                         </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>
+                        <input type="submit" value="Save Changes"/>
+                    </form>
 
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <button type="submit">Save Changes</button>
-    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
 </div>
-
-
 
 </body>
 </html>
