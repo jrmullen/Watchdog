@@ -2,8 +2,8 @@ package com.watchdog.controllers;
 
 import com.watchdog.business.Device;
 import com.watchdog.business.User;
-import com.watchdog.dao.DeviceDao;
-import com.watchdog.dao.UserDao;
+import com.watchdog.dao.device.DeviceDao;
+import com.watchdog.dao.user.UserDao;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -1,4 +1,4 @@
-package com.watchdog.dao;
+package com.watchdog.dao.user;
 
 /**
  * Created by jmullen on 9/20/16.
@@ -11,6 +11,8 @@ import java.util.*;
 
 import javax.sql.DataSource;
 
+import com.watchdog.dao.Constants;
+import com.watchdog.dao.user.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

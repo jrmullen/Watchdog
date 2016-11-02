@@ -1,7 +1,7 @@
-package com.watchdog;
+package com.watchdog.BusinessTests;
 
-import com.watchdog.business.User;
-import com.watchdog.dao.UserDao;
+import com.watchdog.business.Video;
+import com.watchdog.dao.video.VideoDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -12,22 +12,22 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Created by jmullen on 9/26/16.
+ * Created by Jeremy on 11/1/2016.
  */
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class UserTests {
+public class VideoTests {
 
     @Mock
-    private User user;
+    private Video video;
     @Mock
-    private UserDao userDao;
+    private VideoDao videoDao;
 
     @Test
     public void testMockCreation() {
-        assertNotNull(user);
-        assertNotNull(userDao);
+        assertNotNull(video);
+        assertNotNull(videoDao);
     }
 }
