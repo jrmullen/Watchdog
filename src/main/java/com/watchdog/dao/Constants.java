@@ -12,6 +12,8 @@ public class Constants {
     public static final String DELETE_USER_BY_ID_QUERY = "delete from user where USER_ID=?";
     public static final String GET_ALL_USERS_QUERY = "select USER_ID, PERMISS_ID, USER_FNAME, USER_LNAME, USER_EMAIL from user";
     public static final String GET_BY_EMAIL_QUERY = "select USER_ID, PERMISS_ID, USER_FNAME, USER_LNAME, USER_EMAIL from user where USER_EMAIL = ?";
+    public static final String GET_EMAIL_BY_EMAIL_QUERY = "select USER_EMAIL from user where USER_EMAIL = ?";
+
 
     //Device queries
     public static final String CREATE_DEVICE_QUERY = "insert into device (DEVICE_NAME, DEVICE_MAC, DEVICE_IP) values (?,?,?)";

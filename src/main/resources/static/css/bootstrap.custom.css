@@ -113,6 +113,10 @@ body {
     background-color: #e5ecf9;
 }
 
+#index-body {
+    background-color: white;
+}
+
 /* Footer styling */
 footer {
     text-align: center;

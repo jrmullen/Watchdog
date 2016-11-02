@@ -84,6 +84,27 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public boolean emailAlreadyExists(String email){
+        //using RowMapper anonymous class, we can create a separate RowMapper for reuse
+        try {
+            User user = jdbcTemplate.queryForObject(Constants.GET_EMAIL_BY_EMAIL_QUERY, new Object[]{email}, new RowMapper<User>() {
+
+                @Override
+                public User mapRow(ResultSet rs, int rowNum)
+                        throws SQLException {
+                    User user = new User();
+                    user.setEmail(rs.getString("USER_EMAIL"));
+                    return user;
+                }
+            });
+            return true;
+        }
+        catch(Exception e) {
+            return false;
+        }
+    }
+
+    @Override
     public void update(User user) {
 
         Object[] args = new Object[]{user.getFirstName(), user.getLastName(), user.getEmail(), user.getEncodedPassword(), user.getId()};
@@ -97,8 +118,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void deleteById(int id) {
-
-        String query = "delete from user where USER_ID=?";
 
         int out = jdbcTemplate.update(Constants.DELETE_USER_BY_ID_QUERY, id);
         if (out != 0) {
