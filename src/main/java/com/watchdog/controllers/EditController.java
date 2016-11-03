@@ -22,14 +22,14 @@ import javax.validation.Valid;
  */
 @Controller
 public class EditController {
-    //Initialize database and create Dao object
-    ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
-    UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class);
-
-    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
     @GetMapping(value = "/edit")
     public String register(User user, Model model) {
+        //Initialize database and create Dao object
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+        UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class);
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = auth.getName(); //get logged in username
 
         int userId = userDao.getByEmail(userEmail).getId();
@@ -42,6 +42,11 @@ public class EditController {
         if (bindingResult.hasErrors()) {
             return "edit";
         }
+        //Initialize database and create Dao object
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+        UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class);
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = auth.getName(); //get logged in username
         int userId = userDao.getByEmail(userEmail).getId();
 
