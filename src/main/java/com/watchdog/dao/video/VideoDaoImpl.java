@@ -85,20 +85,18 @@ public class VideoDaoImpl implements VideoDao {
 
         int out = jdbcTemplate.update(Constants.UPDATE_VIDEO_BY_ID_QUERY, args);
         if (out != 0) {
-            System.out.println("Video updated with id= " + video.getVidId());
-        } else System.out.println("No Video found with id= " + video.getVidId());
+            System.out.println("Video updated with id= " + video.getVideoId());
+        } else System.out.println("No Video found with id= " + video.getVideoId());
     }
 
 
     @Override
-    public void deleteById(int vid_id) {
+    public void deleteById(int videoId) {
 
-        String query = "delete from video where VID_ID=?";
-
-        int out = jdbcTemplate.update(Constants.DELETE_VIDEO_BY_ID_QUERY, vid_id);
+        int out = jdbcTemplate.update(Constants.DELETE_VIDEO_BY_ID_QUERY, videoId);
         if (out != 0) {
-            System.out.println("Video deleted with id= " + vid_id);
-        } else System.out.println("No Video found with id= " + vid_id);
+            System.out.println("Video deleted with id= " + videoId);
+        } else System.out.println("No Video found with id= " + videoId);
     }
 
     @Override
@@ -111,7 +109,7 @@ public class VideoDaoImpl implements VideoDao {
         for (Map<String, Object> videoRow : videoRows) {
             Video video = new Video();
 
-            video.setVidId(Integer.parseInt(String.valueOf(videoRow.get("VID_ID"))));
+            video.setVideoId(Integer.parseInt(String.valueOf(videoRow.get("VID_ID"))));
             video.setUserId(Integer.parseInt(String.valueOf(videoRow.get("USER_ID"))));
             video.setDeviceId(Integer.parseInt(String.valueOf(videoRow.get("DEVICE_ID"))));
             video.setLength(Time.valueOf(String.valueOf(videoRow.get("VID_LENGTH"))));
