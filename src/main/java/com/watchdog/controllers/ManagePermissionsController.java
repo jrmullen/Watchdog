@@ -5,8 +5,6 @@ import com.watchdog.business.User;
 import com.watchdog.dao.PermissionsDao;
 import com.watchdog.dao.user.UserDao;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,20 +33,18 @@ public class ManagePermissionsController {
     }
 
     @PostMapping(params = "changePermissionRoleUser")
-    public String addNew(@RequestParam int id,
+    public String addNew(@RequestParam int id, @RequestParam int permissionId,
                          Permissions permissions, User user, Model model) {
 
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
         PermissionsDao permissionsDao = ctx.getBean("permissionsDaoImpl", PermissionsDao.class);
         UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class);
 
-       /* if(user.getId() == 0 || user.getPermissionId() == 0) {
-            System.out.println("missing stuff");*/
 
+        model.addAttribute("id", user.getId());
+        model.addAttribute("permissionId", user.getPermissionId());
+        userDao.updatePermission(user);
 
-        user = userDao.getByEmail("test@gmail.com");
-            userDao.updatePermission(user, id);
-       // }
         model.addAttribute("permissionsList", permissionsDao.getAll());
         model.addAttribute("userList", userDao.getAll());
 

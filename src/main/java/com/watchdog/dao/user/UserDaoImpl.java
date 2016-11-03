@@ -116,14 +116,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void updatePermission(User user, int id) {
+    public void updatePermission(User user) {
 
-        Object[] args = new Object[]{id, user.getEmail()};
+        Object[] args = new Object[]{user.getPermissionId(), user.getId()};
 
-        int out = jdbcTemplate.update(Constants.UPDATE_USER_PERMISSION_BY_EMAIL_QUERY, args);
+        int out = jdbcTemplate.update(Constants.UPDATE_USER_PERMISSION_BY_ID_QUERY, args);
         if (out != 0) {
-            System.out.println("User updated with email= " + user.getEmail());
-        } else System.out.println("No User found with email= " + user.getEmail());
+            System.out.println("User updated with user id= " + user.getId());
+        } else System.out.println("No User found with user id= " + user.getId());
     }
 
     @Override

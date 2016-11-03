@@ -48,17 +48,18 @@
                 <td th:text="${user.lastName}"></td>
                 <td>
                     <form th:action="@{?changePermissionRoleUser}" th:object="${user}" method="post" class="in-line">
-                        <select th:value="${user.id}" th:id="${user.id}" th:name="id">
+                        <input type="hidden" th:value="${user.id}" name="id" />
+                        <select th:value="${user.id}" th:id="${user.permissionId}" th:name="permissionId">
                             <div th:if="${user.permissionId == 2}">
-                                <option th:value="2" name="id" th:selected="selected">User</option>
-                                <option th:value="1" name="id">Admin</option>
+                                <option th:value="2" name="permissionId" th:selected="selected">User</option>
+                                <option th:value="1" name="permissionId">Admin</option>
                             </div>
                             <div  th:if="${user.permissionId == 1}">
-                                <option th:value="2" name="id">User</option>
-                                <option th:value="1" name="id" th:selected="selected">Admin</option>
+                                <option th:value="2" name="permissionId">User</option>
+                                <option th:value="1" name="permissionId" th:selected="selected">Admin</option>
                             </div>
                         </select>
-                        <input type="submit" value="Save Changes"/>
+                        <input type="submit" value="Save"/>
                     </form>
 
                 </td>
