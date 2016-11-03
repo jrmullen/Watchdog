@@ -35,6 +35,7 @@
                             <label for="email">Email:</label>
                             <input type="text" class="form-control" id="email" th:field="*{email}" />
                             <span class="help-block" th:if="${#fields.hasErrors('email')}">Invalid Email</span>
+                            <span class="help-block" th:if="${duplicateEmail != null}" th:text="${duplicateEmail}"></span>
                         </div>
                     </div>
 
@@ -57,7 +58,7 @@
 
                     <div class="row container-fluid">
                         <div class="buttonGroup" align="right">
-                            <button type="reset" class="btn btn-info">
+                            <button type="button" class="btn btn-info" onclick="clearText()">
                                 <i class="fa fa-link"></i>
                                 Clear
                             </button>
@@ -72,6 +73,25 @@
             </div>
         </div>
     </div>
+
+    <script>
+    // clear form data
+    function clearText(){
+        // declare textbox variables
+        var tb0 = document.getElementById("firstName")
+        var tb1 = document.getElementById("lastName")
+        var tb2 = document.getElementById("email")
+        var tb3 = document.getElementById("password")
+        var tb4 = document.getElementById("passwordconfirm")
+
+        // clear textbox
+        tb0.value = '';
+        tb1.value = '';
+        tb2.value = '';
+        tb3.value = '';
+        tb4.value = '';
+    }
+    </script>
 </div>
 </body>
 </html>

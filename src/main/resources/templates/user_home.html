@@ -10,7 +10,6 @@
 <body>
 
 <div th:include="fragments/header :: header"></div>
-    <div class="panel panel-default">
 
         <h3 class="text-center">Welcome <span sec:authentication="name"></span></h3>
         <h3 class="col-md-offset-1">Video Feed</h3>
@@ -24,7 +23,6 @@
                 <p><iframe width="400" height="250" src="https://www.youtube.com/embed/4i_GFrlaStQ" frameborder="0"></iframe></p>
             </div>
         </div>
-    </div>
 
     <script type="text/javascript" th:src="@{/js/footer.js}" />
 
