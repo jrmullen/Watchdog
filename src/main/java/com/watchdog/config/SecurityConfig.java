@@ -35,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/user_home").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
                 .antMatchers("/device_manager").access("hasAnyRole('ROLE_ADMIN')")
+                .antMatchers("/edit").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
                 .and()
                 .formLogin().failureUrl("/login?error")
                 .defaultSuccessUrl("/user_home")

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>Edit</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}"
+          href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.css" rel="stylesheet" media="screen"/>
+</head>
+<body>
+<div th:include="fragments/header :: header"></div>
+<div class="row container-fluid" th:fragment="edit">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><h3 align="center">Edit Account Information</h3></div>
+            <div class="panel-body">
+
+                <form action="#" th:action="@{/edit}" th:object="${user}" method="post">
+                    <div class="row container-fluid form-group">
+                        <div class="col-md-12">
+                            <label for="firstName">First Name:</label>
+                            <input type="text" class="form-control" id="firstName" th:value="${user.firstName}"  th:field="*{firstName}" />
+                            <span class="help-block" th:if="${#fields.hasErrors('firstName')}">Please enter your first name</span>
+                        </div>
+                    </div>
+
+                    <div class="row container-fluid form-group">
+                        <div class="col-md-12">
+                            <label for="lastName">Last Name:</label>
+                            <input type="text" class="form-control" id="lastName" th:value="${user.lastName}" th:field="*{lastName}" />
+                            <span class="help-block" th:if="${#fields.hasErrors('lastName')}">Please enter your last name</span>
+                        </div>
+                    </div>
+
+                    <div class="row container-fluid form-group">
+                        <div class="col-md-12">
+                            <label for="password">Password:</label>
+                            <input type="password" class="form-control" id="password" th:field="*{password}" />
+                            <span class="help-block" th:if="${#fields.hasErrors('password')}">Password must be
+                                        at least 8 characters long</span>
+                        </div>
+                    </div>
+
+                    <div class="row container-fluid form-group">
+                        <div class="col-md-12">
+                            <label for="passwordconfirm">Confirm Password:</label>
+                            <input type="password" class="form-control" id="passwordconfirm" th:field="*{passwordConfirm}"/>
+                            <span class="help-block" th:if="${#fields.hasErrors('passwordConfirm')}">Password must match</span>
+                        </div>
+                    </div>
+
+                    <div class="row container-fluid">
+                        <div class="buttonGroup" align="right">
+                            <button type="reset" class="btn btn-info">
+                                <i class="fa fa-link"></i>
+                                Clear
+                            </button>
+
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa fa-upload"></i>
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

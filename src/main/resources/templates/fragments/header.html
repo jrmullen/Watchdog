@@ -35,6 +35,10 @@
                         </li>
 
                         <li sec:authorize="hasAuthority('ROLE_ADMIN')">
+                            <a href="/edit" th:href="@{/edit}">Edit</a>
+                        </li>
+
+                        <li sec:authorize="hasAuthority('ROLE_ADMIN')">
                             <a href="/device_manager" th:href="@{/device_manager}">Device Manager</a>
                         </li>
                         <li sec:authorize="hasAuthority('ROLE_ADMIN')">
