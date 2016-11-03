@@ -18,7 +18,7 @@ public interface UserDao {
 
     User getByEmail(String email);
 
-    boolean emailAlreadyExists(String email);
+    boolean checkEmailExists(String email);
 
     //Update
     void update(User user);
