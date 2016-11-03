@@ -7,10 +7,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
-import java.sql.SQLException;
 
 @Controller
 public class RegisterController {
@@ -37,7 +37,7 @@ public class RegisterController {
         model.addAttribute("password", user.getPassword());
         model.addAttribute("passwordConfirm", user.getPasswordConfirm());
 
-        if (userDao.emailAlreadyExists(user.getEmail())) {
+        if (userDao.checkEmailExists(user.getEmail())) {
             String duplicateEmail = "This email already exists for an account. " +
                                 "Please register with a different email address.";
             model.addAttribute("duplicateEmail", duplicateEmail);
