@@ -40,6 +40,9 @@
                         <li sec:authorize="hasAuthority('ROLE_ADMIN')">
                             <a href="/manage_permissions" th:href="@{/manage_permissions}">Manage Permissions</a>
                         </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <a href="/edit" th:href="@{/edit}">Edit Profile</a>
+                        </li>
                     </ul>
                     <ul  class="nav navbar-nav navbar-right">
                         <li sec:authorize="isAnonymous()">
@@ -91,6 +94,9 @@
                         </li>
                         <li sec:authorize="hasAuthority('ROLE_ADMIN')">
                             <a id="a-style" href="/manage_permissions" th:href="@{/manage_permissions}">Manage Permissions</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <a id="a-style" href="/edit" th:href="@{/edit}">Edit Profile</a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">

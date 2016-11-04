@@ -29,11 +29,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //This method defines which pages are available/restricted
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeRequests().anyRequest().authenticated();
+
         http
                 .authorizeRequests()
                 .antMatchers("/user_home").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+                .antMatchers("/edit").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
                 .antMatchers("/device_manager").access("hasAnyRole('ROLE_ADMIN')")
                 .antMatchers("/manage_permissions").access("hasAnyRole('ROLE_ADMIN')")
                 .and()
