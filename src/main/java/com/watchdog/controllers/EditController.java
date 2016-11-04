@@ -1,7 +1,7 @@
 package com.watchdog.controllers;
 
-import com.watchdog.dao.DeviceDao;
-import com.watchdog.dao.UserDao;
+import com.watchdog.dao.device.DeviceDao;
+import com.watchdog.dao.user.UserDao;
 import com.watchdog.services.UserUpdateService;
 import com.watchdog.business.User;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
