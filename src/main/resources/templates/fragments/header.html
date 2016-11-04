@@ -35,14 +35,13 @@
                         </li>
 
                         <li sec:authorize="hasAuthority('ROLE_ADMIN')">
-                            <a href="/edit" th:href="@{/edit}">Edit</a>
-                        </li>
-
-                        <li sec:authorize="hasAuthority('ROLE_ADMIN')">
                             <a href="/device_manager" th:href="@{/device_manager}">Device Manager</a>
                         </li>
                         <li sec:authorize="hasAuthority('ROLE_ADMIN')">
                             <a href="#">Manage user permissions</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <a href="/edit" th:href="@{/edit}">Edit Profile</a>
                         </li>
                     </ul>
                     <ul  class="nav navbar-nav navbar-right">
@@ -95,6 +94,9 @@
                         </li>
                         <li sec:authorize="hasAuthority('ROLE_ADMIN')">
                             <a id="a-style" href="#">Manage user permissions</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <a id="a-style" href="/edit" th:href="@{/edit}">Edit Profile</a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
