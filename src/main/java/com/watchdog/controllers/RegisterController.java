@@ -1,6 +1,7 @@
 package com.watchdog.controllers;
 
 
+import com.watchdog.business.Tag;
 import com.watchdog.business.User;
 import com.watchdog.dao.user.UserDao;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.validation.Valid;
 
 @Controller
-public class RegisterController {
+public class RegisterController{
 
     @GetMapping(value = "/register")
     public String register(User user) {
