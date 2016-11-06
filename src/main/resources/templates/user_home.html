@@ -20,7 +20,7 @@
         <div class="row" th:if="${not #lists.isEmpty(deviceList)}">
             <div class="col-md-4 col-md-offset-1" th:each="device, iter : ${deviceList}">
                 <h5 th:text="'Cam ' + ${iter.index + 1} + ': ' + ${device.deviceName}"></h5>
-                <p><iframe width="400" height="250" src="https://www.youtube.com/embed/4i_GFrlaStQ" frameborder="0"></iframe></p>
+                <p><img src="http://192.168.0.110:8080/stream/video.mjpeg" th:width="300" th:height="300" alt="image"> </img></p>
             </div>
         </div>
 
