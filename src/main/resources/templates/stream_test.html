@@ -7,28 +7,7 @@
           href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.css" rel="stylesheet" media="screen"/>
 </head>
 <body>
-
-<video autoplay="true"></video>
-
-<script>
-    var errorCallback = function(e) {
-        console.log('Reeeejected!', e);
-    };
-
-    navigator.getUserMedia  = navigator.getUserMedia ||
-                              navigator.webkitGetUserMedia ||
-                              navigator.mozGetUserMedia ||
-                              navigator.msGetUserMedia;
-
-    var video = document.querySelector('video');
-
-    if (navigator.getUserMedia) {
-        navigator.getUserMedia({audio: false, video: true}, function(stream) {
-            video.src = window.URL.createObjectURL(stream);
-        }, errorCallback);
-    } else {
-    }
-</script>
+<img src="192.168.20.4.1:8081"> </img>
 
 </body>
 </html>

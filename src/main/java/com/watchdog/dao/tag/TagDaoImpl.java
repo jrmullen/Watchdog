@@ -1,15 +1,15 @@
-package com.watchdog.dao;
+package com.watchdog.dao.tag;
 
 import com.watchdog.business.Tag;
+import com.watchdog.dao.Constants;
+import com.watchdog.dao.tag.TagDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,16 +29,16 @@ public class TagDaoImpl implements TagDao {
     //Create
     @Override
     public void save(Tag tag) {
-        Object[] args = new Object[]{tag.getVid_id(), tag.getTag_name()};
+        Object[] args = new Object[]{tag.getVidId(), tag.getTagName()};
 
         int out = jdbcTemplate.update(Constants.CREATE_TAG_QUERY, args);
 
         if (out != 0) {
-            System.out.println("Tag " + tag.getTag_name() + " "  + tag.getTag_id() + " " +
-                    tag.getVid_id() + " saved");
+            System.out.println("Tag " + tag.getTagName() + " "  + tag.getTagId() + " " +
+                    tag.getVidId() + " saved");
 
-        } else System.out.println("Tag " + tag.getTag_name() + " "  + tag.getTag_id() + " " +
-                tag.getVid_id() + " failed");
+        } else System.out.println("Tag " + tag.getTagName() + " "  + tag.getTagId() + " " +
+                tag.getVidId() + " failed");
     }
 
     //Read
@@ -53,9 +53,9 @@ public class TagDaoImpl implements TagDao {
                     throws SQLException {
 
                 Tag tag = new Tag();
-                tag.setTag_id(rs.getInt("TAG_ID"));
-                tag.setVid_id((rs.getInt("VID_ID")));
-                tag.setTag_name(rs.getString("TAG_NAME"));
+                tag.setTagId(rs.getInt("TAG_ID"));
+                tag.setVidId((rs.getInt("VID_ID")));
+                tag.setTagName(rs.getString("TAG_NAME"));
                 return tag;
             }
         });
@@ -83,12 +83,12 @@ public class TagDaoImpl implements TagDao {
     @Override
     public void update(Tag tag) {
 
-        Object[] args = new Object[]{tag.getTag_id(), tag.getVid_id(), tag.getTag_name()};
+        Object[] args = new Object[]{tag.getTagId(), tag.getVidId(), tag.getTagName()};
 
         int out = jdbcTemplate.update(Constants.UPDATE_TAG_BY_ID_QUERY, args);
         if (out != 0) {
-            System.out.println("Tag updated with id= " + tag.getTag_id());
-        } else System.out.println("No Tag found with id= " + tag.getTag_id());
+            System.out.println("Tag updated with id= " + tag.getTagId());
+        } else System.out.println("No Tag found with id= " + tag.getTagId());
     }
 
     //Delete
@@ -121,9 +121,9 @@ public class TagDaoImpl implements TagDao {
         for (Map<String, Object> tagRow : tagRows) {
             Tag tag = new Tag();
 
-            tag.setTag_id(Integer.parseInt(String.valueOf(tagRow.get("TAG_ID"))));
-            tag.setVid_id(Integer.parseInt(String.valueOf("VID_ID")));
-            tag.setTag_name(String.valueOf(tagRow.get("TAG_NAME")));
+            tag.setTagId(Integer.parseInt(String.valueOf(tagRow.get("TAG_ID"))));
+            tag.setVidId(Integer.parseInt(String.valueOf("VID_ID")));
+            tag.setTagName(String.valueOf(tagRow.get("TAG_NAME")));
             tagList.add(tag);
         }
         return tagList;

@@ -1,23 +1,24 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <title>Register</title>
+    <title>Edit</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}"
           href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.css" rel="stylesheet" media="screen"/>
 </head>
 <body>
-<div class="row container-fluid" th:fragment="register">
+<div th:include="fragments/header :: header"></div>
+<div class="row container-fluid" th:fragment="edit">
     <div class="col-md-6 col-md-offset-3">
         <div class="panel panel-primary">
-            <div class="panel-heading"><h3 align="center">Register an account</h3></div>
+            <div class="panel-heading"><h3 align="center">Edit Account Information</h3></div>
             <div class="panel-body">
 
-                <form action="#" th:action="@{/register}" th:object="${user}" method="post">
+                <form action="#" th:action="@{/edit}" th:object="${user}" method="post">
                     <div class="row container-fluid form-group">
                         <div class="col-md-12">
                             <label for="firstName">First Name:</label>
-                            <input type="text" class="form-control" id="firstName" th:field="*{firstName}" />
+                            <input type="text" class="form-control" id="firstName" th:value="${user.firstName}"  th:field="*{firstName}" />
                             <span class="help-block" th:if="${#fields.hasErrors('firstName')}">Please enter your first name</span>
                         </div>
                     </div>
@@ -25,17 +26,8 @@
                     <div class="row container-fluid form-group">
                         <div class="col-md-12">
                             <label for="lastName">Last Name:</label>
-                            <input type="text" class="form-control" id="lastName" th:field="*{lastName}" />
+                            <input type="text" class="form-control" id="lastName" th:value="${user.lastName}" th:field="*{lastName}" />
                             <span class="help-block" th:if="${#fields.hasErrors('lastName')}">Please enter your last name</span>
-                        </div>
-                    </div>
-
-                    <div class="row container-fluid form-group">
-                        <div class="col-md-12">
-                            <label for="email">Email:</label>
-                            <input type="text" class="form-control" id="email" th:field="*{email}" />
-                            <span class="help-block" th:if="${#fields.hasErrors('email')}">Invalid Email</span>
-                            <span class="help-block" th:if="${duplicateEmail != null}" th:text="${duplicateEmail}"></span>
                         </div>
                     </div>
 
@@ -58,7 +50,7 @@
 
                     <div class="row container-fluid">
                         <div class="buttonGroup" align="right">
-                            <button type="button" class="btn btn-info" onclick="clearText()">
+                            <button type="reset" class="btn btn-info">
                                 <i class="fa fa-link"></i>
                                 Clear
                             </button>
@@ -73,25 +65,6 @@
             </div>
         </div>
     </div>
-
-    <script>
-    // clear form data
-    function clearText(){
-        // declare textbox variables
-        var tb0 = document.getElementById("firstName")
-        var tb1 = document.getElementById("lastName")
-        var tb2 = document.getElementById("email")
-        var tb3 = document.getElementById("password")
-        var tb4 = document.getElementById("passwordconfirm")
-
-        // clear textbox
-        tb0.value = '';
-        tb1.value = '';
-        tb2.value = '';
-        tb3.value = '';
-        tb4.value = '';
-    }
-    </script>
 </div>
 </body>
 </html>

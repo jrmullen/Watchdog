@@ -6,7 +6,7 @@ import java.sql.Time;
 
 public class Video {
 
-    private int vidId;
+    private int videoId;
     private int userId;
     private int deviceId;
     private Time length;
@@ -19,11 +19,11 @@ public class Video {
     private boolean isEncrypted;
     private long size;
 
-    public void setVidId(int vidId){
-        this.vidId = vidId;
+    public void setVideoId(int videoId){
+        this.videoId = videoId;
     }
 
-    public int getVidId(){return vidId; }
+    public int getVideoId(){return videoId; }
 
     public int getUserId() { return userId; }
 

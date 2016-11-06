@@ -1,4 +1,4 @@
-package com.watchdog.dao;
+package com.watchdog.dao.user;
 
 import com.watchdog.business.User;
 
@@ -16,7 +16,9 @@ public interface UserDao {
     //Read
     User getById(int id);
 
-    User getByEmail(String id);
+    User getByEmail(String email);
+
+    boolean checkEmailExists(String email);
 
     //Update
     void update(User user);

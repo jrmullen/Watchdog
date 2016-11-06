@@ -1,19 +1,21 @@
-package com.watchdog.dao;
+package com.watchdog.dao.user;
 
 /**
  * Created by jmullen on 9/20/16.
  */
 
 import com.watchdog.business.User;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.*;
-
-import javax.sql.DataSource;
-
+import com.watchdog.dao.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+
+import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class UserDaoImpl implements UserDao {
 
@@ -62,7 +64,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getByEmail(String email){
         //using RowMapper anonymous class, we can create a separate RowMapper for reuse
-        User user = jdbcTemplate.queryForObject(Constants.GET_BY_EMAIL_QUERY, new Object[]{email}, new RowMapper<User>() {
+        User user = jdbcTemplate.queryForObject(Constants.GET_USER_BY_EMAIL_QUERY, new Object[]{email}, new RowMapper<User>() {
 
             @Override
             public User mapRow(ResultSet rs, int rowNum)
@@ -75,6 +77,27 @@ public class UserDaoImpl implements UserDao {
             }
         });
         return user;
+    }
+
+    @Override
+    public boolean checkEmailExists(String email){
+        //using RowMapper anonymous class, we can create a separate RowMapper for reuse
+        try {
+            User user = jdbcTemplate.queryForObject(Constants.SELECT_EMAIL_QUERY, new Object[]{email}, new RowMapper<User>() {
+
+                @Override
+                public User mapRow(ResultSet rs, int rowNum)
+                        throws SQLException {
+                    User user = new User();
+                    user.setEmail(rs.getString("USER_EMAIL"));
+                    return user;
+                }
+            });
+            return true;
+        }
+        catch(Exception e) {
+            return false;
+        }
     }
 
     @Override
@@ -91,8 +114,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void deleteById(int id) {
-
-        String query = "delete from user where USER_ID=?";
 
         int out = jdbcTemplate.update(Constants.DELETE_USER_BY_ID_QUERY, id);
         if (out != 0) {

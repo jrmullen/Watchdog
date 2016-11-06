@@ -1,4 +1,4 @@
-package com.watchdog.dao;
+package com.watchdog.dao.video;
 
 import com.watchdog.business.Video;
 import java.util.List;
