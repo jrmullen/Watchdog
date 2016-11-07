@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class User_HomeController {
 
     @RequestMapping(value = "/user_home", method = RequestMethod.GET)
-    public String listVideos(Device device, Model model){
+    public String listVideos(Device device, User user, Model model){
 
         //Initialize database and create Dao object
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
@@ -24,10 +24,8 @@ public class User_HomeController {
         UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        //User user = new User();
         String email = auth.getName(); // Get email of currently logged in user
-
-        User user = userDao.getByEmail(email);
+        user = userDao.getByEmail(email);
         model.addAttribute("firstName", user.getFirstName());
         model.addAttribute("deviceList", deviceDao.getAll());
 

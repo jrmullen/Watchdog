@@ -107,9 +107,7 @@ public class DeviceDaoImpl implements DeviceDao {
             device.setDeviceName(String.valueOf(deviceRow.get("DEVICE_NAME")));
             device.setDeviceMac(String.valueOf(deviceRow.get("DEVICE_MAC")));
             device.setDeviceIp(String.valueOf(deviceRow.get("DEVICE_IP")));
-            if (null == deviceRow.get("DEVICE_PORT"))
-                System.out.println("Null value in database");
-            else {
+            if (null != deviceRow.get("DEVICE_PORT")) {
                 device.setDevicePort(Integer.parseInt(String.valueOf(deviceRow.get("DEVICE_PORT"))));
             }
             device.buildDeviceUrl(device.getDeviceIp(), device.getDevicePort());
