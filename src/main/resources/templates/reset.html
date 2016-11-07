@@ -24,6 +24,8 @@
 
                             <label for="email">Email: </label>
                             <input type="text" class="form-control" id="email" th:field="*{email}" />
+                            <span class="help-block" th:if="${#fields.hasErrors('email')}">Invalid Email</span>
+                            <span class="help-block" th:if="${newEmail != null}" th:text="${newEmail}"></span>
                         </div>
                     </div>
 
@@ -45,4 +47,3 @@
 <script type="text/javascript" th:src="@{/footer.js}" />
 </body>
 </html>
-

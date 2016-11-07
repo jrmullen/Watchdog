@@ -3,6 +3,7 @@ package com.watchdog.services;
 import com.watchdog.business.User;
 import com.watchdog.dao.user.UserDao;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.dao.EmptyResultDataAccessException;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -15,10 +16,14 @@ import java.util.Random;
  */
 public class PasswordResetService {
 
-    public static void resetPass(User user) {
+    public static Boolean resetPass(User user) {
         //Initialize database and create UserDao object
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
         UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class); //first parameter is the id found in the spring.xml file
+        if(!userDao.checkEmailExists(user.getEmail()))
+        {
+            return false;
+        }
         User user2 = userDao.getByEmail(user.getEmail());
         user2.setEmail(user.getEmail());
         Random rnd = new Random();
@@ -27,6 +32,7 @@ public class PasswordResetService {
         user2.setEncodedPassword(pass.toCharArray());
         userDao.update(user2);
         Sendmail(pass, user.getEmail());
+        return true;
     }
 
     public static String generateString(Random rng, String characters, int length) {
@@ -38,7 +44,7 @@ public class PasswordResetService {
     }
 
     public static void Sendmail(String pass, String email) {
-        final String username = "watchdogprojectcse480@gmail.com";
+        final String username = "WatchdogProjectCSE480@gmail.com";
         final String password = "Watchdog480";
 
         Properties props = new Properties();
