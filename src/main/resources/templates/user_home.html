@@ -11,7 +11,7 @@
 
 <div th:include="fragments/header :: header"></div>
 
-        <h3 class="text-center">Welcome <span sec:authentication="name"></span></h3>
+        <h3 class="text-center">Welcome <span th:text="${firstName}"></span>!</h3>
         <h3 class="col-md-offset-1">Video Feed</h3>
         <p class="col-md-offset-1">Click on one of your devices to view security footage being recorded in real-time.</p>
 
