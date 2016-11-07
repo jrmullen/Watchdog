@@ -8,10 +8,11 @@
     <script src='http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js'></script>
 </head>
 
-<body>
 <div th:include="fragments/header :: header"></div>
+<br />
+<body>
 
- <form th:action="@{?addDevice}" th:object="${device}" method="post" id="devices" class="in-line">
+ <form th:action="@{?addDevice}" th:object="${device}" method="post" id="devices" class="in-line" align="center">
 
     <div id="centered">
         <input type="text" class="in-line" id="deviceName" th:field="*{deviceName}" placeholder="Device Name" />
@@ -21,6 +22,7 @@
         <input type="button" class="btn btn-info" onclick="clearText()" value="Clear" />
 
     </div>
+
 </form>
 
 <table th:if="${not #lists.isEmpty(deviceList)}">

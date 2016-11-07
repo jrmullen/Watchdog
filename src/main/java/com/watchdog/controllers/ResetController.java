@@ -33,9 +33,16 @@ public class ResetController {
             return "reset";
         }
         model.addAttribute("email", user.getEmail());
-        PasswordResetService.resetPass(user);
-        return "/password";
+        if (PasswordResetService.resetPass(user)) {
+            return "/password";
+        }
+        String newEmail = "This email does not exist in connection with an account. " +
+                "Please register with a different email address.";
+        model.addAttribute("newEmail", newEmail);
+
+        return "reset";
     }
+
 
 }
 
