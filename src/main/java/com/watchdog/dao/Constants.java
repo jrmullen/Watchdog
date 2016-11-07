@@ -16,10 +16,10 @@ public class Constants {
 
     //Device queries
     public static final String CREATE_DEVICE_QUERY = "insert into device (DEVICE_NAME, DEVICE_MAC, DEVICE_IP) values (?,?,?)";
-    public static final String GET_BY_DEVICE_ID_QUERY = "select DEVICE_ID, USER_ID, PERMISS_ID, DEVICE_NAME, DEVICE_MAC, DEVICE_IP from device where DEVICE_ID = ?";
+    public static final String GET_BY_DEVICE_ID_QUERY = "select DEVICE_ID, USER_ID, PERMISS_ID, DEVICE_NAME, DEVICE_MAC, DEVICE_IP, DEVICE_PORT from device where DEVICE_ID = ?";
     public static final String UPDATE_BY_DEVICE_ID_QUERY = "update device set DEVICE_NAME = ?, DEVICE_MAC = ?, DEVICE_IP = ? where DEVICE_ID = ?";
     public static final String DELETE_DEVICE_BY_ID_QUERY = "delete from device where DEVICE_ID = ?";
-    public static final String GET_ALL_DEVICES_QUERY = "select DEVICE_ID, USER_ID, PERMISS_ID, DEVICE_NAME, DEVICE_MAC, DEVICE_IP from device";
+    public static final String GET_ALL_DEVICES_QUERY = "select DEVICE_ID, USER_ID, PERMISS_ID, DEVICE_NAME, DEVICE_MAC, DEVICE_IP, DEVICE_PORT from device";
 
 
 
