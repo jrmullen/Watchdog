@@ -18,7 +18,7 @@
                         <div class="col-md-12">
                             <label for="firstName">First Name:</label>
                             <input type="text" class="form-control" id="firstName" th:field="*{firstName}" />
-                            <span class="help-block" th:if="${#fields.hasErrors('firstName')}">Please enter your first name</span>
+                            <span class="help-block" style="color:red" th:if="${#fields.hasErrors('firstName')}">Please enter your first name</span>
                         </div>
                     </div>
 
@@ -26,7 +26,7 @@
                         <div class="col-md-12">
                             <label for="lastName">Last Name:</label>
                             <input type="text" class="form-control" id="lastName" th:field="*{lastName}" />
-                            <span class="help-block" th:if="${#fields.hasErrors('lastName')}">Please enter your last name</span>
+                            <span class="help-block" style="color:red" th:if="${#fields.hasErrors('lastName')}">Please enter your last name</span>
                         </div>
                     </div>
 
@@ -34,8 +34,12 @@
                         <div class="col-md-12">
                             <label for="email">Email:</label>
                             <input type="text" class="form-control" id="email" th:field="*{email}" />
+<<<<<<< HEAD
+                            <span class="help-block" style="color:red" th:if="${#fields.hasErrors('email')}">Invalid Email</span>
+=======
                             <span class="help-block" th:if="${#fields.hasErrors('email')}">Invalid Email</span>
                             <span class="help-block" th:if="${duplicateEmail != null}" th:text="${duplicateEmail}"></span>
+>>>>>>> c1f2680e8068868d6726c0f5d2170a177726f001
                         </div>
                     </div>
 
@@ -43,7 +47,7 @@
                         <div class="col-md-12">
                             <label for="password">Password:</label>
                             <input type="password" class="form-control" id="password" th:field="*{password}" />
-                            <span class="help-block" th:if="${#fields.hasErrors('password')}">Password must be
+                            <span class="help-block" style="color:red" th:if="${#fields.hasErrors('password')}">Password must be
                                         at least 8 characters long</span>
                         </div>
                     </div>
@@ -52,7 +56,7 @@
                         <div class="col-md-12">
                             <label for="passwordconfirm">Confirm Password:</label>
                             <input type="password" class="form-control" id="passwordconfirm" th:field="*{passwordConfirm}"/>
-                            <span class="help-block" th:if="${#fields.hasErrors('passwordConfirm')}">Password must match</span>
+                            <span class="help-block" style="color:red" th:if="${#fields.hasErrors('passwordConfirm')}">Password must match</span>
                         </div>
                     </div>
 
