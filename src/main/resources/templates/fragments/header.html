@@ -20,7 +20,7 @@
                 <li><a href="/device_manager" th:href="@{/device_manager}">Device Manager</a></li>
                 <li><a href="#">Manage user permissions</a></li>
 
-                <li class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()"> <!--#authorization.expression('!isAuthenticated()')}"-->
+                <li class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
                     <a href="/login" th:href="@{/login}"><span class="glyphicon glyphicon-log-out"></span> Login</a>
                 </li>
                 <li class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
@@ -45,7 +45,7 @@
 
 </div>
 </div>
-<!-- document.write(""); Note to self, get rid of all html tags up to body and put html into document.write for header when done -->
+
 
 
 </body>
