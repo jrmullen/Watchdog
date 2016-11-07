@@ -1,46 +1,34 @@
 package com.watchdog.controllers;
 
-import com.watchdog.business.Video;
-import com.watchdog.dao.VideoDao;
-import com.watchdog.dao.VideoDaoImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.watchdog.business.Device;
+import com.watchdog.business.User;
+import com.watchdog.dao.device.DeviceDao;
+import com.watchdog.dao.user.UserDao;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class User_HomeController {
 
-
-   // @RequestMapping("/user_home")
-    //public void userHome(){
-    //}
-
-    //@GetMapping(value = "/user_home")
-    //public String user_home(Video video) {
-       // return "user_home";
-    //}
-
-    //@RequestMapping(value = "/user_home", method = RequestMethod.GET)
-    //public String index(Principal principal) {
-     //   return principal != null ? "user_home" : "user_home";
-    //}
-
-    //@PostMapping(value = "/user_home")
     @RequestMapping(value = "/user_home", method = RequestMethod.GET)
-    public String listVideos(Video video, Model model){
+    public String listVideos(Device device, User user, Model model){
 
-        //Initialize database and create DeviceDao object
+        //Initialize database and create Dao object
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
-        VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class); //first parameter is the id found in the spring.xml file
-        video = new Video();
-        video = videoDao.getById(2);
+        DeviceDao deviceDao = ctx.getBean("deviceDaoImpl", DeviceDao.class); //first parameter is the id found in the spring.xml file
+        UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class);
 
-        model.addAttribute("title", video.getTitle());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String userEmail = auth.getName(); //get logged in username
+
+        // String userId = userDao.getIdByEmail(userEmail);
+        // model.addAttribute("user", userDao.getById(userId));
+        model.addAttribute("deviceList", deviceDao.getAll());
 
         return "user_home";
     }

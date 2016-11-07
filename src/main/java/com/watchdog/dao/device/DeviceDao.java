@@ -1,4 +1,4 @@
-package com.watchdog.dao;
+package com.watchdog.dao.device;
 
 import com.watchdog.business.Device;
 
@@ -13,20 +13,20 @@ public interface DeviceDao {
 
 
     //Create
-    public void save (Device device);
+    void save (Device device);
 
 
     //Read
-    public Device getById (int id);
+    Device getById (int id);
 
 
     //Update
-    public void update (Device device);
+    void update (Device device);
 
     //Delete
-    public void deleteById (int id);
+    void deleteById (int id);
 
 
     //Get all
-    public List<Device> getall();
+    List<Device> getAll();
 }

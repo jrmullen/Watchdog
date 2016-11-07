@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
       sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
+    <link rel="stylesheet" type="text/css" href="src/main/resources/static/css/bootstrap.custom.css"/>
     <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}"
@@ -9,6 +10,7 @@
 </head>
 <body>
 <div th:fragment="header">
+<<<<<<< HEAD
 <div style="text-align:center"><img class="img-responsive" th:src="@{/images/sky_small_blue_lense_light_logo.PNG}" />
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
@@ -39,14 +41,121 @@
                 </li>
 
             </ul>
+=======
+
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/bootstrap.custom.css" th:href="@{/css/bootstrap.custom.css}" />
+    <div style="text-align:center"><img class="img-responsive" th:src="@{/images/sky_small_blue_lense_light_logo.PNG}" />
+        <div class="navbar-inverse">
+            <div class="container-fluid">
+
+                <div class="collapse navbar-collapse" id="headerNavbar">
+
+                    <ul class="nav navbar-nav">
+
+                        <li>
+                            <div class="navbar-header">
+                                <a class="navbar-brand" th:href="@{/}">Watchdog</a>
+                            </div>
+                        </li>
+
+                        <li sec:authorize="isAuthenticated()">
+                            <a href="/user_home" th:href="@{/user_home}">Home</a>
+                        </li>
+
+                        <li sec:authorize="hasAuthority('ROLE_ADMIN')">
+                            <a href="/logview" th:href="@{/logview}">Log View</a>
+                        </li>
+
+                        <li sec:authorize="hasAuthority('ROLE_ADMIN')">
+                            <a href="/device_manager" th:href="@{/device_manager}">Device Manager</a>
+                        </li>
+                        <li sec:authorize="hasAuthority('ROLE_ADMIN')">
+                            <a href="#">Manage user permissions</a>
+                        </li>
+                    </ul>
+                    <ul  class="nav navbar-nav navbar-right">
+                        <li sec:authorize="isAnonymous()">
+                            <a href="/login" th:href="@{/login}"><span class="glyphicon glyphicon-log-out"></span> Login</a>
+                        </li>
+                        <li  sec:authorize="isAnonymous()">
+                            <a href="/register" th:href="@{/register}"><span class="glyphicon glyphicon-user"></span> Register</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <p class="navbar-text">Logged in as: </p>
+                            <span class="navbar-text" sec:authentication="name"></span>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <form action="/logout" method="post">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                <button type="submit" class="btn btn-primary navbar-btn">Log out</button>
+                            </form>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+>>>>>>> c1f2680e8068868d6726c0f5d2170a177726f001
         </div>
+
     </div>
-</nav>
-
 </div>
+<<<<<<< HEAD
 </div>
 
+=======
+>>>>>>> c1f2680e8068868d6726c0f5d2170a177726f001
 
+<div th:fragment="indexHeader">
+
+    <link rel="stylesheet" type="text/css" media="all" href="../static/css/bootstrap.custom.css" th:href="@{/css/bootstrap.custom.css}" />
+    <div style="text-align:center">
+        <div id="index-navbar-inverse" class="navbar-inverse">
+            <div class="container-fluid">
+
+                <div class="collapse navbar-collapse" id="headerNavbar">
+
+                    <ul class="nav navbar-nav">
+
+                        <li sec:authorize="isAuthenticated()">
+                            <a id="a-style" href="/user_home" th:href="@{/user_home}">Home</a>
+                        </li>
+
+                        <li sec:authorize="hasAuthority('ROLE_ADMIN')">
+                            <a id="a-style" href="/logview" th:href="@{/logview}">Log View</a>
+                        </li>
+
+                        <li sec:authorize="hasAuthority('ROLE_ADMIN')">
+                            <a id="a-style" href="/device_manager" th:href="@{/device_manager}">Device Manager</a>
+                        </li>
+                        <li sec:authorize="hasAuthority('ROLE_ADMIN')">
+                            <a id="a-style" href="#">Manage user permissions</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li sec:authorize="isAnonymous()">
+                            <a href="/login" th:href="@{/login}"><span class="glyphicon glyphicon-log-out"></span> Login</a>
+                        </li>
+                        <li  sec:authorize="isAnonymous()">
+                            <a href="/register" th:href="@{/register}"><span class="glyphicon glyphicon-user"></span> Register</a>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <p class="navbar-text">Logged in as: </p>
+                            <span class="navbar-text" sec:authentication="name"></span>
+                        </li>
+                        <li sec:authorize="isAuthenticated()">
+                            <form action="/logout" method="post">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                <button type="submit" class="btn btn-primary navbar-btn">Log out</button>
+                            </form>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 </body>
 </html>

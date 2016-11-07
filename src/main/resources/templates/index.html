@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>Project WatchDog</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}"
+          href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.css" rel="stylesheet" media="screen"/>
+
+</head>
+<body id="index-body">
+
+<!-- Navbar -->
+<div th:include="fragments/header :: indexHeader"></div>
+
+<div class="container-fluid bg-1 text-center">
+    <img src="http://i67.tinypic.com/2d0uw8.jpg" class="img-responsive" style="display:inline" alt="camera" width="450" height="450" />
+</div>
+
+<link rel="stylesheet" type="text/css" media="all" href="../static/css/bootstrap.custom.css" th:href="@{/css/bootstrap.custom.css}" />
+<div id="index-index-image" class="container-fluid bg-2 text-center">
+    <h3 class="margin">Security monitoring made easier...</h3><br />
+    <div class="row">
+        <div class="col-sm-4">
+            <span class="glyphicon glyphicon-cloud glyphicon-lg" aria-hidden="true"></span>
+            <h3>Cloud Based</h3>
+            <p>Have the ability to access your video feeds from anywhere as long as you have internet access.
+                All of your video at your finger tips when and where you want it. </p>
+        </div>
+
+        <div class="col-sm-4">
+            <span class="glyphicon glyphicon-floppy-disk glyphicon-lg" aria-hidden="true"></span>
+            <h3>Let's Go Back</h3>
+            <p>You now have the option to view previously recorded video clips. Filter by date/time or
+                even custom tags you've created. It's that simple to watch what you want.</p>
+        </div>
+
+        <div class="col-sm-4">
+            <span class="glyphicon glyphicon-home glyphicon-lg" aria-hidden="true"></span>
+            <h3>GUI</h3>
+            <p>Having the ability to use an awesome GUI is always great isn't it? Well here you
+                have that plus more! Easy to navigate GUI and it looks amazing on PC's and mobile devices.</p>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" th:src="@{/js/footer.js}" />
+
+
+</body>
+</html>

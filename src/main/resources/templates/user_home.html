@@ -5,34 +5,24 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}"
           href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.css" rel="stylesheet" media="screen"/>
+
 </head>
 <body>
 
 <div th:include="fragments/header :: header"></div>
-    <div class="panel panel-default">
-        <div class="panel-heading"><h3 align="center">Welcome <span sec:authentication="name"></span></h3></div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-4 col-md-offset-1">
-                    <h5>Cam 1</h5><p><iframe width="400" height="250" src="https://www.youtube.com/embed/4i_GFrlaStQ" frameborder="0"></iframe></p>
-                    <h5>Cam 2</h5><p><iframe width="400" height="250" src="https://www.youtube.com/embed/zLCG96WiziM" frameborder="0"></iframe></p>
-                </div>
 
-                <div class="col-md-4 col-md-offset-1">
-                    <h5>Cam 3</h5><p><iframe width="400" height="250" src="https://www.youtube.com/embed/k9Mpv0cEp7M" frameborder="0"></iframe></p>
-                    <h5>Cam 4</h5><p><iframe width="400" height="250" src="https://www.youtube.com/embed/TtaBPK8oUo8" frameborder="0"></iframe></p>
-                    <!--<div th:if=""${not #lists.isEmpty(user_home)}">-->
+        <h3 class="text-center">Welcome <span sec:authentication="name"></span></h3>
+        <h3 class="col-md-offset-1">Video Feed</h3>
+        <p class="col-md-offset-1">Click on one of your devices to view security footage being recorded in real-time.</p>
 
-                    <!-- <div th:each="video : ${video}">-->
-                    <p th:text="${title}">hhhh</p>
-                    <!--</div>-->
+        <br />
 
-                    <!-- </div>-->
-                </div>
-
+        <div class="row" th:if="${not #lists.isEmpty(deviceList)}">
+            <div class="col-md-4 col-md-offset-1" th:each="device, iter : ${deviceList}">
+                <h5 th:text="'Cam ' + ${iter.index + 1} + ': ' + ${device.deviceName}"></h5>
+                <p><iframe width="400" height="250" src="https://www.youtube.com/embed/4i_GFrlaStQ" frameborder="0"></iframe></p>
             </div>
         </div>
-    </div>
 
     <script type="text/javascript" th:src="@{/js/footer.js}" />
 

@@ -1,4 +1,4 @@
-package com.watchdog.dao;
+package com.watchdog.dao.user;
 
 /**
  * Created by jmullen on 9/20/16.
@@ -7,12 +7,12 @@ package com.watchdog.dao;
 import com.watchdog.business.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.sql.DataSource;
 
+import com.watchdog.dao.Constants;
+import com.watchdog.dao.user.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -46,7 +46,7 @@ public class UserDaoImpl implements UserDao {
     public User getById(int id) {
 
         //using RowMapper anonymous class, we can create a separate RowMapper for reuse
-        User user = jdbcTemplate.queryForObject(Constants.GET_BY_ID_QUERY, new Object[]{id}, new RowMapper<User>() {
+        User user = jdbcTemplate.queryForObject(Constants.GET_BY_USER_ID_QUERY, new Object[]{id}, new RowMapper<User>() {
 
             @Override
             public User mapRow(ResultSet rs, int rowNum)
@@ -62,9 +62,48 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public User getByEmail(String email){
+        //using RowMapper anonymous class, we can create a separate RowMapper for reuse
+        User user = jdbcTemplate.queryForObject(Constants.GET_BY_EMAIL_QUERY, new Object[]{email}, new RowMapper<User>() {
+
+            @Override
+            public User mapRow(ResultSet rs, int rowNum)
+                    throws SQLException {
+                User user = new User();
+                user.setFirstName(rs.getString("USER_FNAME"));
+                user.setLastName(rs.getString("USER_LNAME"));
+                user.setId(rs.getInt("USER_ID"));
+                return user;
+            }
+        });
+        return user;
+    }
+
+    @Override
+    public boolean emailAlreadyExists(String email){
+        //using RowMapper anonymous class, we can create a separate RowMapper for reuse
+        try {
+            User user = jdbcTemplate.queryForObject(Constants.GET_EMAIL_BY_EMAIL_QUERY, new Object[]{email}, new RowMapper<User>() {
+
+                @Override
+                public User mapRow(ResultSet rs, int rowNum)
+                        throws SQLException {
+                    User user = new User();
+                    user.setEmail(rs.getString("USER_EMAIL"));
+                    return user;
+                }
+            });
+            return true;
+        }
+        catch(Exception e) {
+            return false;
+        }
+    }
+
+    @Override
     public void update(User user) {
 
-        Object[] args = new Object[]{user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword(), user.getId()};
+        Object[] args = new Object[]{user.getFirstName(), user.getLastName(), user.getEmail(), user.getEncodedPassword(), user.getId()};
 
         int out = jdbcTemplate.update(Constants.UPDATE_USER_BY_ID_QUERY, args);
         if (out != 0) {
@@ -75,8 +114,6 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void deleteById(int id) {
-
-        String query = "delete from user where USER_ID=?";
 
         int out = jdbcTemplate.update(Constants.DELETE_USER_BY_ID_QUERY, id);
         if (out != 0) {

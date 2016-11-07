@@ -34,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/user_home").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
+                .antMatchers("/device_manager").access("hasAnyRole('ROLE_ADMIN')")
                 .and()
                 .formLogin().failureUrl("/login?error")
                 .defaultSuccessUrl("/user_home")
@@ -52,8 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .jdbcAuthentication().dataSource(dataSource)
                 .passwordEncoder(passwordEncoder())
                 .usersByUsernameQuery("SELECT USER_EMAIL, USER_PASSWORD, enabled FROM user WHERE USER_EMAIL = ?")
-                .authoritiesByUsernameQuery("select user.USER_EMAIL, permissions.ROLE from user, permissions "
-                                                            + "where user.USER_EMAIL = ?");
+                .authoritiesByUsernameQuery("select user.USER_EMAIL, permissions.ROLE from user, permissions " +
+                        "where permissions.PERMISS_ID = user.PERMISS_ID and user.USER_EMAIL = ?");
     }
 
     @Bean

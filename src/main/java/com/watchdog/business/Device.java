@@ -1,37 +1,52 @@
 package com.watchdog.business;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Created by BBuck on 10/4/16.
  */
 public class Device {
 
-    private int id;
+    private int id,
+            userId,
+            permissId;
 
-    public String getDeviceName() {
-        return deviceName;
+    @NotNull
+    private String deviceName;
+    @NotNull
+    private String deviceMac;
+    @NotNull
+    private String deviceIp;
+
+    public void setId(int id) { this.id = id; }
+
+    public int getId() { return id; }
+
+    public int getUserId() {
+        return userId;
     }
 
-    public void setDeviceName(String deviceName) {
-        this.deviceName = deviceName;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    String deviceName;
-
-
-    public String getDeviceType() {
-        return deviceType;
+    public int getPermissId() {
+        return permissId;
     }
 
-    public void setDeviceType(String deviceType) {
-        this.deviceType = deviceType;
+    public void setPermissId(int permissId) {
+        this.permissId = permissId;
     }
 
-    String deviceType;
+    public String getDeviceName() { return deviceName; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-    public int getId() {
-        return id;
-    }
+    public void setDeviceName(String deviceName) { this.deviceName = deviceName; }
+
+    public String getDeviceMac() { return deviceMac; }
+
+    public void setDeviceMac(String deviceMac) { this.deviceMac = deviceMac; }
+
+    public String getDeviceIp() { return deviceIp; }
+
+    public void setDeviceIp(String deviceIp) { this.deviceIp = deviceIp; }
 }
