@@ -24,10 +24,9 @@ public class User_HomeController {
         UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String userEmail = auth.getName(); //get logged in username
-
-        int userId = userDao.getByEmail(userEmail).getId();
-        model.addAttribute("user", userDao.getById(userId));
+        String email = auth.getName(); // Get email of currently logged in user
+        user = userDao.getByEmail(email);
+        model.addAttribute("firstName", user.getFirstName());
         model.addAttribute("deviceList", deviceDao.getAll());
 
         return "user_home";
