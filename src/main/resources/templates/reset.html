@@ -24,8 +24,8 @@
 
                             <label for="email">Email: </label>
                             <input type="text" class="form-control" id="email" th:field="*{email}" />
-                            <span class="help-block" th:if="${#fields.hasErrors('email')}">Invalid Email</span>
-                            <span class="help-block" th:if="${newEmail != null}" th:text="${newEmail}"></span>
+                            <span class="help-block" style="color:red" th:if="${#fields.hasErrors('email')}">Invalid Email</span>
+                            <span class="help-block" style="color:red" th:if="${newEmail != null}" th:text="${newEmail}"></span>
                         </div>
                     </div>
 
