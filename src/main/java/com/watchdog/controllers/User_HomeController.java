@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class User_HomeController {
 
     @RequestMapping(value = "/user_home", method = RequestMethod.GET)
-    public String listVideos(Device device, User user, Model model){
+    public String listVideos(User user, Model model){
 
         //Initialize database and create Dao object
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
