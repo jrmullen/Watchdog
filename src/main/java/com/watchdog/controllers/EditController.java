@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import com.watchdog.controllers.User_HomeController;
 import javax.validation.Valid;
 
 /**
@@ -57,6 +57,10 @@ public class EditController {
         user.setId(userId);
         user.setEmail(userEmail);
         UserUpdateService.updateUser(user);
+        User_HomeController userHome = new User_HomeController();
+
+        DeviceDao deviceDao = ctx.getBean("deviceDaoImpl", DeviceDao.class);
+        model.addAttribute("deviceList", deviceDao.getAll());
 
         return "user_home";
     }
