@@ -17,6 +17,7 @@
         <input type="text" class="in-line" id="deviceName" th:field="*{deviceName}" placeholder="Device Name" />
         <input type="text" class="in-line" id="deviceMac" th:field="*{deviceMac}" placeholder="Device MAC"/>
         <input type="text" class="in-line" id="deviceIp" th:field="*{deviceIp}" placeholder="Device IP"/>
+        <input type="text" class="in-line" id="devicePort" th:field="*{devicePort}" placeholder="Device Port (Optional)"/>
         <button type="submit" class="btn btn-success" id="btn-add">Add New</button>
         <input type="button" class="btn btn-info" onclick="clearText()" value="Clear" />
 
@@ -29,6 +30,7 @@
         <th>Device Name</th>
         <th>Device MAC</th>
         <th>Device IP</th>
+        <th>Device Port</th>
         <th>Action</th>
     </tr>
 
@@ -38,6 +40,7 @@
             <td th:text="${device.deviceName}"></td>
             <td th:text="${device.deviceMac}"></td>
             <td th:text="${device.deviceIp}"></td>
+            <td th:text="${device.devicePort}"></td>
             <td>
                 <form th:action="@{?deleteDevice}" th:object="${device}" method="post" class="in-line">
                     <input type="hidden" th:value="${device.id}" name="id" />
@@ -60,9 +63,10 @@
             var _name = $('input[name="name"]').val();
             var _mac = $('input [name="mac"]').val();
             var _ip = $('input[name="ip"]').val();
+            var _port = $('input[name="port"]').val();
 
 
-          var _tr = '<tr><td>'+ _name +'</td> <td>'+ _mac +'</td> <td>'+ _ip +'</td> <td><button type="button" class="btn btn-danger btn-delete">Delete </button></td></tr>';
+          var _tr = '<tr><td>'+ _name +'</td> <td>'+ _mac +'</td> <td>'+ _ip +'</td> <td>'+ _port +'</td><td><button type="button" class="btn btn-danger btn-delete">Delete </button></td></tr>';
 
             $('tbody').append(_tr);
         });
@@ -76,10 +80,12 @@
         var tb0 = document.getElementById("deviceName")
         var tb1 = document.getElementById("deviceMac")
         var tb2 = document.getElementById("deviceIp")
+        var tb3 = document.getElementById("devicePort")
         // clear textbox
         tb0.value = '';
         tb1.value = '';
         tb2.value = '';
+        tb3.value = '';
     }
 </script>
 

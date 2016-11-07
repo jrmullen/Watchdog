@@ -41,6 +41,7 @@ public class DeviceManagerController {
             model.addAttribute("deviceName", device.getDeviceName());
             model.addAttribute("deviceMac", device.getDeviceMac());
             model.addAttribute("deviceIp", device.getDeviceIp());
+            model.addAttribute("devicePort", device.getDevicePort());
             deviceDao.save(device);
         }
         model.addAttribute("deviceList", deviceDao.getAll());
