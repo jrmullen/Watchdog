@@ -22,7 +22,10 @@
         <input type="button" class="btn btn-info" onclick="clearText()" value="Clear" />
 
     </div>
-</form>
+     <span class="help-block" th:if="${errorMessage != null}" th:text="${errorMessage}"></span>
+     <span class="help-block" th:if="${successMessage != null}" th:text="${successMessage}"></span>
+
+ </form>
 
 <table th:if="${not #lists.isEmpty(deviceList)}">
     <thead>
