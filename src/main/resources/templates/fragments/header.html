@@ -10,38 +10,6 @@
 </head>
 <body>
 <div th:fragment="header">
-<<<<<<< HEAD
-<div style="text-align:center"><img class="img-responsive" th:src="@{/images/sky_small_blue_lense_light_logo.PNG}" />
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-
-        <div class="collapse navbar-collapse" id="headerNavbar">
-            <ul class="nav nav-header nav-pills">
-                <li><a href="/user_home" th:href="@{/user_home}">Home</a></li>
-                <li><a href="/logviewer" th:href="@{/logviewer}">Log Viewer</a></li>
-                <li><a href="/device_manager" th:href="@{/device_manager}">Device Manager</a></li>
-                <li><a href="#">Manage user permissions</a></li>
-
-                <li class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
-                    <a href="/login" th:href="@{/login}"><span class="glyphicon glyphicon-log-out"></span> Login</a>
-                </li>
-                <li class="nav navbar-nav navbar-right" sec:authorize="isAnonymous()">
-                    <a href="/register" th:href="@{/register}">Register</a>
-                </li>
-                <li class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
-                    <form action="/logout" method="post">
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                        <button type="submit" class="btn btn-primary navbar-btn">Log out</button>
-                    </form>
-                </li>
-
-                <li class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
-                    <p class="navbar-text">Logged in as: </p>
-                    <span class="navbar-text" sec:authentication="name"></span>
-                </li>
-
-            </ul>
-=======
 
     <link rel="stylesheet" type="text/css" media="all" href="../static/css/bootstrap.custom.css" th:href="@{/css/bootstrap.custom.css}" />
     <div style="text-align:center"><img class="img-responsive" th:src="@{/images/sky_small_blue_lense_light_logo.PNG}" />
@@ -97,16 +65,10 @@
 
                 </div>
             </div>
->>>>>>> c1f2680e8068868d6726c0f5d2170a177726f001
         </div>
 
     </div>
 </div>
-<<<<<<< HEAD
-</div>
-
-=======
->>>>>>> c1f2680e8068868d6726c0f5d2170a177726f001
 
 <div th:fragment="indexHeader">
 
