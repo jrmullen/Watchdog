@@ -17,7 +17,7 @@
     <div id="centered">
         <input type="text" class="in-line" id="deviceName" th:field="*{deviceName}" placeholder="Device Name" />
         <input type="text" class="in-line" id="deviceMac" th:field="*{deviceMac}" placeholder="Device MAC"/>
-        <input type="text" class="in-line" id="deviceIp" th:field="*{deviceIp}" placeholder="Device IP"/>
+        <input type="text" class="in-line" id="deviceAddress" th:field="*{deviceAddress}" placeholder="Device Address"/>
         <input type="text" class="in-line" id="devicePort" th:field="*{devicePort}" placeholder="Device Port (Optional)"/>
         <button type="submit" class="btn btn-success" id="btn-add">Add New</button>
         <input type="button" class="btn btn-info" onclick="clearText()" value="Clear" />
@@ -43,7 +43,7 @@
 
             <td th:text="${device.deviceName}"></td>
             <td th:text="${device.deviceMac}"></td>
-            <td th:text="${device.deviceIp}"></td>
+            <td th:text="${device.deviceAddress}"></td>
             <td th:text="${device.devicePort}"></td>
             <td>
                 <form th:action="@{?deleteDevice}" th:object="${device}" method="post" class="in-line">
@@ -83,7 +83,7 @@
         // declare textbox variables
         var tb0 = document.getElementById("deviceName")
         var tb1 = document.getElementById("deviceMac")
-        var tb2 = document.getElementById("deviceIp")
+        var tb2 = document.getElementById("deviceAddress")
         var tb3 = document.getElementById("devicePort")
         // clear textbox
         tb0.value = '';

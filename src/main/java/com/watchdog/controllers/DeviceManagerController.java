@@ -39,11 +39,11 @@ public class DeviceManagerController {
 
         model.addAttribute("deviceName", device.getDeviceName());
         model.addAttribute("deviceMac", device.getDeviceMac());
-        model.addAttribute("deviceIp", device.getDeviceIp());
+        model.addAttribute("deviceIp", device.getDeviceAddress());
 
         //Save device to DB
         if(!device.getDeviceName().equals("") && !device.getDeviceMac().equals("")
-                && !device.getDeviceIp().equals("")) {
+                && !device.getDeviceAddress().equals("")) {
 
             String testNumeric = "";
             model.addAttribute("devicePort", testNumeric);
@@ -69,7 +69,7 @@ public class DeviceManagerController {
 
         }
         else if (device.getDeviceName().equals("") || device.getDeviceMac().equals("")
-                || device.getDeviceIp().equals("")) {
+                || device.getDeviceAddress().equals("")) {
             model.addAttribute("errorMessage", "Please fill in all required fields.");
 
         }

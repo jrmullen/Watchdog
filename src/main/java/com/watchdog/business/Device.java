@@ -18,7 +18,7 @@ public class Device {
     private String deviceMac;
 
     @NotNull
-    private String deviceIp;
+    private String deviceAddress;
 
     @NotNull
     private int devicePort;
@@ -69,9 +69,9 @@ public class Device {
 
     public void setDeviceMac(String deviceMac) { this.deviceMac = deviceMac; }
 
-    public String getDeviceIp() { return deviceIp; }
+    public String getDeviceAddress() { return deviceAddress; }
 
-    public void setDeviceIp(String deviceIp) { this.deviceIp = deviceIp; }
+    public void setDeviceAddress(String deviceAddress) { this.deviceAddress = deviceAddress; }
 
     public String buildDeviceUrl(String deviceIp, int devicePort) {
         String deviceUrl = "http://" + deviceIp + ":" + devicePort;
