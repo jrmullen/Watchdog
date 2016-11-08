@@ -30,9 +30,6 @@ public class DeviceManagerController {
     @PostMapping(params = "addDevice")
     public String addNew(@Valid Device device, Model model) {
 
-        String errorMessage = null;
-        String successMessage = null;
-
         model.addAttribute("deviceName", device.getDeviceName());
         model.addAttribute("deviceMac", device.getDeviceMac());
         model.addAttribute("deviceIp", device.getDeviceAddress());
@@ -44,14 +41,12 @@ public class DeviceManagerController {
             String testNumeric = "";
             model.addAttribute("devicePort", testNumeric);
 
-//            if(isNumeric(testNumeric)) {
-//                model.addAttribute("devicePort", device.getDevicePort());
-
             if (deviceDao.checkMacExists(device.getDeviceMac())) {
                 model.addAttribute("errorMessage", "A device with this MAC address already exists." +
                         " Please enter a unqiue MAC address.");
-            } else if (!isValidPort(device.getDevicePort())) {
-                model.addAttribute("errorMessage", "Port field must be left blank or be number between 1 and 65,535.");
+            }
+            else if (!isValidPort(device.getDevicePort()) || device.getDevicePort() != (int)device.getDevicePort()) {
+                model.addAttribute("errorMessage", "Port field must be left blank or be a number between 1 and 65,535.");
             } else {
                 deviceDao.save(device);
                 model.addAttribute("successMessage", "Device successfully saved.");
@@ -62,8 +57,6 @@ public class DeviceManagerController {
             model.addAttribute("errorMessage", "Please fill in all required fields.");
 
         }
-        errorMessage = null;
-        successMessage = null;
 
         model.addAttribute("deviceList", deviceDao.getAll());
 
@@ -86,7 +79,4 @@ public class DeviceManagerController {
         return !(port < 1 | port > 65535);
     }
 
-    public static boolean isNumeric(String str) {
-        return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
-    }
 }
