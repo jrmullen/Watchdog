@@ -69,3 +69,33 @@ username: root
 password: password
 
 Queries for the User are written in the UserDaoImpl
+
+
+##Install and configure Motion
+from raspberry pi terminal execute the following commands:                      <br />
+`sudo apt-get install vim   (optional if you like Vim editor over emacs/nano)`  <br />
+`sudo apt-get update`                                                           <br />
+`sudo apt-get upgrade`                                                          <br />
+`sudo apt-get install motion`
+
+Open motion.conf file in text editor    <br />
+`sudo vim /etc/motion/motion.conf  (or use emacs/nano instead of vim)`
+
+make edits to motion.conf file where necessary:
+* daemon on
+* width 640
+* height 480
+* framerate 30            (video file framerate. Default is 1 and it's terrible)
+* max_movie_time 10       (sets max length of recorded clip to 10 seconds)
+* output_pictures off     (if this is left on the directory where files are stored will be filled very quickly with images)
+* target_dir /tmp/motion  (this is where our motion detection video clips will be stored)
+* stream_port 8081        (doesn't have to be 8081 but you need to know the port for the device manager page)
+* stream_maxrate 15       (default is like 1FPS which is extremely low and laggy. 15 is good quality)
+* stream_localhost off
+>save file
+
+set up pi cam to be used with Motion on boot:       <br />
+`vim /etc/rc.local      (emacs/nano optional)`      <br />
+add line to file:                                   <br />
+`sudo modprobe bcm2835-v4l2`                        <br />
+save file
