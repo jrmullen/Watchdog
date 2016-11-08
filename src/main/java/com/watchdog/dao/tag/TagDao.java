@@ -21,7 +21,9 @@ public interface TagDao {
     //Delete
     void deleteByTagId(int id);
 
-    void deleteByVidId(int id);
+    void deleteTagToVidByVidId(int id);
+
+    void deleteTagToVidByTagId(int id);
 
     //Get All
     List<Tag> getAll();

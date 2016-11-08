@@ -70,11 +70,22 @@ public class LogController {
         VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
         TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
 
-        tagDao.deleteByVidId(vid_id);
+        tagDao.deleteTagToVidByVidId(vid_id);
         videoDao.deleteByVidId(vid_id);
 
         logList.remove(id);
         model.addAttribute("logList", logList);
+
+        return "/logview";
+    }
+
+    @RequestMapping(params = "editTags")
+    public String editTags(@RequestParam int tag_id, int vid_id, Tag tag, Model model){
+
+        //Initialize database and create videoDao, tagDao object
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+        VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
+        TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
 
         return "/logview";
     }

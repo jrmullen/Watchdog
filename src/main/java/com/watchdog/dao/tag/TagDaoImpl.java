@@ -52,7 +52,6 @@ public class TagDaoImpl implements TagDao {
 
                 Tag tag = new Tag();
                 tag.setTagId(rs.getInt("TAG_ID"));
-                tag.setVidId((rs.getInt("VID_ID")));
                 tag.setTagName(rs.getString("TAG_NAME"));
                 return tag;
             }
@@ -63,14 +62,10 @@ public class TagDaoImpl implements TagDao {
     public List<Tag> getByVidId(int id){
         List<Tag> tagList = new ArrayList<>();
 
-        List<Map<String, Object>> tagRows = jdbcTemplate.queryForList(Constants.GET_TAG_BY_VIDEO_ID, id);
+        List<Map<String, Object>> tagRows = jdbcTemplate.queryForList(Constants.GET_TAG_ID_BY_VIDEO_ID, id);
 
         for (Map<String, Object> tagRow : tagRows) {
-            Tag tag = new Tag();
-
-            tag.setTagId(Integer.parseInt(String.valueOf(tagRow.get("TAG_ID"))));
-            tag.setVidId(Integer.parseInt(String.valueOf(tagRow.get("VID_ID"))));
-            tag.setTagName(String.valueOf(tagRow.get("TAG_NAME")));
+            Tag tag = this.getByTagId(Integer.parseInt(String.valueOf(tagRow.get("TAG_ID"))));
             tagList.add(tag);
         }
 
@@ -81,31 +76,40 @@ public class TagDaoImpl implements TagDao {
     @Override
     public void update(Tag tag) {
 
-        Object[] args = new Object[]{tag.getTagId(), tag.getVidId(), tag.getTagName()};
+        Object[] args = new Object[]{tag.getTagName(), tag.getTagId()};
 
-        int out = jdbcTemplate.update(Constants.UPDATE_TAG_BY_ID_QUERY, args);
+        int out = jdbcTemplate.update(Constants.UPDATE_TAG_NAME_BY_ID_QUERY, args);
         if (out != 0) {
-            System.out.println("Tag updated with id= " + tag.getTagId());
+            System.out.println("Tag updated with id= " + tag.getTagId() + " name= " + tag.getTagName());
         } else System.out.println("No Tag found with id= " + tag.getTagId());
     }
 
     //Delete
     @Override
     public void deleteByTagId(int tag_id) {
-
+        this.deleteTagToVidByTagId(tag_id);
         int out = jdbcTemplate.update(Constants.DELETE_TAG_BY_ID_QUERY, tag_id);
         if (out != 0) {
-            System.out.println("Tag deleted with id= " + tag_id);
-        } else System.out.println("No Tag found with id= " + tag_id);
+            System.out.println("Tag deleted with tag_id= " + tag_id);
+        } else System.out.println("No Tag found with tag_id= " + tag_id);
     }
 
-    @Override
-    public void deleteByVidId(int vid_id) {
+    public void deleteTagToVidByTagId(int tag_id){
+        int out = jdbcTemplate.update(Constants.DELETE_TTV_BY_TAG_ID_QUERY, tag_id);
+        if(out != 0){
+            System.out.println("TTV deleted with tag_id = " + tag_id);
+        }else{
+            System.out.println("Unable to delete TTV with tag_id = " + tag_id);
+        }
+    }
 
-        int out = jdbcTemplate.update(Constants.DELETE_TAG_BY_VID_ID_QUERY, vid_id);
-        if (out != 0) {
-            System.out.println("Tag deleted with id= " + vid_id);
-        } else System.out.println("No Tag found with id= " + vid_id);
+    public void deleteTagToVidByVidId(int vid_id){
+        int out = jdbcTemplate.update(Constants.DELETE_TTV_BY_VID_ID_QUERY, vid_id);
+        if(out != 0){
+            System.out.println("TTV deleted with vid_id = " + vid_id);
+        }else{
+            System.out.println("Unable to delete TTV with vid_id = " + vid_id);
+        }
     }
 
     //Get All
@@ -120,7 +124,6 @@ public class TagDaoImpl implements TagDao {
             Tag tag = new Tag();
 
             tag.setTagId(Integer.parseInt(String.valueOf(tagRow.get("TAG_ID"))));
-            tag.setVidId(Integer.parseInt(String.valueOf("VID_ID")));
             tag.setTagName(String.valueOf(tagRow.get("TAG_NAME")));
             tagList.add(tag);
         }

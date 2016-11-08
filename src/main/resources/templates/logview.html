@@ -45,13 +45,62 @@
             </thead>
             <tbody>
             <tr th:each="log : ${logList}">
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#playModal">Play</button></td>
+                <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#playModal">Play</button>
+
+                    <!-- Play Modal -->
+                    <div id="playModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Log Playback</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/PZUiT7yoEPg" frameborder="0"></iframe>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- End Play Modal -->
+                </td>
                 <td th:text="${log.date}"></td>
                 <td th:text="${log.startTime}"></td>
                 <td th:text="${log.length}"></td>
                 <td th:text="${log.camera}"></td>
                 <td th:text="${log.tags}"></td>
-                <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#tagsModal">Edit Tags</button></td>
+                <td>
+                    <form th:action="@{?editTags}" th:object="${tag}" method="post" class="in-line">
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tagsModal">Edit Tags</button>
+
+                        <!-- Edit Tags Modal -->
+                        <div id="tagsModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Edit Tags</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/PZUiT7yoEPg" frameborder="0"></iframe>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- End Edit Tags Modal -->
+                    </form>
                 <td>
                     <form th:action="@{?deleteLog}" th:object="${log}" method="post" class="in-line">
                         <input type="hidden" th:value="${log.vid_id}" name="vid_id" />
@@ -65,49 +114,9 @@
         </table>
     </div>
 
-    <!-- Play Modal -->
-    <div id="playModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Log Playback</h4>
-                </div>
-                <div class="modal-body">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/PZUiT7yoEPg" frameborder="0"></iframe>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
 
-        </div>
-    </div>
-    <!-- End Play Modal -->
 
-    <!-- Edit Tags Modal -->
-    <div id="tagsModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Edit Tags</h4>
-                </div>
-                <div class="modal-body">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/PZUiT7yoEPg" frameborder="0"></iframe>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <!-- End Edit Tags Modal -->
 
 </div>
 </body>

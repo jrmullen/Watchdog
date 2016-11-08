@@ -6,23 +6,23 @@ package com.watchdog.dao;
 public class Constants {
 
     //User queries
-    public static final String CREATE_USER_QUERY = "insert into user (USER_FNAME, USER_LNAME, USER_EMAIL, USER_PASSWORD) values (?,?,?,?)";
-    public static final String GET_BY_USER_ID_QUERY = "select USER_FNAME, USER_LNAME, USER_EMAIL from user where USER_ID = ?";
+    public static final String CREATE_USER_QUERY = "insert into user (PERMISS_ID, USER_FNAME, USER_LNAME, USER_EMAIL, USER_PASSWORD) values (?,?,?,?,?)";
+    public static final String GET_BY_USER_ID_QUERY = "select USER_ID, PERMISS_ID, USER_FNAME, USER_LNAME, USER_EMAIL from user where USER_ID = ?";
     public static final String UPDATE_USER_BY_ID_QUERY = "update user set USER_FNAME = ?, USER_LNAME = ?, USER_EMAIL = ?, USER_PASSWORD = ? where USER_ID = ?";
     public static final String DELETE_USER_BY_ID_QUERY = "delete from user where USER_ID=?";
-    public static final String GET_ALL_USERS_QUERY = "select USER_ID, USER_FNAME, USER_LNAME, USER_EMAIL from user";
-    public static final String GET_USER_BY_EMAIL_QUERY = "select USER_FNAME, USER_LNAME, USER_ID from user where USER_EMAIL = ?";
+    public static final String GET_ALL_USERS_QUERY = "select USER_ID, PERMISS_ID, USER_FNAME, USER_LNAME, USER_EMAIL from user";
+    public static final String GET_USER_BY_EMAIL_QUERY = "select USER_ID, PERMISS_ID, USER_FNAME, USER_LNAME, USER_EMAIL from user where USER_EMAIL = ?";
     public static final String SELECT_EMAIL_QUERY = "select USER_EMAIL from user where USER_EMAIL = ?";
+    public static final String UPDATE_USER_PERMISSION_BY_ID_QUERY = "update user set PERMISS_ID = ? where USER_ID= ?";
 
     //Device queries
-    public static final String GET_DEVICE_NAME_BY_VID_ID_QUERY = "select device.device_name from device, video where device.device_id = video.device_id and video.vid_id = ?";
+    //public static final String GET_DEVICE_NAME_BY_VID_ID_QUERY = "select device.device_name from device where device.device_mac = video.device_mac and video.vid_id = ?";
+    public static final String GET_DEVICE_BY_DEVICE_MAC_QUERY = "select DEVICE_NAME from device where DEVICE_MAC = ?";
     public static final String CREATE_DEVICE_QUERY = "insert into device (DEVICE_NAME, DEVICE_MAC, DEVICE_IP) values (?,?,?)";
     public static final String GET_BY_DEVICE_ID_QUERY = "select DEVICE_ID, USER_ID, PERMISS_ID, DEVICE_NAME, DEVICE_MAC, DEVICE_IP from device where DEVICE_ID = ?";
     public static final String UPDATE_BY_DEVICE_ID_QUERY = "update device set DEVICE_NAME = ?, DEVICE_MAC = ?, DEVICE_IP = ? where DEVICE_ID = ?";
     public static final String DELETE_DEVICE_BY_ID_QUERY = "delete from device where DEVICE_ID = ?";
     public static final String GET_ALL_DEVICES_QUERY = "select DEVICE_ID, USER_ID, PERMISS_ID, DEVICE_NAME, DEVICE_MAC, DEVICE_IP from device";
-
-
 
     // Video queries
     public static final String CREATE_VIDEO_QUERY = "insert into video (USER_ID, VID_FILE_PATH, VID_LENGTH, VID_IS_COMPRESSED, VID_IS_ENCRYPTED, VID_SIZE_ON_DISK, VID_DATE, VID_TIME, VID_TITLE, VID_LOCATION, VID_DESCRIPTION, DEVICE_MAC) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -35,11 +35,18 @@ public class Constants {
     //Tag queries
     public static final String GET_ALL_TAGS_QUERY = "select TAG_ID, TAG_NAME from tag";
     public static final String DELETE_TAG_BY_ID_QUERY = "delete from tag where TAG_ID=?";
-    public static final String UPDATE_TAG_BY_ID_QUERY = "update tag set TAG_ID = ?, VID_ID = ?, TAG_NAME = ?";
-    public static final String GET_TAG_BY_TAG_ID = "select TAG_ID, VID_ID, TAG_NAME from tag where TAG_ID = ?";
+    public static final String UPDATE_TAG_NAME_BY_ID_QUERY = "update tag set TAG_NAME = ? where TAG_ID = ?";
+    public static final String GET_TAG_BY_TAG_ID = "select TAG_ID, TAG_NAME from tag where TAG_ID = ?";
     public static final String CREATE_TAG_QUERY = "insert into tag (TAG_NAME) values (?)";
-    public static final String GET_TAG_BY_VIDEO_ID = "select TAG_ID, VID_ID, TAG_NAME from tag where VID_ID = ?";
+    public static final String GET_TAG_ID_BY_VIDEO_ID = "select TAG_ID from tag_to_video where VID_ID = ?";
     public static final String DELETE_TAG_BY_VID_ID_QUERY = "delete from tag where VID_ID=?";
+
+    //Tag-to-vid queries
+    public static final String DELETE_TTV_BY_TAG_ID_QUERY = "delete from tag_to_video where tag_to_video.TAG_ID = ?";
+    public static final String DELETE_TTV_BY_VID_ID_QUERY = "delete from tag_to_video where tag_to_video.VID_ID = ?";
+    public static final String GET_TAG_ID_BY_VID_ID_QUERY = "select TAG_ID from tag_to_video where VID_ID = ?";
+    public static final String GET_VID_ID_BY_TAG_ID_QUERY = "select VID_ID from tag_to_video where TAG_ID = ?";
+
 
     // Permissions
     public static final String CREATE_PERMISSIONS_QUERY = "insert into permissions (ROLE, PERMISS_DESCRIPTION) values (?,?)";

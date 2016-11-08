@@ -5,9 +5,12 @@ package com.watchdog.dao.device;
  */
 
 import com.watchdog.business.Device;
+import com.watchdog.business.Video;
 import com.watchdog.dao.Constants;
 import com.watchdog.dao.device.DeviceDao;
+import com.watchdog.dao.video.VideoDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -70,10 +73,13 @@ public class DeviceDaoImpl implements DeviceDao {
 
     @Override
     public String getDeviceNameByVidId(int id) {
-        String device_name = "null";
+        //Initialize database and create Dao object
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+        VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class); //first parameter is the id found in the spring.xml file
+        Video video = videoDao.getByVidId(id);
 
-        //using RowMapper anonymous clas, we can create a separate RowMapper for reuse
-        Device device = jdbcTemplate.queryForObject(Constants.GET_DEVICE_NAME_BY_VID_ID_QUERY, new Object[]{id}, new RowMapper<Device>() {
+        //using RowMapper anonymous class, we can create a separate RowMapper for reuse
+        Device device = jdbcTemplate.queryForObject(Constants.GET_DEVICE_BY_DEVICE_MAC_QUERY, new Object[]{video.getDevice_mac()}, new RowMapper<Device>() {
 
             @Override
             public Device mapRow(ResultSet rs, int rowNum)
