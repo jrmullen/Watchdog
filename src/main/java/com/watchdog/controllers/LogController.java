@@ -21,6 +21,7 @@ import java.util.List;
 public class LogController {
 
     List<Log> logList = new ArrayList<>();
+    List<Tag> tagList = new ArrayList<>();
     List<Log> previousList = new ArrayList<>();
     List<Log> blankList = new ArrayList<>();
     Model blankModel;
@@ -80,12 +81,14 @@ public class LogController {
     }
 
     @RequestMapping(params = "editTags")
-    public String editTags(@RequestParam int tag_id, int vid_id, Tag tag, Model model){
+    public String editTags(@RequestParam int tag_id, int vid_id, Log log, Tag tag, Model model){
 
         //Initialize database and create videoDao, tagDao object
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
         VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
         TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
+
+
 
         return "/logview";
     }

@@ -90,7 +90,24 @@
                                         <h4 class="modal-title">Edit Tags</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/PZUiT7yoEPg" frameborder="0"></iframe>
+                                        <table class="table"><!--th:if="${not #lists.isEmpty(tagList)}"-->
+                                            <tr>
+                                                <td>Tag</td>
+                                                <td><button type="submit" class="btn btn-danger">Delete Tag</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tag</td>
+                                                <td><button type="submit" class="btn btn-danger">Delete Tag</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tag</td>
+                                                <td><button type="submit" class="btn btn-danger">Delete Tag</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" class="in-line" id="addTag" placeholder="Tag" /></td>
+                                                <td><button type="submit" class="btn btn-success">Add Tag</button></td>
+                                            </tr>
+                                        </table>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -101,6 +118,7 @@
                         </div>
                         <!-- End Edit Tags Modal -->
                     </form>
+                </td>
                 <td>
                     <form th:action="@{?deleteLog}" th:object="${log}" method="post" class="in-line">
                         <input type="hidden" th:value="${log.vid_id}" name="vid_id" />
