@@ -61,6 +61,7 @@ public class DeviceDaoImpl implements DeviceDao {
                 device.setDeviceName(rs.getString("DEVICE_NAME"));
                 device.setDeviceMac(rs.getString ("DEVICE_MAC"));
                 device.setDeviceIp(rs.getString("DEVICE_IP"));
+                device.setDevicePort(rs.getInt("DEVICE_PORT"));
                 return device;
             }
         });
@@ -93,8 +94,10 @@ public class DeviceDaoImpl implements DeviceDao {
 
         int out = jdbcTemplate.update(Constants.UPDATE_BY_DEVICE_ID_QUERY, args);
         if (out !=0) {
-            System.out.println("Device updated with id= " + device.getId());
-        } else System.out.println("No device found with id= " + device.getId());
+            System.out.println("Device updated with id= " + device.getId() +
+                                            "  MAC= " + device.getDeviceMac());
+        } else System.out.println("No device found with id= " + device.getId() +
+                                            "  MAC= " + device.getDeviceMac());
     }
 
 
@@ -123,6 +126,11 @@ public class DeviceDaoImpl implements DeviceDao {
             device.setDeviceName(String.valueOf(deviceRow.get("DEVICE_NAME")));
             device.setDeviceMac(String.valueOf(deviceRow.get("DEVICE_MAC")));
             device.setDeviceIp(String.valueOf(deviceRow.get("DEVICE_IP")));
+            if (null != deviceRow.get("DEVICE_PORT")) {
+                device.setDevicePort(Integer.parseInt(String.valueOf(deviceRow.get("DEVICE_PORT"))));
+            }
+            device.buildDeviceUrl(device.getDeviceIp(), device.getDevicePort());
+
             deviceList.add(device);
         }
         return deviceList;

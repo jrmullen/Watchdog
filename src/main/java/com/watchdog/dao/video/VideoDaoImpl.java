@@ -33,34 +33,38 @@ public class VideoDaoImpl implements VideoDao {
 
     @Override
     public void save(Video video) {
-        Object[] args = new Object[]{video.getLength(), video.getIsCompressed(), video.getIsEncrypted(), video.getSize(),
-                video.getDate(), video.getTime(), video.getTitle(), video.getLocation(), video.getDescription()};
+        Object[] args = new Object[]{video.getUserId(), video.getFilepath(), video.getLength(), video.getIsCompressed(), video.getIsEncrypted(),
+                video.getSize(), video.getDate(), video.getTime(), video.getTitle(), video.getLocation(), video.getDescription(), video.getDevice_mac()};
 
         int out = jdbcTemplate.update(Constants.CREATE_VIDEO_QUERY, args);
 
         if (out != 0) {
-            System.out.println("Video " + video.getLength() + " "  + video.getIsCompressed() + " " +
+            System.out.println("Video " + video.getUserId() + " " + video.getFilepath() + " " +
+                    video.getLength() + " "  + video.getIsCompressed() + " " +
                     video.getIsEncrypted() + " " + video.getSize()  + " " + video.getDate()  + " " +
                     video.getTime()  + " " + video.getTitle()  + " " + video.getLocation()  + " " +
-                    video.getDescription() + " saved");
+                    video.getDescription() + " " + video.getDevice_mac() + " saved");
 
-        } else System.out.println("Video " + video.getLength() + " "  + video.getIsCompressed() + " " +
+        } else System.out.println("Video " + video.getUserId() + " " + video.getFilepath() + " " +
+                video.getLength() + " "  + video.getIsCompressed() + " " +
                 video.getIsEncrypted() + " " + video.getSize()  + " " + video.getDate()  + " " +
                 video.getTime()  + " " + video.getTitle()  + " " + video.getLocation()  + " " +
-                video.getDescription() + " failed");
+                video.getDescription() + " " + video.getDevice_mac() + " failed");
     }
 
     @Override
-    public Video getById(int id) {
+    public Video getByVidId(int id) {
 
         //using RowMapper anonymous class, we can create a separate RowMapper for reuse
-        Video video = jdbcTemplate.queryForObject(Constants.GET_VIDEO_BY_ID, new Object[]{id}, new RowMapper<Video>() {
+        Video video = jdbcTemplate.queryForObject(Constants.GET_VIDEO_BY_VIDEO_ID, new Object[]{id}, new RowMapper<Video>() {
 
             @Override
             public Video mapRow(ResultSet rs, int rowNum)
                     throws SQLException {
                 Video video = new Video();
 
+                video.setUserId(rs.getInt("USER_ID"));
+                video.setFilepath(rs.getString("VID_FILE_PATH"));
                 video.setLength(rs.getTime("VID_LENGTH"));
                 video.setIsCompressed(rs.getBoolean("VID_IS_COMPRESSED"));
                 video.setIsEncrypted(rs.getBoolean("VID_IS_ENCRYPTED"));
@@ -70,6 +74,7 @@ public class VideoDaoImpl implements VideoDao {
                 video.setTitle(rs.getString("VID_TITLE"));
                 video.setLocation(rs.getString("VID_LOCATION"));
                 video.setDescription(rs.getString("VID_DESCRIPTION"));
+                video.setDevice_mac(rs.getString("DEVICE_MAC"));
 
                 return video;
             }
@@ -80,10 +85,10 @@ public class VideoDaoImpl implements VideoDao {
     @Override
     public void update(Video video) {
 
-        Object[] args = new Object[]{video.getLength(), video.getIsCompressed(), video.getIsEncrypted(), video.getSize(),
-                video.getDate(), video.getTime(), video.getTitle(), video.getLocation(), video.getDescription()};
+        Object[] args = new Object[]{video.getFilepath(), video.getLength(), video.getIsCompressed(), video.getIsEncrypted(), video.getSize(),
+                video.getDate(), video.getTime(), video.getTitle(), video.getLocation(), video.getDescription(), video.getDevice_mac(), video.getVideoId()};
 
-        int out = jdbcTemplate.update(Constants.UPDATE_VIDEO_BY_ID_QUERY, args);
+        int out = jdbcTemplate.update(Constants.UPDATE_VIDEO_BY_VIDEO_ID_QUERY, args);
         if (out != 0) {
             System.out.println("Video updated with id= " + video.getVideoId());
         } else System.out.println("No Video found with id= " + video.getVideoId());
@@ -91,9 +96,9 @@ public class VideoDaoImpl implements VideoDao {
 
 
     @Override
-    public void deleteById(int videoId) {
+    public void deleteByVidId(int videoId) {
 
-        int out = jdbcTemplate.update(Constants.DELETE_VIDEO_BY_ID_QUERY, videoId);
+        int out = jdbcTemplate.update(Constants.DELETE_VIDEO_BY_VIDEO_ID_QUERY, videoId);
         if (out != 0) {
             System.out.println("Video deleted with id= " + videoId);
         } else System.out.println("No Video found with id= " + videoId);
@@ -111,7 +116,7 @@ public class VideoDaoImpl implements VideoDao {
 
             video.setVideoId(Integer.parseInt(String.valueOf(videoRow.get("VID_ID"))));
             video.setUserId(Integer.parseInt(String.valueOf(videoRow.get("USER_ID"))));
-            video.setDeviceId(Integer.parseInt(String.valueOf(videoRow.get("DEVICE_ID"))));
+            video.setFilepath(String.valueOf(videoRow.get("VID_FILE_PATH")));
             video.setLength(Time.valueOf(String.valueOf(videoRow.get("VID_LENGTH"))));
             video.setIsCompressed(Boolean.valueOf(String.valueOf(videoRow.get("VID_IS_COMPRESSED")))); // will error?, stored in db as tinyint
             video.setIsEncrypted(Boolean.valueOf(String.valueOf(videoRow.get("VID_IS_ENCRYPTED")))); // will error?, stored in db as tinyint
@@ -121,6 +126,7 @@ public class VideoDaoImpl implements VideoDao {
             video.setTitle(String.valueOf(videoRow.get("VID_TITLE")));
             video.setLocation(String.valueOf(videoRow.get("VID_LOCATION")));
             video.setDescription(String.valueOf(videoRow.get("VID_DESCRIPTION")));
+            video.setDevice_mac(String.valueOf(videoRow.get("DEVICE_MAC")));
 
             videoList.add(video);
         }

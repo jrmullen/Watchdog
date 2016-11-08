@@ -29,16 +29,14 @@ public class TagDaoImpl implements TagDao {
     //Create
     @Override
     public void save(Tag tag) {
-        Object[] args = new Object[]{tag.getVidId(), tag.getTagName()};
+        Object[] args = new Object[]{tag.getTagName()};
 
         int out = jdbcTemplate.update(Constants.CREATE_TAG_QUERY, args);
 
         if (out != 0) {
-            System.out.println("Tag " + tag.getTagName() + " "  + tag.getTagId() + " " +
-                    tag.getVidId() + " saved");
+            System.out.println("Tag " + tag.getTagName() + " "  + tag.getTagId() + " saved");
 
-        } else System.out.println("Tag " + tag.getTagName() + " "  + tag.getTagId() + " " +
-                tag.getVidId() + " failed");
+        } else System.out.println("Tag " + tag.getTagName() + " "  + tag.getTagId() + " failed");
     }
 
     //Read
@@ -70,9 +68,9 @@ public class TagDaoImpl implements TagDao {
         for (Map<String, Object> tagRow : tagRows) {
             Tag tag = new Tag();
 
-            tag.setTag_id(Integer.parseInt(String.valueOf(tagRow.get("TAG_ID"))));
-            tag.setVid_id(Integer.parseInt(String.valueOf(tagRow.get("VID_ID"))));
-            tag.setTag_name(String.valueOf(tagRow.get("TAG_NAME")));
+            tag.setTagId(Integer.parseInt(String.valueOf(tagRow.get("TAG_ID"))));
+            tag.setVidId(Integer.parseInt(String.valueOf(tagRow.get("VID_ID"))));
+            tag.setTagName(String.valueOf(tagRow.get("TAG_NAME")));
             tagList.add(tag);
         }
 
@@ -93,7 +91,7 @@ public class TagDaoImpl implements TagDao {
 
     //Delete
     @Override
-    public void deleteById(int tag_id) {
+    public void deleteByTagId(int tag_id) {
 
         int out = jdbcTemplate.update(Constants.DELETE_TAG_BY_ID_QUERY, tag_id);
         if (out != 0) {

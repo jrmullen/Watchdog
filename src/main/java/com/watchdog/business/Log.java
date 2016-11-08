@@ -25,7 +25,7 @@ public class Log {
         for ( int i = 0; i < alpha.size(); i++){
             Tag j = alpha.get(i);
             //append the value into the builder
-            commaSepValueBuilder.append(j.getTag_name());
+            commaSepValueBuilder.append(j.getTagName());
 
             //if the value is not the last element of the list
             //then append the comma(,) as well

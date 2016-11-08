@@ -15,13 +15,13 @@ public interface VideoDao {
     void save(Video video);
 
     //Read
-    Video getById(int id);
+    Video getByVidId(int id);
 
     //Update
     void update(Video video);
 
     //Delete
-    void deleteById(int id);
+    void deleteByVidId(int id);
 
     //Get All
     List<Video> getAll();

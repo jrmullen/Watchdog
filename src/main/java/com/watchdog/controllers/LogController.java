@@ -2,20 +2,18 @@ package com.watchdog.controllers;
 
 import com.watchdog.business.*;
 import com.watchdog.business.Video;
-import com.watchdog.dao.TagDao;
-import com.watchdog.dao.VideoDao;
+import com.watchdog.dao.video.*;
+import com.watchdog.dao.tag.*;
+import com.watchdog.dao.device.*;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import com.watchdog.dao.DeviceDao;
-import com.watchdog.dao.UserDao;
 
 
 @Controller
@@ -41,12 +39,12 @@ public class LogController {
         for (int i = 0; i < videoList.size(); i++) {
             Log log = new Log();
             Video video = videoList.get(i);
-            List<Tag> tagList = tagDao.getByVidId(video.getVidId());
+            List<Tag> tagList = tagDao.getByVidId(video.getVideoId());
 
-            String camera = deviceDao.getDeviceNameByVidId(video.getVidId());
+            String camera = deviceDao.getDeviceNameByVidId(video.getVideoId());
 
             log.setId(i);
-            log.setVidId(video.getVidId());
+            log.setVidId(video.getVideoId());
             log.setDate(video.getDate());
             log.setStartTime(String.valueOf(video.getTime()));
             log.setLength(String.valueOf(video.getLength()));
@@ -73,7 +71,7 @@ public class LogController {
         TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
 
         tagDao.deleteByVidId(vid_id);
-        videoDao.deleteById(vid_id);
+        videoDao.deleteByVidId(vid_id);
 
         logList.remove(id);
         model.addAttribute("logList", logList);

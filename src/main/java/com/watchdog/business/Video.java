@@ -9,6 +9,7 @@ public class Video {
     private int videoId;
     private int userId;
     private int deviceId;
+    private String filepath;
     private Time length;
     private Date date;
     private Time time;
@@ -18,6 +19,7 @@ public class Video {
     private boolean isCompressed;
     private boolean isEncrypted;
     private long size;
+    private String device_mac;
 
     public void setVideoId(int videoId){
         this.videoId = videoId;
@@ -81,20 +83,20 @@ public class Video {
         return description;
     }
 
-    public void setIsCompressed(boolean isCompressed){
-        this.isCompressed = isCompressed;
-    }
-
-    public boolean getIsCompressed(){
+    public boolean getIsCompressed() {
         return isCompressed;
     }
 
-    public void setIsEncrypted(boolean isEncrypted){
-        this.isEncrypted = isEncrypted;
+    public void setIsCompressed(boolean compressed) {
+        isCompressed = compressed;
     }
 
-    public boolean getIsEncrypted(){
+    public boolean getIsEncrypted() {
         return isEncrypted;
+    }
+
+    public void setIsEncrypted(boolean encrypted) {
+        isEncrypted = encrypted;
     }
 
     public void setSize(long size){
@@ -105,4 +107,19 @@ public class Video {
         return size;
     }
 
+    public String getFilepath() {
+        return filepath;
+    }
+
+    public void setFilepath(String filepath) {
+        this.filepath = filepath;
+    }
+
+    public String getDevice_mac() {
+        return device_mac;
+    }
+
+    public void setDevice_mac(String device_mac) {
+        this.device_mac = device_mac;
+    }
 }

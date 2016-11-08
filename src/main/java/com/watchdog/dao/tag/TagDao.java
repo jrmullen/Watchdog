@@ -19,7 +19,7 @@ public interface TagDao {
     void update(Tag tag);
 
     //Delete
-    void deleteById(int id);
+    void deleteByTagId(int id);
 
     void deleteByVidId(int id);
 

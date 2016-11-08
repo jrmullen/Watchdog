@@ -1,9 +1,19 @@
 package com.watchdog.business;
 
+import java.util.List;
+
 public class Tag {
     private int tagId;
-    private int vidId;
     private String tagName;
+    private List<Video> vidList;
+
+    public List<Video> getVidList() {
+        return vidList;
+    }
+
+    public void setVidList(List<Video> vidList) {
+        this.vidList = vidList;
+    }
 
     public int getTagId() {
         return tagId;
@@ -11,14 +21,6 @@ public class Tag {
 
     public void setTagId(int tagId) {
         this.tagId = tagId;
-    }
-
-    public int getVidId() {
-        return vidId;
-    }
-
-    public void setVidId(int vidId) {
-        this.vidId = vidId;
     }
 
     public String getTagName() {
