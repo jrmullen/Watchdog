@@ -39,8 +39,8 @@ public class DeviceManagerController {
         if (!device.getDeviceName().equals("") && !device.getDeviceMac().equals("")
                 && !device.getDeviceAddress().equals("")) {
 
-            String testNumeric = "";
-            model.addAttribute("devicePort", testNumeric);
+//            String testNumeric = "";
+//            model.addAttribute("devicePort", testNumeric);
 
             if (!isValidMacAddress(device.getDeviceMac())){
                 model.addAttribute("errorMessage", "Invalid MAC address");
@@ -80,10 +80,7 @@ public class DeviceManagerController {
 
     private boolean isValidMacAddress(String mac) {
         final Pattern pattern = Pattern.compile("(([0-9A-Fa-f]{2}[-:]){5}[0-9A-Fa-f]{2})|(([0-9A-Fa-f]{4}.){2}[0-9A-Fa-f]{4})");
-        if (!pattern.matcher(mac).matches()) {
-            return false;
-        }
-        return true;
+        return pattern.matcher(mac).matches();
     }
 
     private boolean isValidPort(int port) {
