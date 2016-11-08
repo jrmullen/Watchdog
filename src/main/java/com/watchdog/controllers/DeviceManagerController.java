@@ -50,16 +50,12 @@ public class DeviceManagerController {
             if (deviceDao.checkMacExists(device.getDeviceMac())) {
                 model.addAttribute("errorMessage", "A device with this MAC address already exists." +
                         " Please enter a unqiue MAC address.");
-            } else if (device.getDevicePort() < 1 | device.getDevicePort() > 65535) {
+            } else if (!isValidPort(device.getDevicePort())) {
                 model.addAttribute("errorMessage", "Port field must be left blank or be number between 1 and 65,535.");
             } else {
                 deviceDao.save(device);
                 model.addAttribute("successMessage", "Device successfully saved.");
             }
-          /*  }
-            else {
-                model.addAttribute("errorMessage", "Port field must be a number.");
-            }*/
 
         } else if (device.getDeviceName().equals("") || device.getDeviceMac().equals("")
                 || device.getDeviceAddress().equals("")) {
@@ -84,6 +80,10 @@ public class DeviceManagerController {
         model.addAttribute("deviceList", deviceDao.getAll());
 
         return "/device_manager";
+    }
+
+    private boolean isValidPort(int port) {
+        return !(port < 1 | port > 65535);
     }
 
     public static boolean isNumeric(String str) {
