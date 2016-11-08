@@ -23,7 +23,7 @@
         <input type="button" class="btn btn-info" onclick="clearText()" value="Clear" />
 
     </div>
-     <span class="help-block" th:if="${errorMessage != null}" th:text="${errorMessage}"></span>
+     <span class="help-block" style="color: red" th:text="${errorMessage}"></span>
      <span class="help-block" th:if="${successMessage != null}" th:text="${successMessage}"></span>
 
  </form>
@@ -33,7 +33,7 @@
     <tr>
         <th>Device Name</th>
         <th>Device MAC</th>
-        <th>Device IP</th>
+        <th>Device Address</th>
         <th>Device Port</th>
         <th>Action</th>
     </tr>
@@ -58,6 +58,8 @@
 
     </tbody>
 </table>
+ <br />
+
 <script>
     // test alert
     $(function(){
