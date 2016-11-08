@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping(value = "/device_manager", method = {RequestMethod.GET, RequestMethod.POST})
@@ -41,7 +42,9 @@ public class DeviceManagerController {
             String testNumeric = "";
             model.addAttribute("devicePort", testNumeric);
 
-            if (deviceDao.checkMacExists(device.getDeviceMac())) {
+            if (!isValidMacAddress(device.getDeviceMac())){
+                model.addAttribute("errorMessage", "Invalid MAC address");
+            } else if (deviceDao.checkMacExists(device.getDeviceMac())) {
                 model.addAttribute("errorMessage", "A device with this MAC address already exists." +
                         " Please enter a unqiue MAC address.");
             }
@@ -73,6 +76,14 @@ public class DeviceManagerController {
         model.addAttribute("deviceList", deviceDao.getAll());
 
         return "/device_manager";
+    }
+
+    private boolean isValidMacAddress(String mac) {
+        final Pattern pattern = Pattern.compile("(([0-9A-Fa-f]{2}[-:]){5}[0-9A-Fa-f]{2})|(([0-9A-Fa-f]{4}.){2}[0-9A-Fa-f]{4})");
+        if (!pattern.matcher(mac).matches()) {
+            return false;
+        }
+        return true;
     }
 
     private boolean isValidPort(int port) {

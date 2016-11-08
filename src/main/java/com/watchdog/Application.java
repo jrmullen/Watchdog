@@ -20,10 +20,5 @@ public class Application {
         
         ctx.close();
 
-        //TODO: remove this test code
-        Device device = new Device();
-        device.buildDeviceUrl("192.168.12.4.1", 8081);
-        System.out.println(device.getDeviceUrl());
-
     }
 }
