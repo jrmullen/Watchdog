@@ -73,12 +73,12 @@ Queries for the User are written in the UserDaoImpl
 
 ##Install and configure Motion
 from raspberry pi terminal execute the following commands:
-`sudo apt-get install vim   (optional if you like Vim editor over emacs/nano)`
-`sudo apt-get update`
-`sudo apt-get upgrade`
-`sudo apt-get install motion`
+`sudo apt-get install vim   (optional if you like Vim editor over emacs/nano) <br />
+sudo apt-get update                <br />
+sudo apt-get upgrade               <br />
+sudo apt-get install motion`
 
-Open motion.conf file in text editor
+Open motion.conf file in text editor    <br />
 `sudo vim /etc/motion/motion.conf  (or use emacs/nano instead of vim)`
 
 make edits to motion.conf file where necessary:
@@ -94,8 +94,8 @@ make edits to motion.conf file where necessary:
 * stream_localhost off
 >save file
 
-set up pi cam to be used with Motion on boot
-`vim /etc/rc.local      (emacs/nano optional)`
-add line to file:
-`sudo modprobe bcm2835-v4l2`   
+set up pi cam to be used with Motion on boot        <br />
+`vim /etc/rc.local      (emacs/nano optional)       <br />
+add line to file:                                   <br />
+`sudo modprobe bcm2835-v4l2`                        <br />
 >save file
