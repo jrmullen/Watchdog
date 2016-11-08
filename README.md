@@ -72,10 +72,10 @@ Queries for the User are written in the UserDaoImpl
 
 
 ##Install and configure Motion
-from raspberry pi terminal execute the following commands:
-`sudo apt-get install vim   (optional if you like Vim editor over emacs/nano)` <br />
-`sudo apt-get update`                <br />
-`sudo apt-get upgrade`               <br />
+from raspberry pi terminal execute the following commands:                      <br />
+`sudo apt-get install vim   (optional if you like Vim editor over emacs/nano)`  <br />
+`sudo apt-get update`                                                           <br />
+`sudo apt-get upgrade`                                                          <br />
 `sudo apt-get install motion`
 
 Open motion.conf file in text editor    <br />
