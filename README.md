@@ -94,8 +94,8 @@ make edits to motion.conf file where necessary:
 * stream_localhost off
 >save file
 
-set up pi cam to be used with Motion on boot        <br />
-`vim /etc/rc.local      (emacs/nano optional)`       <br />
+set up pi cam to be used with Motion on boot:       <br />
+`vim /etc/rc.local      (emacs/nano optional)`      <br />
 add line to file:                                   <br />
 `sudo modprobe bcm2835-v4l2`                        <br />
->save file
+save file
