@@ -27,11 +27,11 @@ public class EditController {
     DeviceDao deviceDao = ctx.getBean("deviceDaoImpl", DeviceDao.class);
     
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-    String userEmail = auth.getName();
 
     @GetMapping(value = "/edit")
     public String edit(User user, Model model) {
 
+        String userEmail = auth.getName();
         int userId = userDao.getByEmail(userEmail).getId();
         model.addAttribute("user", userDao.getById(userId));
 
@@ -44,6 +44,7 @@ public class EditController {
             return "edit";
         }
 
+        String userEmail = auth.getName();
         int userId = userDao.getByEmail(userEmail).getId();
 
         model.addAttribute("firstName", user.getFirstName());
