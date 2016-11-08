@@ -75,7 +75,7 @@ Queries for the User are written in the UserDaoImpl
 from raspberry pi terminal execute the following commands:
 `sudo apt-get install vim   (optional if you like Vim editor over emacs/nano)
 sudo apt-get update
-sudo apt-get upgrade
+sudo apt-get upgrade   
 sudo apt-get install motion`
 
 Open motion.conf file in text editor
