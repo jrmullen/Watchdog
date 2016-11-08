@@ -34,15 +34,48 @@ public class DeviceManagerController {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
         DeviceDao deviceDao = ctx.getBean("deviceDaoImpl", DeviceDao.class); //first parameter is the id found in the spring.xml file
 
+        String errorMessage = null;
+        String successMessage = null;
+
+        model.addAttribute("deviceName", device.getDeviceName());
+        model.addAttribute("deviceMac", device.getDeviceMac());
+        model.addAttribute("deviceIp", device.getDeviceIp());
+
         //Save device to DB
         if(!device.getDeviceName().equals("") && !device.getDeviceMac().equals("")
-                                            && !device.getDeviceIp().equals("")) {
+                && !device.getDeviceIp().equals("")) {
 
-            model.addAttribute("deviceName", device.getDeviceName());
-            model.addAttribute("deviceMac", device.getDeviceMac());
-            model.addAttribute("deviceIp", device.getDeviceIp());
-            deviceDao.save(device);
+            String testNumeric = "";
+            model.addAttribute("devicePort", testNumeric);
+
+           /* if(isNumeric(testNumeric)) {
+                model.addAttribute("devicePort", device.getDevicePort());*/
+
+                if (deviceDao.checkMacExists(device.getDeviceMac())) {
+                    model.addAttribute("errorMessage", "A device with this MAC address already exists." +
+                            " Please enter a unqiue MAC address.");
+                }
+                else if (device.getDevicePort() < 1 | device.getDevicePort() > 65535) {
+                    model.addAttribute("errorMessage", "Port field must be left blank or be number between 1 and 65,535.");
+                }
+                else {
+                    deviceDao.save(device);
+                    model.addAttribute("successMessage", "Device successfully saved.");
+                }
+          /*  }
+            else {
+                model.addAttribute("errorMessage", "Port field must be a number.");
+            }*/
+
         }
+        else if (device.getDeviceName().equals("") || device.getDeviceMac().equals("")
+                || device.getDeviceIp().equals("")) {
+            model.addAttribute("errorMessage", "Please fill in all required fields.");
+
+        }
+        errorMessage = null;
+        successMessage = null;
+
         model.addAttribute("deviceList", deviceDao.getAll());
 
         //redirect to device manager page
@@ -62,5 +95,10 @@ public class DeviceManagerController {
         model.addAttribute("deviceList", deviceDao.getAll());
 
         return "/device_manager";
+    }
+
+    public static boolean isNumeric(String str)
+    {
+        return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
     }
 }
