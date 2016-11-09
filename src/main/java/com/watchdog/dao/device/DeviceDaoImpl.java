@@ -6,7 +6,6 @@ package com.watchdog.dao.device;
 
 import com.watchdog.business.Device;
 import com.watchdog.dao.Constants;
-import com.watchdog.dao.device.DeviceDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -33,15 +32,16 @@ public class DeviceDaoImpl implements DeviceDao {
     @Override
     public void save (Device device) {
 
-        Object[] args = new Object[]{device.getDeviceName(), device.getDeviceMac(), device.getDeviceIp()};
+        Object[] args = new Object[]{device.getDeviceName(), device.getDeviceMac(),
+                                    device.getDeviceAddress(), device.getDevicePort()};
 
         int out = jdbcTemplate.update(Constants.CREATE_DEVICE_QUERY, args);
 
         if (out !=0) {
-            System.out.println("Device " + device.getDeviceName() + " " + device.getDeviceMac() + " " + device.getDeviceIp()
-            + " saved");
-        } else System.out.println("Device " + device.getDeviceName() + " " + device.getDeviceMac() + " " + device.getDeviceIp()
-                + " failed");
+            System.out.println("Device " + device.getDeviceName() + " " + device.getDeviceMac() +
+                        " " + device.getDeviceAddress() + " " + device.getDevicePort() + " saved");
+        } else System.out.println("Device " + device.getDeviceName() + " " + device.getDeviceMac() +
+                        " " + device.getDeviceAddress() + " " + device.getDevicePort() + " failed to save");
 
     }
 
@@ -60,8 +60,11 @@ public class DeviceDaoImpl implements DeviceDao {
                 device.setPermissId(rs.getInt("PERMISS_ID"));
                 device.setDeviceName(rs.getString("DEVICE_NAME"));
                 device.setDeviceMac(rs.getString ("DEVICE_MAC"));
-                device.setDeviceIp(rs.getString("DEVICE_IP"));
-                device.setDevicePort(rs.getInt("DEVICE_PORT"));
+                device.setDeviceAddress(rs.getString("DEVICE_IP"));
+                if (null != rs.getString("DEVICE_PORT")) {
+                    device.setDevicePort(rs.getInt("DEVICE_PORT"));
+                }
+
                 return device;
             }
         });
@@ -69,9 +72,31 @@ public class DeviceDaoImpl implements DeviceDao {
     }
 
     @Override
+    public boolean checkMacExists(String mac){
+        //using RowMapper anonymous class, we can create a separate RowMapper for reuse
+        try {
+            Device user = jdbcTemplate.queryForObject(Constants.SELECT_MAC_QUERY, new Object[]{mac}, new RowMapper<Device>() {
+
+                @Override
+                public Device mapRow(ResultSet rs, int rowNum)
+                        throws SQLException {
+                    Device device = new Device();
+                    device.setDeviceMac(rs.getString("DEVICE_MAC"));
+                    return device;
+                }
+            });
+            return true;
+        }
+        catch(Exception e) {
+            return false;
+        }
+    }
+
+    @Override
     public void update(Device device) {
 
-        Object[] args = new Object[]{device.getDeviceName(), device.getDeviceIp(), device.getDeviceMac()};
+        Object[] args = new Object[]{device.getDeviceName(),  device.getDeviceMac(),
+                                    device.getDeviceAddress(),  device.getDevicePort()};
 
         int out = jdbcTemplate.update(Constants.UPDATE_BY_DEVICE_ID_QUERY, args);
         if (out !=0) {
@@ -106,11 +131,11 @@ public class DeviceDaoImpl implements DeviceDao {
             device.setPermissId(Integer.parseInt(String.valueOf(deviceRow.get("PERMISS_ID"))));
             device.setDeviceName(String.valueOf(deviceRow.get("DEVICE_NAME")));
             device.setDeviceMac(String.valueOf(deviceRow.get("DEVICE_MAC")));
-            device.setDeviceIp(String.valueOf(deviceRow.get("DEVICE_IP")));
+            device.setDeviceAddress(String.valueOf(deviceRow.get("DEVICE_IP")));
             if (null != deviceRow.get("DEVICE_PORT")) {
                 device.setDevicePort(Integer.parseInt(String.valueOf(deviceRow.get("DEVICE_PORT"))));
             }
-            device.buildDeviceUrl(device.getDeviceIp(), device.getDevicePort());
+            device.buildDeviceUrl(device.getDeviceAddress(), device.getDevicePort());
 
             deviceList.add(device);
         }
