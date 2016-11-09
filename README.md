@@ -92,7 +92,12 @@ make edits to motion.conf file where necessary:
 * stream_port 8081        (doesn't have to be 8081 but you need to know the port for the device manager page)
 * stream_maxrate 15       (default is like 1FPS which is extremely low and laggy. 15 is good quality)
 * stream_localhost off
->save file
+save file
+
+enable motion start daemon                          <br />
+`sudo vim /etc/default/motion`                      <br >
+change no to yes
+save file
 
 set up pi cam to be used with Motion on boot:       <br />
 `vim /etc/rc.local      (emacs/nano optional)`      <br />
