@@ -16,15 +16,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping(value = "/manage_permissions", method = { RequestMethod.GET, RequestMethod.POST })
+@RequestMapping(value = "/manage_permissions", method = {RequestMethod.GET, RequestMethod.POST})
 public class ManagePermissionsController {
+
+    ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+    PermissionsDao permissionsDao = ctx.getBean("permissionsDaoImpl", PermissionsDao.class);
+    UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class);
 
     @RequestMapping
     public String listAll(@Valid Permissions permissions, BindingResult bindingResult, Model model) {
-
-        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
-        PermissionsDao permissionsDao = ctx.getBean("permissionsDaoImpl", PermissionsDao.class);
-        UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class);
 
         model.addAttribute("permissionsList", permissionsDao.getAll());
         model.addAttribute("userList", userDao.getAll());
@@ -35,11 +35,6 @@ public class ManagePermissionsController {
     @PostMapping(params = "changePermissionRoleUser")
     public String addNew(@RequestParam int id, @RequestParam int permissionId,
                          Permissions permissions, User user, Model model) {
-
-        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
-        PermissionsDao permissionsDao = ctx.getBean("permissionsDaoImpl", PermissionsDao.class);
-        UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class);
-
 
         model.addAttribute("id", user.getId());
         model.addAttribute("permissionId", user.getPermissionId());
