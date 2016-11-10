@@ -36,14 +36,14 @@ public class DeviceDaoImpl implements DeviceDao {
     @Override
     public void save (Device device) {
 
-        Object[] args = new Object[]{device.getDeviceName(), device.getDeviceMac(), device.getDeviceIp()};
+        Object[] args = new Object[]{device.getDeviceName(), device.getDeviceMac(), device.getDeviceAddress()};
 
         int out = jdbcTemplate.update(Constants.CREATE_DEVICE_QUERY, args);
 
         if (out !=0) {
-            System.out.println("Device " + device.getDeviceName() + " " + device.getDeviceMac() + " " + device.getDeviceIp()
+            System.out.println("Device " + device.getDeviceName() + " " + device.getDeviceMac() + " " + device.getDeviceAddress()
             + " saved");
-        } else System.out.println("Device " + device.getDeviceName() + " " + device.getDeviceMac() + " " + device.getDeviceIp()
+        } else System.out.println("Device " + device.getDeviceName() + " " + device.getDeviceMac() + " " + device.getDeviceAddress()
                 + " failed");
 
     }
@@ -62,8 +62,8 @@ public class DeviceDaoImpl implements DeviceDao {
                 device.setUserId(rs.getInt("USER_ID"));
                 device.setPermissId(rs.getInt("PERMISS_ID"));
                 device.setDeviceName(rs.getString("DEVICE_NAME"));
-                device.setDeviceMac(rs.getString ("DEVICE_MAC"));
-                device.setDeviceIp(rs.getString("DEVICE_IP"));
+                device.setDeviceMac(rs.getString("DEVICE_MAC"));
+                device.setDeviceAddress(rs.getString("DEVICE_IP"));
                 device.setDevicePort(rs.getInt("DEVICE_PORT"));
                 return device;
             }
@@ -117,7 +117,7 @@ public class DeviceDaoImpl implements DeviceDao {
     @Override
     public void update(Device device) {
 
-        Object[] args = new Object[]{device.getDeviceName(), device.getDeviceIp(), device.getDeviceMac()};
+        Object[] args = new Object[]{device.getDeviceName(), device.getDeviceAddress(), device.getDeviceMac()};
 
         int out = jdbcTemplate.update(Constants.UPDATE_BY_DEVICE_ID_QUERY, args);
         if (out !=0) {
@@ -152,11 +152,11 @@ public class DeviceDaoImpl implements DeviceDao {
             device.setPermissId(Integer.parseInt(String.valueOf(deviceRow.get("PERMISS_ID"))));
             device.setDeviceName(String.valueOf(deviceRow.get("DEVICE_NAME")));
             device.setDeviceMac(String.valueOf(deviceRow.get("DEVICE_MAC")));
-            device.setDeviceIp(String.valueOf(deviceRow.get("DEVICE_IP")));
+            device.setDeviceAddress(String.valueOf(deviceRow.get("DEVICE_IP")));
             if (null != deviceRow.get("DEVICE_PORT")) {
                 device.setDevicePort(Integer.parseInt(String.valueOf(deviceRow.get("DEVICE_PORT"))));
             }
-            device.buildDeviceUrl(device.getDeviceIp(), device.getDevicePort());
+            device.buildDeviceUrl(device.getDeviceAddress(), device.getDevicePort());
 
             deviceList.add(device);
         }
