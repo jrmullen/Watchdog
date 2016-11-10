@@ -7,7 +7,118 @@
           href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.css" rel="stylesheet" media="screen"/>
 </head>
 <body>
-<img src="http://jmullen.ddns.net:8081" th:width="200" th:height="300" alt="image"> </img>
 
+<div class="container">
+    <div class="table-responsive">
+
+        <table class="table" th:if="${not #lists.isEmpty(logList)}">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Date</th>
+                <th>Start</th>
+                <th>Length</th>
+                <th>Camera</th>
+                <th>Tags</th>
+                <th></th>
+                <th>Sort by:
+                    <select>
+                        <option value="date">Date</option>
+                        <option value="camera">Camera</option>
+                        <option value="camera">Tag</option>
+                    </select>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="log : ${logList}">
+                <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#playModal">Play</button>
+
+                    <!-- Play Modal -->
+                    <div id="playModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Log Playback</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/PZUiT7yoEPg" frameborder="0"></iframe>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- End Play Modal -->
+                </td>
+                <td th:text="${log.date}"></td>
+                <td th:text="${log.startTime}"></td>
+                <td th:text="${log.length}"></td>
+                <td th:text="${log.camera}"></td>
+                <td th:text="${log.tags}"></td>
+                <td>
+                    <form th:action="@{?editTags}" th:object="${tag}" method="post" class="in-line">
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tagsModal">Edit Tags</button>
+
+                        <!-- Edit Tags Modal -->
+                        <div id="tagsModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Edit Tags</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table"><!--th:if="${not #lists.isEmpty(tagList)}"-->
+                                            <tr>
+                                                <td>Tag</td>
+                                                <td><button type="submit" class="btn btn-danger">Delete Tag</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tag</td>
+                                                <td><button type="submit" class="btn btn-danger">Delete Tag</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tag</td>
+                                                <td><button type="submit" class="btn btn-danger">Delete Tag</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input type="text" class="in-line" id="addTag" placeholder="Tag" /></td>
+                                                <td><button type="submit" class="btn btn-success">Add Tag</button></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- End Edit Tags Modal -->
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{?deleteLog}" th:object="${log}" method="post" class="in-line">
+                        <input type="hidden" th:value="${log.vid_id}" name="vid_id" />
+                        <input type="hidden" th:value="${log.id}" name="id" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
 </body>
 </html>
