@@ -34,8 +34,10 @@ public class LogController {
         VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class); //first parameter is the id found in the spring.xml file
         TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
         DeviceDao deviceDao = ctx.getBean("deviceDaoImpl", DeviceDao.class);
+        logList.clear();
 
         List<Video> videoList = videoDao.getAll();
+
 
         for (int i = 0; i < videoList.size(); i++) {
             Log log = new Log();
