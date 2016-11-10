@@ -72,6 +72,27 @@ public class DeviceDaoImpl implements DeviceDao {
     }
 
     @Override
+    public boolean checkMacExists(String mac){
+        //using RowMapper anonymous class, we can create a separate RowMapper for reuse
+        try {
+            Device user = jdbcTemplate.queryForObject(Constants.SELECT_MAC_QUERY, new Object[]{mac}, new RowMapper<Device>() {
+
+                @Override
+                public Device mapRow(ResultSet rs, int rowNum)
+                        throws SQLException {
+                    Device device = new Device();
+                    device.setDeviceMac(rs.getString("DEVICE_MAC"));
+                    return device;
+                }
+            });
+            return true;
+        }
+        catch(Exception e) {
+            return false;
+        }
+    }
+
+    @Override
     public String getDeviceNameByVidId(int id) {
         //Initialize database and create Dao object
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
