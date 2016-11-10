@@ -23,6 +23,9 @@ public class Device {
     @NotNull
     private int devicePort;
 
+    @NotNull
+    private String deviceIp;
+
     private String deviceUrl;
 
     public void setDevicePort(int devicePort) {
@@ -76,6 +79,10 @@ public class Device {
     public String buildDeviceUrl(String deviceIp, int devicePort) {
         String deviceUrl = "http://" + deviceIp + ":" + devicePort;
         setDeviceUrl(deviceUrl);
-        return deviceUrl;
+        return deviceUrl;}
+
+    public String getDeviceIp() { return deviceIp; }
+
+    public void setDeviceIp(String deviceIp) { this.deviceIp = deviceIp; }
     }
 }
