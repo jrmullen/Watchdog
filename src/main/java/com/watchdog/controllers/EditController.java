@@ -1,10 +1,9 @@
 package com.watchdog.controllers;
 
-import com.watchdog.business.Device;
+import com.watchdog.business.User;
 import com.watchdog.dao.device.DeviceDao;
 import com.watchdog.dao.user.UserDao;
 import com.watchdog.services.UserUpdateService;
-import com.watchdog.business.User;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,21 +12,24 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
 import javax.validation.Valid;
 
 /**
  * Created by Richard on 10/27/2016.
  */
+
 @Controller
 public class EditController {
 
+    ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+    UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class);
+    DeviceDao deviceDao = ctx.getBean("deviceDaoImpl", DeviceDao.class);
+    
+
+
     @GetMapping(value = "/edit")
     public String edit(User user, Model model) {
-        //Initialize database and create Dao object
-        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
-        UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = auth.getName();
@@ -42,12 +44,9 @@ public class EditController {
         if (bindingResult.hasErrors()) {
             return "edit";
         }
-        //Initialize database and create Dao object
-        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
-        UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String userEmail = auth.getName(); //get logged in username
+        String userEmail = auth.getName();
         int userId = userDao.getByEmail(userEmail).getId();
 
         model.addAttribute("firstName", user.getFirstName());
@@ -58,7 +57,6 @@ public class EditController {
         user.setEmail(userEmail);
         UserUpdateService.updateUser(user);
 
-        DeviceDao deviceDao = ctx.getBean("deviceDaoImpl", DeviceDao.class);
         model.addAttribute("deviceList", deviceDao.getAll());
 
         return "user_home";
