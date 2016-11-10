@@ -76,23 +76,40 @@ from raspberry pi terminal execute the following commands:                      
 `sudo apt-get install vim   (optional if you like Vim editor over emacs/nano)`  <br />
 `sudo apt-get update`                                                           <br />
 `sudo apt-get upgrade`                                                          <br />
-`sudo apt-get install motion`
+`sudo apt-get install motion`                                                   <br />
+`mkdir /tmp/motion`                                                             <br />
+`sudo raspi-config`                                                             <br />
+Enable Pi Camera set to 'yes' (#5 on the list)
 
 Open motion.conf file in text editor    <br />
 `sudo vim /etc/motion/motion.conf  (or use emacs/nano instead of vim)`
 
 make edits to motion.conf file where necessary:
 * daemon on
-* width 640
-* height 480
+* width 320
+* height 240
 * framerate 30            (video file framerate. Default is 1 and it's terrible)
-* max_movie_time 10       (sets max length of recorded clip to 10 seconds)
+* minimum_motion_frames 5
+* max_movie_time 5       (sets max length of recorded clip to 10 seconds)
 * output_pictures off     (if this is left on the directory where files are stored will be filled very quickly with images)
 * target_dir /tmp/motion  (this is where our motion detection video clips will be stored)
 * stream_port 8081        (doesn't have to be 8081 but you need to know the port for the device manager page)
 * stream_maxrate 15       (default is like 1FPS which is extremely low and laggy. 15 is good quality)
 * stream_localhost off
->save file
+* webcontrol_localhost off                          <br />
+save file
+
+enable motion start daemon                          <br />
+`sudo vim /etc/default/motion`                      <br />
+change no to yes                                    <br />
+save file                                           <br />
+
+enable pi camera to use with motion:                <br />
+`sudo modprobe bcm2835-v4l2`                        <br />
+If you get a message saying this is not permission, your camera probably is not recognized. <br />
+`sudo vcgencmd get_camera` to view cameras          <br />
+if pi camera is not detected here use the following <br />
+`sudo apt-get install lua-5.2`
 
 set up pi cam to be used with Motion on boot:       <br />
 `vim /etc/rc.local      (emacs/nano optional)`      <br />
