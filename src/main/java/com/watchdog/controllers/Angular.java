@@ -4,7 +4,6 @@ package com.watchdog.controllers;
  * Created by Jeremy on 10/20/2016.
  */
 
-import com.google.gson.Gson;
 import com.watchdog.business.Log;
 import com.watchdog.business.Tag;
 import com.watchdog.business.Video;
@@ -64,7 +63,7 @@ public class Angular {
         System.out.println(logListJson);
 
         //export list to model
-        model.addAttribute("logList", logList);
+        model.addAttribute("logListJson", logListJson);
 
         //redirect to logview page
         return "/angular";

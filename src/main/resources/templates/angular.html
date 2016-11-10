@@ -1,124 +1,230 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Login</title>
+    <title>Angular Tests</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}"
           href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.css" rel="stylesheet" media="screen"/>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
 </head>
 <body>
 
-<div class="container">
-    <div class="table-responsive">
+<p>[[${logListJson}]]</p>
+<!--<div ng-controller="tableJsonCtrl">-->
+    <!--<table border="1" cellpadding="10">-->
+        <!--<tr ng-repeat="items in phones">-->
+            <!--<td>{{items.id}}</td>-->
+            <!--<td>{{items.vid_id}}</td>-->
+            <!--<td>{{items.date}}</td>-->
+            <!--<td>{{items.startTime}}</td>-->
+            <!--<td>{{items.length}}</td>-->
+            <!--<td>{{items.camera}}</td>-->
+            <!--<td>{{items.tagList}}</td>-->
+        <!--</tr>-->
+    <!--</table>-->
+<!--</div>-->
+<!--<script>-->
+    <!--var tableJson = angular.module('tableJson', []);-->
+    <!--tableJson.controller('tableJsonCtrl', function($scope){-->
+        <!--$scope.phones = [[$LogListJson]];-->
 
-        <table class="table" th:if="${not #lists.isEmpty(logList)}">
-            <thead>
-            <tr>
-                <th></th>
-                <th>Date</th>
-                <th>Start</th>
-                <th>Length</th>
-                <th>Camera</th>
-                <th>Tags</th>
-                <th></th>
-                <th>Sort by:
-                    <select>
-                        <option value="date">Date</option>
-                        <option value="camera">Camera</option>
-                        <option value="camera">Tag</option>
-                    </select>
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="log : ${logList}">
-                <td>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#playModal">Play</button>
+    <!--})-->
+<!--</script>-->
 
-                    <!-- Play Modal -->
-                    <div id="playModal" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
+<h2>AngularJS Sample Application</h2>
+<div ng-app = "mainApp" ng-controller = "studentController">
 
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Log Playback</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/PZUiT7yoEPg" frameborder="0"></iframe>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
+    <table border = "0">
+        <tr>
+            <td>Enter first name:</td>
+            <td><input type = "text" ng-model = "student.firstName" /></td>
+        </tr>
 
-                        </div>
-                    </div>
-                    <!-- End Play Modal -->
-                </td>
-                <td th:text="${log.date}"></td>
-                <td th:text="${log.startTime}"></td>
-                <td th:text="${log.length}"></td>
-                <td th:text="${log.camera}"></td>
-                <td th:text="${log.tags}"></td>
-                <td>
-                    <form th:action="@{?editTags}" th:object="${tag}" method="post" class="in-line">
-                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tagsModal">Edit Tags</button>
+        <tr>
+            <td>Enter last name: </td>
+            <td>
+                <input type = "text" ng-model = "student.lastName" />
+            </td>
+        </tr>
 
-                        <!-- Edit Tags Modal -->
-                        <div id="tagsModal" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
+        <tr>
+            <td>Name: </td>
+            <td>{{student.fullName()}}</td>
+        </tr>
 
-                                <!-- Modal content-->
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Edit Tags</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <table class="table"><!--th:if="${not #lists.isEmpty(tagList)}"-->
-                                            <tr>
-                                                <td>Tag</td>
-                                                <td><button type="submit" class="btn btn-danger">Delete Tag</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tag</td>
-                                                <td><button type="submit" class="btn btn-danger">Delete Tag</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tag</td>
-                                                <td><button type="submit" class="btn btn-danger">Delete Tag</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td><input type="text" class="in-line" id="addTag" placeholder="Tag" /></td>
-                                                <td><button type="submit" class="btn btn-success">Add Tag</button></td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
+        <tr>
+            <td>Subject:</td>
 
-                            </div>
-                        </div>
-                        <!-- End Edit Tags Modal -->
-                    </form>
-                </td>
-                <td>
-                    <form th:action="@{?deleteLog}" th:object="${log}" method="post" class="in-line">
-                        <input type="hidden" th:value="${log.vid_id}" name="vid_id" />
-                        <input type="hidden" th:value="${log.id}" name="id" />
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </td>
+            <td>
+                <table>
+                    <tr>
+                        <th>Name</th>.
+                        <th>Marks</th>
+                    </tr>
 
-            </tr>
-            </tbody>
-        </table>
+                    <tr ng-repeat = "subject in student.subjects">
+                        <td>{{ subject.id }}</td>
+                        <td>{{ subject.vid_id }}</td>
+                        <td>{{ subject.startTime }}</td>
+                        <td>{{ subject.length }}</td>
+                        <td>{{ subject.camera }}</td>
+                        <td>{{ subject.tagList }}</td>
+                        <td>{{ subject.tags }}</td>
+                    </tr>
 
-    </div>
+                </table>
+            </td>
+
+        </tr>
+    </table>
+
 </div>
+
+<script th:inline="javascript">
+    var mainApp = angular.module("mainApp", []);
+
+
+    /*<![CDATA[*/
+    var logListJson = [[$logListJson]];
+    /*]]>*/
+
+    console.log(logListJson);
+
+    mainApp.controller('studentController', function($scope) {
+        $scope.student = {
+            firstName: "Mahesh",
+            lastName: "Parashar",
+            fees:500,
+
+
+            subjects: logListJson,
+
+
+            fullName: function() {
+                var studentObject;
+                studentObject = $scope.student;
+                return studentObject.firstName + " " + studentObject.lastName;
+            }
+        };
+    });
+</script>
+
+
+
+
+
+
+<!--<div class="container">-->
+    <!--<div class="table-responsive">-->
+
+        <!--<table class="table" th:if="${not #lists.isEmpty(logList)}">-->
+            <!--<thead>-->
+            <!--<tr>-->
+                <!--<th></th>-->
+                <!--<th>Date</th>-->
+                <!--<th>Start</th>-->
+                <!--<th>Length</th>-->
+                <!--<th>Camera</th>-->
+                <!--<th>Tags</th>-->
+                <!--<th></th>-->
+                <!--<th>Sort by:-->
+                    <!--<select>-->
+                        <!--<option value="date">Date</option>-->
+                        <!--<option value="camera">Camera</option>-->
+                        <!--<option value="camera">Tag</option>-->
+                    <!--</select>-->
+                <!--</th>-->
+            <!--</tr>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+            <!--<tr th:each="log : ${logList}">-->
+                <!--<td>-->
+                    <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#playModal">Play</button>-->
+
+                    <!--&lt;!&ndash; Play Modal &ndash;&gt;-->
+                    <!--<div id="playModal" class="modal fade" role="dialog">-->
+                        <!--<div class="modal-dialog">-->
+
+                            <!--&lt;!&ndash; Modal content&ndash;&gt;-->
+                            <!--<div class="modal-content">-->
+                                <!--<div class="modal-header">-->
+                                    <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                                    <!--<h4 class="modal-title">Log Playback</h4>-->
+                                <!--</div>-->
+                                <!--<div class="modal-body">-->
+                                    <!--<iframe width="560" height="315" src="https://www.youtube.com/embed/PZUiT7yoEPg" frameborder="0"></iframe>-->
+                                <!--</div>-->
+                                <!--<div class="modal-footer">-->
+                                    <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash; End Play Modal &ndash;&gt;-->
+                <!--</td>-->
+                <!--<td th:text="${log.date}"></td>-->
+                <!--<td th:text="${log.startTime}"></td>-->
+                <!--<td th:text="${log.length}"></td>-->
+                <!--<td th:text="${log.camera}"></td>-->
+                <!--<td th:text="${log.tags}"></td>-->
+                <!--<td>-->
+                    <!--<form th:action="@{?editTags}" th:object="${tag}" method="post" class="in-line">-->
+                        <!--<button type="button" class="btn btn-info" data-toggle="modal" data-target="#tagsModal">Edit Tags</button>-->
+
+                        <!--&lt;!&ndash; Edit Tags Modal &ndash;&gt;-->
+                        <!--<div id="tagsModal" class="modal fade" role="dialog">-->
+                            <!--<div class="modal-dialog">-->
+
+                                <!--&lt;!&ndash; Modal content&ndash;&gt;-->
+                                <!--<div class="modal-content">-->
+                                    <!--<div class="modal-header">-->
+                                        <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                                        <!--<h4 class="modal-title">Edit Tags</h4>-->
+                                    <!--</div>-->
+                                    <!--<div class="modal-body">-->
+                                        <!--<table class="table">&lt;!&ndash;th:if="${not #lists.isEmpty(tagList)}"&ndash;&gt;-->
+                                            <!--<tr>-->
+                                                <!--<td>Tag</td>-->
+                                                <!--<td><button type="submit" class="btn btn-danger">Delete Tag</button></td>-->
+                                            <!--</tr>-->
+                                            <!--<tr>-->
+                                                <!--<td>Tag</td>-->
+                                                <!--<td><button type="submit" class="btn btn-danger">Delete Tag</button></td>-->
+                                            <!--</tr>-->
+                                            <!--<tr>-->
+                                                <!--<td>Tag</td>-->
+                                                <!--<td><button type="submit" class="btn btn-danger">Delete Tag</button></td>-->
+                                            <!--</tr>-->
+                                            <!--<tr>-->
+                                                <!--<td><input type="text" class="in-line" id="addTag" placeholder="Tag" /></td>-->
+                                                <!--<td><button type="submit" class="btn btn-success">Add Tag</button></td>-->
+                                            <!--</tr>-->
+                                        <!--</table>-->
+                                    <!--</div>-->
+                                    <!--<div class="modal-footer">-->
+                                        <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash; End Edit Tags Modal &ndash;&gt;-->
+                    <!--</form>-->
+                <!--</td>-->
+                <!--<td>-->
+                    <!--<form th:action="@{?deleteLog}" th:object="${log}" method="post" class="in-line">-->
+                        <!--<input type="hidden" th:value="${log.vid_id}" name="vid_id" />-->
+                        <!--<input type="hidden" th:value="${log.id}" name="id" />-->
+                        <!--<button type="submit" class="btn btn-danger">Delete</button>-->
+                    <!--</form>-->
+                <!--</td>-->
+
+            <!--</tr>-->
+            <!--</tbody>-->
+        <!--</table>-->
+
+    <!--</div>-->
+<!--</div>-->
 </body>
 </html>
