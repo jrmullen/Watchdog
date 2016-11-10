@@ -21,6 +21,8 @@ public interface DeviceDao {
 
     public String getDeviceNameByVidId(int id);
 
+    boolean checkMacExists(String mac);
+
     //Update
     void update (Device device);
 
