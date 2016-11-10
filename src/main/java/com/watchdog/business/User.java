@@ -1,5 +1,6 @@
 package com.watchdog.business;
 
+import com.watchdog.controllers.EditController;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -12,7 +13,7 @@ import java.util.Arrays;
  * Created by jmullen on 9/14/16.
  */
 
-public class User {
+public class User{
 
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private int id;

@@ -20,6 +20,8 @@ public interface DeviceDao {
     Device getById (int id);
 
 
+    boolean checkMacExists(String mac);
+
     //Update
     void update (Device device);
 

@@ -1,5 +1,6 @@
 package com.watchdog.controllers;
 
+import com.watchdog.business.Device;
 import com.watchdog.dao.device.DeviceDao;
 import com.watchdog.dao.user.UserDao;
 import com.watchdog.services.UserUpdateService;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import javax.validation.Valid;
 
 /**
@@ -24,16 +24,16 @@ import javax.validation.Valid;
 public class EditController {
 
     @GetMapping(value = "/edit")
-    public String register(User user, Model model) {
+    public String edit(User user, Model model) {
         //Initialize database and create Dao object
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
         UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String userEmail = auth.getName(); //get logged in username
-
+        String userEmail = auth.getName();
         int userId = userDao.getByEmail(userEmail).getId();
         model.addAttribute("user", userDao.getById(userId));
+
         return "edit";
     }
 
@@ -57,6 +57,9 @@ public class EditController {
         user.setId(userId);
         user.setEmail(userEmail);
         UserUpdateService.updateUser(user);
+
+        DeviceDao deviceDao = ctx.getBean("deviceDaoImpl", DeviceDao.class);
+        model.addAttribute("deviceList", deviceDao.getAll());
 
         return "user_home";
     }
