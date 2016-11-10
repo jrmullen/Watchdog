@@ -90,10 +90,22 @@ public class LogController {
         VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
         TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
 
+        model.addAttribute("tagList", tagDao.getAll());
 
-
-        return "/logview";
+        return "/editTags";
     }
 
+    //delete device
+    @RequestMapping(params = "deleteTag")
+    public String delete(@RequestParam int id, Tag tag, Model model) {
+
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+        TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
+
+        tagDao.deleteByTagId(id);
+        model.addAttribute("tagList", tagDao.getAll());
+
+        return "/editTags";
+    }
 
 }

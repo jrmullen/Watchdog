@@ -90,18 +90,16 @@
                                         <h4 class="modal-title">Edit Tags</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <table class="table"><!--th:if="${not #lists.isEmpty(tagList)}"-->
-                                            <tr>
-                                                <td>Tag</td>
-                                                <td><button type="submit" class="btn btn-danger">Delete Tag</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tag</td>
-                                                <td><button type="submit" class="btn btn-danger">Delete Tag</button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tag</td>
-                                                <td><button type="submit" class="btn btn-danger">Delete Tag</button></td>
+                                        <table class="table" th:if="${not #lists.isEmpty(tagList)}">
+                                            <tr th:each="tag, iter : ${tagList}">
+
+                                                <td th:text="${tag.tagName}"></td>
+                                                <td>
+                                                    <form th:action="@{?deleteTag}" th:object="${tag}" method="post" class="in-line">
+                                                        <input type="hidden" th:value="${tag.tagId}" name="id" />
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                    </form>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td><input type="text" class="in-line" id="addTag" placeholder="Tag" /></td>
@@ -130,6 +128,7 @@
             </tr>
             </tbody>
         </table>
+
     </div>
 
 

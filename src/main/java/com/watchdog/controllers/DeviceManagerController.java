@@ -75,7 +75,7 @@ public class DeviceManagerController {
         deviceDao.deleteById(id);
         model.addAttribute("deviceList", deviceDao.getAll());
 
-        return "/logview";
+        return "/device_manager";
     }
 
     private boolean isValidMacAddress(String mac) {
