@@ -9,27 +9,24 @@ import javax.validation.constraints.NotNull;
 public class Device {
 
     private int id,
-            userId,
-            permissId;
+            userId;
 
     @NotNull
     private String deviceName;
 
+    @NotNull
     private String deviceMac;
 
     @NotNull
     private String deviceAddress;
 
-    @NotNull
-    private int devicePort;
+    private String devicePort;
 
     private String deviceUrl;
 
-    public void setDevicePort(int devicePort) {
-        this.devicePort = devicePort;
-    }
+    public void setDevicePort(String devicePort) {this.devicePort = devicePort; }
 
-    public int getDevicePort() {
+    public String getDevicePort() {
         return devicePort;
     }
 
@@ -53,14 +50,6 @@ public class Device {
         this.userId = userId;
     }
 
-    public int getPermissId() {
-        return permissId;
-    }
-
-    public void setPermissId(int permissId) {
-        this.permissId = permissId;
-    }
-
     public String getDeviceName() { return deviceName; }
 
     public void setDeviceName(String deviceName) { this.deviceName = deviceName; }
@@ -73,7 +62,7 @@ public class Device {
 
     public void setDeviceAddress(String deviceAddress) { this.deviceAddress = deviceAddress; }
 
-    public String buildDeviceUrl(String deviceIp, int devicePort) {
+    public String buildDeviceUrl(String deviceIp, String devicePort) {
         String deviceUrl = "http://" + deviceIp + ":" + devicePort;
         setDeviceUrl(deviceUrl);
         return deviceUrl;
