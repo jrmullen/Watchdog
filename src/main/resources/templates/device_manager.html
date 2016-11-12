@@ -20,7 +20,7 @@
         <input type="text" class="in-line" id="deviceAddress" th:field="*{deviceAddress}" placeholder="Device Address"/>
         <input type="text" class="in-line" id="devicePort" th:field="*{devicePort}" placeholder="Device Port (Optional)"/>
         <button type="submit" class="btn btn-success" id="btn-add">Add New</button>
-        <input type="button" class="btn btn-info" onclick="clearText()" value="Clear" />
+        <button class="btn btn-info" onclick="clearText()">Clear</button>
 
     </div>
      <span class="help-block" style="color: red" th:text="${errorMessage}"></span>
