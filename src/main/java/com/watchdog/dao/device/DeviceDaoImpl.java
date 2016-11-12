@@ -60,11 +60,13 @@ public class DeviceDaoImpl implements DeviceDao {
                 Device device = new Device();
                 device.setId(rs.getInt("DEVICE_ID"));
                 device.setUserId(rs.getInt("USER_ID"));
-                device.setPermissId(rs.getInt("PERMISS_ID"));
                 device.setDeviceName(rs.getString("DEVICE_NAME"));
-                device.setDeviceMac(rs.getString("DEVICE_MAC"));
-                device.setDeviceAddress(rs.getString("DEVICE_IP"));
-                device.setDevicePort(rs.getInt("DEVICE_PORT"));
+                device.setDeviceMac(rs.getString ("DEVICE_MAC"));
+                device.setDeviceAddress(rs.getString("DEVICE_ADDRESS"));
+                if (null != rs.getString("DEVICE_PORT")) {
+                    device.setDevicePort(rs.getString("DEVICE_PORT"));
+                }
+
                 return device;
             }
         });
@@ -149,12 +151,11 @@ public class DeviceDaoImpl implements DeviceDao {
             Device device = new Device();
             device.setId(Integer.parseInt(String.valueOf(deviceRow.get("DEVICE_ID"))));
             device.setUserId(Integer.parseInt(String.valueOf(deviceRow.get("USER_ID"))));
-            device.setPermissId(Integer.parseInt(String.valueOf(deviceRow.get("PERMISS_ID"))));
             device.setDeviceName(String.valueOf(deviceRow.get("DEVICE_NAME")));
             device.setDeviceMac(String.valueOf(deviceRow.get("DEVICE_MAC")));
-            device.setDeviceAddress(String.valueOf(deviceRow.get("DEVICE_IP")));
+            device.setDeviceAddress(String.valueOf(deviceRow.get("DEVICE_ADDRESS")));
             if (null != deviceRow.get("DEVICE_PORT")) {
-                device.setDevicePort(Integer.parseInt(String.valueOf(deviceRow.get("DEVICE_PORT"))));
+                device.setDevicePort(String.valueOf(deviceRow.get("DEVICE_PORT")));
             }
             device.buildDeviceUrl(device.getDeviceAddress(), device.getDevicePort());
 

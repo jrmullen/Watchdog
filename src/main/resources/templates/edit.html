@@ -34,7 +34,7 @@
 
                     <div class="row container-fluid form-group">
                         <div class="col-md-12">
-                            <label for="password">Password:</label>
+                            <label for="password">New Password:</label>
                             <input type="password" class="form-control" id="password" th:field="*{password}" />
                             <span class="help-block" th:if="${#fields.hasErrors('password')}">Password must be
                                         at least 8 characters long</span>
@@ -43,7 +43,7 @@
 
                     <div class="row container-fluid form-group">
                         <div class="col-md-12">
-                            <label for="passwordconfirm">Confirm Password:</label>
+                            <label for="passwordconfirm">Confirm New Password:</label>
                             <input type="password" class="form-control" id="passwordconfirm" th:field="*{passwordConfirm}"/>
                             <span class="help-block" th:if="${#fields.hasErrors('passwordConfirm')}">Password must match</span>
                         </div>
