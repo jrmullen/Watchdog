@@ -124,8 +124,8 @@ footer {
     text-align: center;
 }
 
-/* Page heading styling */
-h3.text-center {
+/*Welcome text styling */
+#welcome-text {
     color: #0041ce;
     font-weight: bold;
 }

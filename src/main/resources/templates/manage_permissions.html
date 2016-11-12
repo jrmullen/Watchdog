@@ -11,7 +11,7 @@
 <body>
 <div th:include="fragments/header :: header"></div>
 
-<h3 class="col-md-offset-1">Permission Information</h3>
+<h3 class="text-center">Permission Information</h3>
 <table id="less-margin-top" th:if="${not #lists.isEmpty(permissionsList)}">
     <thead>
         <tr>
@@ -28,7 +28,7 @@
     </tbody>
 </table>
 
-<h3 class="col-md-offset-1">Users</h3>
+<h3 class="text-center">Users</h3>
 <div th:if="${not #lists.isEmpty(userList)}">
 
     <table id="less-margin-top">
