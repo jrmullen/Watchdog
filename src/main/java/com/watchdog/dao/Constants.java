@@ -16,6 +16,7 @@ public class Constants {
     public static final String UPDATE_USER_PERMISSION_BY_ID_QUERY = "update user set PERMISS_ID = ? where USER_ID= ?";
 
     //Device queries
+    public static final String GET_DEVICE_BY_DEVICE_MAC_QUERY = "select DEVICE_NAME from device where DEVICE_MAC = ?";
     public static final String CREATE_DEVICE_QUERY = "insert into device (DEVICE_NAME, DEVICE_MAC, DEVICE_ADDRESS, DEVICE_PORT) values (?,?,?,?)";
     public static final String GET_BY_DEVICE_ID_QUERY = "select DEVICE_ID, USER_ID, DEVICE_NAME, DEVICE_MAC, DEVICE_ADDRESS, DEVICE_PORT from device where DEVICE_ID = ?";
     public static final String UPDATE_BY_DEVICE_ID_QUERY = "update device set DEVICE_NAME = ?, DEVICE_MAC = ?, DEVICE_ADDRESS = ?, DEVICE_PORT = ? where DEVICE_ID = ?";
