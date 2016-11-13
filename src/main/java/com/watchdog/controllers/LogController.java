@@ -39,23 +39,23 @@ public class LogController {
         List<Video> videoList = videoDao.getAll();
 
 
-//        for (int i = 0; i < videoList.size(); i++) {
-//            Log log = new Log();
-//            Video video = videoList.get(i);
-//            List<Tag> tagList = tagDao.getByVidId(video.getVideoId());
-//
-//            String camera = deviceDao.getDeviceNameByVidId(video.getVideoId());
-//
-//            log.setId(i);
-//            log.setVidId(video.getVideoId());
-//            log.setDate(video.getDate());
-//            log.setStartTime(String.valueOf(video.getTime()));
-//            log.setLength(String.valueOf(video.getLength()));
-//            log.setCamera(camera);
-//            log.setTagList(tagList);
-//            log.setTags(log.getTagsString());
-//            logList.add(log);
-//        }
+        for (int i = 0; i < videoList.size(); i++) {
+            Log log = new Log();
+            Video video = videoList.get(i);
+            List<Tag> tagList = tagDao.getByVidId(video.getVideoId());
+
+            String camera = deviceDao.getDeviceNameByVidId(video.getVideoId());
+
+            log.setId(i);
+            log.setVidId(video.getVideoId());
+            log.setDate(video.getDate());
+            log.setStartTime(String.valueOf(video.getTime()));
+            log.setLength(String.valueOf(video.getLength()));
+            log.setCamera(camera);
+            log.setTagList(tagList);
+            log.setTags(log.getTagsString());
+            logList.add(log);
+        }
 
         //export list to model
         model.addAttribute("logList", logList);
