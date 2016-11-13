@@ -2,7 +2,7 @@ package com.watchdog.controllers;
 
 import com.watchdog.business.Permissions;
 import com.watchdog.business.User;
-import com.watchdog.dao.PermissionsDao;
+import com.watchdog.dao.permissions.PermissionsDao;
 import com.watchdog.dao.user.UserDao;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
