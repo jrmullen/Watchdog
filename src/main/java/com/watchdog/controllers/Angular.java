@@ -14,8 +14,10 @@ import com.watchdog.services.JsonConverterService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -41,7 +43,7 @@ public class Angular {
         List<Video> videoList = videoDao.getAll();
 
 
-        for (int i = 0; i < videoList.size(); i++) {
+        for (int i = 1; i < videoList.size(); i++) {
             Log log = new Log();
             Video video = videoList.get(i);
             List<Tag> tagList = tagDao.getByVidId(video.getVideoId());
@@ -64,6 +66,7 @@ public class Angular {
 
         //export list to model
         model.addAttribute("logListJson", logListJson);
+        model.addAttribute("logList", logList);
 
         //redirect to logview page
         return "/angular";
@@ -72,6 +75,24 @@ public class Angular {
     @RequestMapping(value = "/angular")
     String angular() {
         return "angular";
+    }
+
+    //delete device
+    @PostMapping(params = "deleteLog")
+    public String delete(@RequestParam int vid_id, int id, Log log, Model model) {
+
+        //Initialize database and create videoDao, tagDao object
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+        VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
+        TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
+
+        tagDao.deleteTagToVidByVidId(vid_id);
+        videoDao.deleteByVidId(vid_id);
+
+        logList.remove(id);
+        model.addAttribute("logList", logList);
+
+        return "/angular";
     }
 
 
