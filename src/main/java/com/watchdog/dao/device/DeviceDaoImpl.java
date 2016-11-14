@@ -36,7 +36,7 @@ public class DeviceDaoImpl implements DeviceDao {
     @Override
     public void save (Device device) {
 
-        Object[] args = new Object[]{device.getDeviceName(), device.getDeviceMac(), device.getDeviceAddress()};
+        Object[] args = new Object[]{device.getDeviceName(), device.getDeviceMac(), device.getDeviceAddress(), device.getDevicePort()};
 
         int out = jdbcTemplate.update(Constants.CREATE_DEVICE_QUERY, args);
 
@@ -119,7 +119,7 @@ public class DeviceDaoImpl implements DeviceDao {
     @Override
     public void update(Device device) {
 
-        Object[] args = new Object[]{device.getDeviceName(), device.getDeviceAddress(), device.getDeviceMac()};
+        Object[] args = new Object[]{device.getDeviceName(), device.getDeviceAddress(), device.getDeviceMac(), device.getDevicePort()};
 
         int out = jdbcTemplate.update(Constants.UPDATE_BY_DEVICE_ID_QUERY, args);
         if (out !=0) {
