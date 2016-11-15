@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class Application {
@@ -23,8 +25,20 @@ public class Application {
 
         //To use JdbcTemplate
         UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class); //first parameter is the id found in the spring.xml file
+
+
         VideoInsertDeleteService videoInsertDeleteService = new VideoInsertDeleteService();
-        videoInsertDeleteService.getFiles(directory);
+        List<File> fileList = videoInsertDeleteService.getFiles(directory);
+
+        for (final File file : fileList) {
+            if (videoInsertDeleteService.overMaxAllowedAge(file)) {
+                System.out.println("Delete file:  " + file.getName());
+            } else {
+                System.out.println("Keep for now.");
+            }
+        }
+
+        videoInsertDeleteService.parseDays("hi");
 
         ctx.close();
     }
