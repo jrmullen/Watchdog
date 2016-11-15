@@ -33,6 +33,9 @@ public class Application {
         for (final File file : fileList) {
             if (videoInsertDeleteService.overMaxAllowedAge(file)) {
                 System.out.println("Delete file:  " + file.getName());
+
+                // this method will be functional later but does nothing right now
+                videoInsertDeleteService.deleteFile(file);
             } else {
                 System.out.println("Keep for now.");
             }

@@ -2,14 +2,13 @@ package com.watchdog.services;
 
 
 import com.watchdog.dao.device.DeviceDao;
+import com.watchdog.dao.video.VideoDao;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.File;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by renee on 11/15/2016.
@@ -19,21 +18,8 @@ public class VideoInsertDeleteService {
     private static final int MAX_ALLOWED_AGE = 2;
 
     ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
-    DeviceDao deviceDao = ctx.getBean("deviceDaoImpl", DeviceDao.class); //first parameter is the id found in the spring.xml file
+    VideoDao videoeDao = ctx.getBean("videoDaoImpl", VideoDao.class);
 
-
- /*   public File[] getFiles(File folder) {
-        File[] listOfFiles = folder.listFiles();
-
-        for (int i = 0; i < listOfFiles.length; i++) {
-            if (listOfFiles[i].isFile()) {
-                System.out.println("File: " + listOfFiles[i].getName());
-            } else if (listOfFiles[i].isDirectory()) {
-                System.out.println("Directory " + listOfFiles[i].getName());
-            }
-        }
-        return listOfFiles;
-    }*/
      public ArrayList<File> getFiles(File folder) {
          ArrayList<File> fileList = new ArrayList<File>();
 
@@ -48,21 +34,27 @@ public class VideoInsertDeleteService {
          return fileList;
      }
 
-    public void insertVideoDB() {
+    public void insertVideoIntoDb() {
+
+    }
+
+    public void deleteFile(File file) {
+       //deleteVideoFromDb(file.getName());
+    }
+
+    public void deleteVideoFromDb(String fileName) {
 
     }
 
     public boolean overMaxAllowedAge(File file) {
 
-        long days = parseDays(file.getName());
-            if (days >= MAX_ALLOWED_AGE) {
-               // deleteFromFolder(fileList[i]);
-                //deleteFromDatabase(fileList[i]);
-                return true;
-            } else {
-                return false;
-            }
-        //}
+        int days = parseDays(file.getName());
+
+        if (days >= MAX_ALLOWED_AGE) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public int parseDays(String fileName) {
