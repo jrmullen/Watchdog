@@ -8,22 +8,13 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" th:src="@{/js/footer.js}" />
 </head>
 <div th:include="fragments/header :: header"></div>
 <body>
 
-<h2>Angular Tag Table</h2>
 <div class="container">
     <div ng-app="myApp" ng-controller="tagController" class="table-responsive">
-
-        <div style="padding:20px 0px 60px 0px">
-            <span class="col-md-1" style="font-weight:bold">Search</span>
-            <span class="col-md-3">
-                <input type="search" class="form-control" ng-model="searchKeyword"/>
-                </span>
-        </div>
-
+        <h2 align="center">Angular Tag Table</h2>
         <table class="table">
             <thead>
                 <tr>
@@ -71,7 +62,43 @@
                     <td>{{x.length}}</td>
                     <td>{{x.camera}}</td>
                     <td>{{x.tags}}</td>
-                    <td>placeholder</td>
+
+                    <td>
+                        <form  method="post" class="in-line">
+                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tagsModal{{$index}}">Edit Tags</button>
+
+                            <!-- Edit Tags Modal -->
+                            <div id="tagsModal{{$index}}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Edit Tags</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table ng-repeat="y in x.tagList" class="table">
+                                                <tr>
+                                                    {{y.tagName}}
+                                                    <td><button type="submit" class="btn btn-danger">Delete Tag</button></td>
+                                                </tr>
+                                            </table>
+                                            <div>
+                                                <input type="text" class="in-line" id="addTag" placeholder="Tag" />
+                                                <button type="submit" class="btn btn-success">Add Tag</button>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- End Edit Tags Modal -->
+                        </form>
+                    </td>
 
                     <td>
                         <form th:action="@{?deleteLog}" method="post" class="in-line">
@@ -93,6 +120,10 @@
 
     var json = /*[[${logListJson}]]*/ "default";
 
+    myApp.config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+    }]);
+
     myApp.controller('tagController', function($scope) {
         $scope.tableList = JSON.parse(json);
 
@@ -104,7 +135,8 @@
 //        };
 
         /*<![CDATA[*/
-        $scope.removeRow = function(id){
+        $scope.removeRow = function(id, vid_id){
+            var data = 'id' + $scope.id + 'vid_id' + $scope.vid_id;
             var index = -1;
             var comArr = eval( $scope.tableList );
             for( var i = 0; i < comArr.length; i++ ) {
@@ -117,10 +149,20 @@
                 alert( "Something gone wrong" );
             }
             $scope.tableList.splice( index, 1 );
+
+            $http.post('/angular', data )
+                    .success(function(data, status, headers, config) {
+                        $scope.message = data;
+                    })
+                    .error(function(data, status, headers, config) {
+                        alert( "failure message: " + JSON.stringify({data: data}));
+                    });
             /*]]>*/
         };
     });
 </script>
-
+<br />
+<br />
+<script type="text/javascript" th:src="@{/js/footer.js}" />
 </body>
 </html>

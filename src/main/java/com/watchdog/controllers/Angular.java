@@ -14,10 +14,7 @@ import com.watchdog.services.JsonConverterService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -72,28 +69,29 @@ public class Angular {
         return "/angular";
     }
 
-    @RequestMapping(value = "/angular")
-    String angular() {
-        return "angular";
-    }
+//    @RequestMapping(value = "/angular")
+//    String angular() {
+//        return "angular";
+//    }
 
-    //delete device
-    @PostMapping(params = "deleteLog")
-    public String delete(@RequestParam int vid_id, int id, Log log, Model model) {
+    //delete video
+    @RequestMapping(value="/upload", method=RequestMethod.POST)
+    @ResponseBody
+    public String deleteVideo(@RequestBody int vid_id, int id) {
 
         //Initialize database and create videoDao, tagDao object
-        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
-        VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
-        TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
+//        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+//        VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
+//        TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
 
-        tagDao.deleteTagToVidByVidId(vid_id);
-        videoDao.deleteByVidId(vid_id);
+//        tagDao.deleteTagToVidByVidId(vid_id);
+//        videoDao.deleteByVidId(vid_id);
+//
+//        logList.remove(id);
+//        model.addAttribute("logList", logList);
 
-        logList.remove(id);
-        model.addAttribute("logList", logList);
+        System.out.println("vid_id: " + vid_id + "\nid: " + id);
 
         return "/angular";
     }
-
-
 }
