@@ -78,9 +78,9 @@
                                             <h4 class="modal-title">Edit Tags</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <table ng-repeat="y in x.tagList" class="table">
-                                                <tr>
-                                                    {{y.tagName}}
+                                            <table class="table">
+                                                <tr ng-repeat="tag in x.tagList">
+                                                    <td>{{tag.tagName}}</td>
                                                     <td><button type="submit" class="btn btn-danger">Delete Tag</button></td>
                                                 </tr>
                                             </table>
@@ -104,7 +104,7 @@
                         <form th:action="@{?deleteLog}" method="post" class="in-line">
                             <!--<input type="hidden" th:value="{{x.vid_id}}" name="vid_id" />-->
                             <!--<input type="hidden" th th:value="{{id}}" name="id" />-->
-                            <input type="button" value="Remove" class="btn btn-danger" ng-click="removeRow(tableList.id)" />
+                            <input type="button" value="Remove" class="btn btn-danger" ng-click="removeRow(x.id)" />
                         </form>
                     </td>
 
@@ -124,8 +124,9 @@
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
     }]);
 
-    myApp.controller('tagController', function($scope) {
+    myApp.controller('tagController', function($scope, $http) {
         $scope.tableList = JSON.parse(json);
+        console.log($scope.tableList);
 
 //        $scope.addRow = function(){
 //            $scope.tableList.push({ 'name':$scope.name, 'employees': $scope.employees, 'headoffice':$scope.headoffice });
@@ -136,6 +137,7 @@
 
         /*<![CDATA[*/
         $scope.removeRow = function(id, vid_id){
+            console.log(arguments);
             var data = 'id' + $scope.id + 'vid_id' + $scope.vid_id;
             var index = -1;
             var comArr = eval( $scope.tableList );
@@ -148,11 +150,12 @@
             if( index === -1 ) {
                 alert( "Something gone wrong" );
             }
-            $scope.tableList.splice( index, 1 );
 
-            $http.post('/angular', data )
+            $http.delete('/angular/video/' + id)
                     .success(function(data, status, headers, config) {
                         $scope.message = data;
+                        console.log('Deleted video');
+                        $scope.tableList.splice( index, 1 );
                     })
                     .error(function(data, status, headers, config) {
                         alert( "failure message: " + JSON.stringify({data: data}));

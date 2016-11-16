@@ -12,6 +12,8 @@ import com.watchdog.dao.tag.TagDao;
 import com.watchdog.dao.video.VideoDao;
 import com.watchdog.services.JsonConverterService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -75,9 +77,10 @@ public class Angular {
 //    }
 
     //delete video
-    @RequestMapping(value="/upload", method=RequestMethod.POST)
-    @ResponseBody
-    public String deleteVideo(@RequestBody int vid_id, int id) {
+    @RequestMapping(value="/video/{videoId}", method=RequestMethod.DELETE)
+    public ResponseEntity deleteVideo(
+            @PathVariable("videoId")
+            int videoId) {
 
         //Initialize database and create videoDao, tagDao object
 //        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
@@ -90,8 +93,8 @@ public class Angular {
 //        logList.remove(id);
 //        model.addAttribute("logList", logList);
 
-        System.out.println("vid_id: " + vid_id + "\nid: " + id);
+        System.out.println("Delete video ID: " + videoId);
 
-        return "/angular";
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
