@@ -84,7 +84,7 @@ public class VideoDaoImpl implements VideoDao {
     }
 
     @Override
-    public Video getById(int id) {
+    public Video getByVidId(int id) {
 
         //using RowMapper anonymous class, we can create a separate RowMapper for reuse
         Video video = jdbcTemplate.queryForObject(Constants.GET_VIDEO_BY_ID, new Object[]{id}, new RowMapper<Video>() {
@@ -128,7 +128,7 @@ public class VideoDaoImpl implements VideoDao {
 
 
     @Override
-    public void deleteById(int videoId) {
+    public void deleteByVidId(int videoId) {
 
         int out = jdbcTemplate.update(Constants.DELETE_VIDEO_BY_ID_QUERY, videoId);
         if (out != 0) {

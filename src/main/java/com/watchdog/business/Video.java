@@ -8,7 +8,7 @@ public class Video {
 
     private int videoId;
     private int userId;
-    private String filepath;
+    private String filePath;
     private Time length;
     private Date date;
     private Time time;

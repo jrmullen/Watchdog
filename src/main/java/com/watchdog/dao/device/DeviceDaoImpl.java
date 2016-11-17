@@ -102,7 +102,7 @@ public class DeviceDaoImpl implements DeviceDao {
         Video video = videoDao.getByVidId(id);
 
         //using RowMapper anonymous class, we can create a separate RowMapper for reuse
-        Device device = jdbcTemplate.queryForObject(Constants.GET_DEVICE_BY_DEVICE_MAC_QUERY, new Object[]{video.getDevice_mac()}, new RowMapper<Device>() {
+        Device device = jdbcTemplate.queryForObject(Constants.GET_DEVICE_BY_DEVICE_MAC_QUERY, new Object[]{video.getDeviceMac()}, new RowMapper<Device>() {
 
             @Override
             public Device mapRow(ResultSet rs, int rowNum)
