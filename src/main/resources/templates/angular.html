@@ -82,7 +82,7 @@
                                                 <tr ng-repeat="tag in x.tagList">
                                                     <td>{{tag.tagName}}</td>
                                                     <td>
-                                                        <input type="button" value="Delete Tag" class="btn btn-danger" ng-click="removeTag(x.vid_id, tag.tagName)" />
+                                                        <input type="button" value="Delete Tag" class="btn btn-danger" ng-click="removeTag(x.vid_id, tag.tagId)" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -127,7 +127,7 @@
         console.log($scope.tableList);
 
 //        $scope.addRow = function(){
-//            $scope.tableList.push({ 'name':$scope.name, 'employees': $scope.employees, 'headoffice':$scope.headoffice });
+//            $scope.tableList.push({ 'headoffice':$scope.headoffice });
 //            $scope.name='';
 //            $scope.employees='';
 //            $scope.headoffice='';
@@ -136,7 +136,7 @@
         /*<![CDATA[*/
         $scope.removeRow = function(id, vid_id){
             console.log(arguments);
-            var data = 'id' + $scope.id + 'vid_id' + $scope.vid_id;
+            var videoData = 'id' + $scope.id + 'vid_id' + $scope.vid_id;
             var index = -1;
             var comArr = eval( $scope.tableList );
             for( var i = 0; i < comArr.length; i++ ) {
@@ -151,12 +151,12 @@
 
             $http.delete('/angular/video/' + vid_id)
                     .success(function(data, status, headers, config) {
-                        $scope.message = data;
+                        $scope.message = videoData;
                         console.log('Deleted video');
                         $scope.tableList.splice( index, 1 );
                     })
-                    .error(function(data, status, headers, config) {
-                        alert( "failure message: " + JSON.stringify({data: data}));
+                    .error(function(videoData, status, headers, config) {
+                        alert( "failure message: " + JSON.stringify({data: videoData}));
                     });
             /*]]>*/
         };
@@ -164,27 +164,16 @@
         /*<![CDATA[*/
         $scope.removeTag = function(vid_id, tagId){
             console.log(arguments);
-            var data = 'vid_id' + vid_id + 'tagId' + $scope.tagId;
-            var index = -1;
-            var comArr = eval( $scope.tableList );
-            for( var i = 0; i < comArr.length; i++ ) {
-                if( comArr[i].tagId === tagId ) {
-                    index = i;
-                    break;
-                }
-            }
-            if( index === -1 ) {
-                alert( "Something has gone wrong" );
-            }
+            var tagData = 'tagId' + $scope.tagId + 'vid_id' + $scope.vid_id;
 
-            $http.delete('/angular/video/' + vid_id + '/' + tagId)
+            $http.delete('/angular/tag/' + vid_id + '/' + tagId)
                     .success(function(data, status, headers, config) {
-                        $scope.message = data;
+                        $scope.message = tagData;
                         console.log('Deleted tag');
-                        $scope.tableList.splice( index, 1 );
+//                        $scope.tableList.splice( index, 1 );
                     })
-                    .error(function(data, status, headers, config) {
-                        alert( "failure message: " + JSON.stringify({data: data}));
+                    .error(function(tagData, status, headers, config) {
+                        alert( "failure message: " + JSON.stringify({data: tagData}));
                     });
             /*]]>*/
         };

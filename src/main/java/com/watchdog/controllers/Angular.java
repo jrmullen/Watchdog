@@ -71,35 +71,23 @@ public class Angular {
         return "/angular";
     }
 
-//    @RequestMapping(value = "/angular")
-//    String angular() {
-//        return "angular";
-//    }
-
     //delete video
     @RequestMapping(value="/video/{videoId}", method=RequestMethod.DELETE)
     public ResponseEntity deleteVideo(
-            @PathVariable("videoId")
-            int videoId) {
+            @PathVariable("videoId") int videoId) {
 
-        //Initialize database and create videoDao, tagDao object
 //        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
 //        VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
 //        TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
-
+//
 //        tagDao.deleteTagToVidByVidId(videoId);
 //        videoDao.deleteByVidId(videoId);
-//
-//        logList.remove(id);
-//        model.addAttribute("logList", logList);
-
-        System.out.println("Delete video ID: " + videoId);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     //delete video tag
-    @RequestMapping(value="/video/{videoId}/{tagId}", method=RequestMethod.DELETE)
+    @RequestMapping(value="/tag/{videoId}/{tagId}", method=RequestMethod.DELETE)
     public ResponseEntity deleteTag(
             @PathVariable("tagId") int tagId,
             @PathVariable("videoId") int videoId) {
@@ -109,13 +97,14 @@ public class Angular {
 //        VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
 //        TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
 
+        //TODO: add correct queries to method
 //        tagDao.deleteTagToVidByVidId(videoId);
 //        videoDao.deleteByVidId(videoId);
-//
+
 //        logList.remove(id);
 //        model.addAttribute("logList", logList);
 
-        System.out.println("Delete tag ID: " + tagId + "for video ID: " + videoId);
+        System.out.println("Delete tag ID: " + tagId + " for video ID: " + videoId);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
