@@ -11,7 +11,7 @@
 
 <div th:include="fragments/header :: header"></div>
 
-        <h3 class="text-center">Welcome <span th:text="${firstName}"></span>!</h3>
+        <h3 class="text-center" id="welcome-text">Welcome <span th:text="${firstName}"></span>!</h3>
         <h3 class="col-md-offset-1">Video Feed</h3>
 
         <div class="row" th:if="${not #lists.isEmpty(deviceList)}">
