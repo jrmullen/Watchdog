@@ -35,7 +35,7 @@ public class Application {
                 videoInsertDeleteService.deleteFile(file);
                 
             } else if (!videoInsertDeleteService.fileExists(file.getName(), directory)){
-                if
+
             }
         }
 

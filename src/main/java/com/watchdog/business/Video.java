@@ -18,6 +18,7 @@ public class Video {
     private boolean isCompressed;
     private boolean isEncrypted;
     private long size;
+    private String deviceMac;
 
     public void setVideoId(int videoId){
         this.videoId = videoId;
@@ -103,5 +104,9 @@ public class Video {
 
     public String getFilePath() { return filePath; }
 
-    public void setFilePath(String filePath) { this.filePath = filePath }
+    public void setFilePath(String filePath) { this.filePath = filePath; }
+
+    public String getDeviceMac() { return deviceMac; }
+
+    public void setDeviceMac(String deviceMac) { this.deviceMac = deviceMac; }
 }
