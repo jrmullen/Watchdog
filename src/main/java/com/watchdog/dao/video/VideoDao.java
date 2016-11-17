@@ -14,6 +14,8 @@ public interface VideoDao {
     //Create
     void save(Video video);
 
+    Video getByVideoTitle(String videoTitle);
+
     //Read
     Video getById(int id);
 

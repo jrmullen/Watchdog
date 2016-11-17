@@ -24,13 +24,14 @@ public class Constants {
     public static final String GET_ALL_DEVICES_QUERY = "select DEVICE_ID, USER_ID, DEVICE_NAME, DEVICE_MAC, DEVICE_ADDRESS, DEVICE_PORT from device";
 
     // Video queries
-    public static final String CREATE_VIDEO_QUERY = "insert into video (USER_ID, DEVICE_ID, VID_LENGTH, VID_IS_COMPRESSED, VID_IS_ENCRYPTED, VID_SIZE_ON_DISK, VID_DATE, VID_TIME, VID_TITLE, VID_LOCATION, VID_DESCRIPTION) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    public static final String GET_VIDEO_BY_ID = "select VID_LENGTH, VID_IS_COMPRESSED, VID_IS_ENCRYPTED, VID_SIZE_ON_DISK, VID_DATE, VID_TIME, VID_TITLE, VID_LOCATION, VID_DESCRIPTION from video where VID_ID = ?";
+    public static final String CREATE_VIDEO_QUERY = "insert into video (USER_ID, VID_FILE_PATH, VID_LENGTH, VID_IS_COMPRESSED, VID_IS_ENCRYPTED, VID_SIZE_ON_DISK, VID_DATE, VID_TIME, VID_TITLE, VID_LOCATION, VID_DESCRIPTION, DEVICE_MAC) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public static final String GET_VIDEO_BY_ID = "select VID_ID, USER_ID, VID_FILE_PATH, VID_LENGTH, VID_IS_COMPRESSED, VID_IS_ENCRYPTED, VID_SIZE_ON_DISK, VID_DATE, VID_TIME, VID_TITLE, VID_LOCATION, VID_DESCRIPTION, DEVICE_MAC from video where VID_ID = ?";
     public static final String GET_VIDEO_TITLE_BY_USER_ID = "select VID_TITLE from video where USER_ID = ?";
-    public static final String GET_VIDEO_BY_VID_TITLE = "select VID_ID, USER_ID, DEVICE_ID, VID_LENGTH, VID_IS_COMPRESSED, VID_IS_ENCRYPTED, VID_SIZE_ON_DISK, VID_DATE, VID_TIME, VID_TITLE, VID_LOCATION, VID_DESCRIPTION from video WHERE VID_TITLE = ?";
-    public static final String UPDATE_VIDEO_BY_ID_QUERY = "update video set VID_LENGTH = ?, VID_IS_COMPRESSED = ?, VID_IS_ENCRYPTED = ?, VID_SIZE_ON_DISK = ?, VID_DATE = ?, VID_TIME = ?, VID_TITLE = ?, VID_LOCATION = ?, VID_DESCRIPTION = ? from video where VID_ID = ?";
+    public static final String GET_VIDEO_BY_VID_TITLE = "select VID_ID, USER_ID, VID_FILE_PATH, VID_LENGTH, VID_IS_COMPRESSED, VID_IS_ENCRYPTED, VID_SIZE_ON_DISK, VID_DATE, VID_TIME, VID_TITLE, VID_LOCATION, VID_DESCRIPTION, DEVICE_MAC from video VID_TITLE = ?";
+    public static final String UPDATE_VIDEO_BY_ID_QUERY = "update video set VID_FILE_PATH = ?, VID_LENGTH = ?, VID_IS_COMPRESSED = ?, VID_IS_ENCRYPTED = ?, VID_SIZE_ON_DISK = ?, VID_DATE = ?, VID_TIME = ?, VID_TITLE = ?, VID_LOCATION = ?, VID_DESCRIPTION = ?, DEVICE_MAC = ? from video where VID_ID = ?";
     public static final String DELETE_VIDEO_BY_ID_QUERY = "delete from video where VID_ID=?";
-    public static final String GET_ALL_VIDEOS_QUERY = "select VID_ID, USER_ID, DEVICE_ID, VID_LENGTH, VID_IS_COMPRESSED, VID_IS_ENCRYPTED, VID_SIZE_ON_DISK, VID_DATE, VID_TIME, VID_TITLE, VID_LOCATION, VID_DESCRIPTION from video";
+    public static final String GET_ALL_VIDEOS_QUERY = "select VID_ID, USER_ID, VID_FILE_PATH, VID_LENGTH, VID_IS_COMPRESSED, VID_IS_ENCRYPTED, VID_SIZE_ON_DISK, VID_DATE, VID_TIME, VID_TITLE, VID_LOCATION, VID_DESCRIPTION, DEVICE_MAC from video";
+    ;
 
     //Tag queries
     public static final String GET_ALL_TAGS_QUERY = "select TAG_ID, VID_ID, TAG_NAME from tag";
