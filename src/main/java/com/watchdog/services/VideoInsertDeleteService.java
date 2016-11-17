@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class VideoInsertDeleteService {
 
-    private static final int MAX_ALLOWED_AGE = 2;
+    private static final int MAX_ALLOWED_AGE = 3;
 
     ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
     VideoDao videoeDao = ctx.getBean("videoDaoImpl", VideoDao.class);

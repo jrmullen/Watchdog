@@ -104,8 +104,8 @@ public class VideoDaoImpl implements VideoDao {
 
         int out = jdbcTemplate.update(Constants.DELETE_VIDEO_BY_ID_QUERY, videoName);
         if (out != 0) {
-            System.out.println("Video deleted with id= " + videoName);
-        } else System.out.println("No Video found with id= " + videoName);
+            System.out.println("Video deleted with name = " + videoName);
+        } else System.out.println("No Video found with name = " + videoName);
     }
 
     @Override
