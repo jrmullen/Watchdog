@@ -42,7 +42,7 @@ public class Angular {
         List<Video> videoList = videoDao.getAll();
 
 
-        for (int i = 1; i < videoList.size(); i++) {
+        for (int i = 0; i < videoList.size(); i++) {
             Log log = new Log();
             Video video = videoList.get(i);
             List<Tag> tagList = tagDao.getByVidId(video.getVideoId());
@@ -87,13 +87,35 @@ public class Angular {
 //        VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
 //        TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
 
-//        tagDao.deleteTagToVidByVidId(vid_id);
-//        videoDao.deleteByVidId(vid_id);
+//        tagDao.deleteTagToVidByVidId(videoId);
+//        videoDao.deleteByVidId(videoId);
 //
 //        logList.remove(id);
 //        model.addAttribute("logList", logList);
 
         System.out.println("Delete video ID: " + videoId);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    //delete video tag
+    @RequestMapping(value="/video/{videoId}/{tagId}", method=RequestMethod.DELETE)
+    public ResponseEntity deleteTag(
+            @PathVariable("tagId") int tagId,
+            @PathVariable("videoId") int videoId) {
+
+        //Initialize database and create videoDao, tagDao object
+//        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+//        VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
+//        TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
+
+//        tagDao.deleteTagToVidByVidId(videoId);
+//        videoDao.deleteByVidId(videoId);
+//
+//        logList.remove(id);
+//        model.addAttribute("logList", logList);
+
+        System.out.println("Delete tag ID: " + tagId + "for video ID: " + videoId);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
