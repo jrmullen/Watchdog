@@ -82,7 +82,8 @@ public class Angular {
 //
 //        tagDao.deleteTagToVidByVidId(videoId);
 //        videoDao.deleteByVidId(videoId);
-
+        System.out.println("delete TTV for video ID: " + videoId);
+        System.out.println("delete video with video ID: " + videoId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
@@ -93,13 +94,10 @@ public class Angular {
             @PathVariable("videoId") int videoId) {
 
         //Initialize database and create videoDao, tagDao object
-//        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
-//        VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
-//        TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+        TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
 
-        //TODO: add correct queries to method
-//        tagDao.deleteTagToVidByVidId(videoId);
-//        videoDao.deleteByVidId(videoId);
+//        tagDao.deleteTagToVidByTagId(tagId);
 
 //        logList.remove(id);
 //        model.addAttribute("logList", logList);
