@@ -14,6 +14,8 @@ public interface VideoDao {
     //Create
     void save(Video video);
 
+    Video getByVideoTitle(String videoTitle);
+
     //Read
     Video getByVidId(int id);
 
@@ -22,6 +24,8 @@ public interface VideoDao {
 
     //Delete
     void deleteByVidId(int id);
+
+    void deleteByName(String videoName);
 
     //Get All
     List<Video> getAll();

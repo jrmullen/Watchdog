@@ -8,7 +8,6 @@ public class Video {
 
     private int videoId;
     private int userId;
-    private int deviceId;
     private String filepath;
     private Time length;
     private Date date;
@@ -19,6 +18,7 @@ public class Video {
     private boolean isCompressed;
     private boolean isEncrypted;
     private long size;
+    private String deviceMac;
     private String device_mac;
 
     public void setVideoId(int videoId){
@@ -30,10 +30,6 @@ public class Video {
     public int getUserId() { return userId; }
 
     public void setUserId(int userId) { this.userId= userId; }
-
-    public int getDeviceId() {return deviceId; }
-
-    public void setDeviceId(int deviceId) { this.deviceId = deviceId; }
 
     public void setLength(Time length){
         this.length = length;
@@ -83,20 +79,20 @@ public class Video {
         return description;
     }
 
-    public boolean getIsCompressed() {
+    public void setIsCompressed(boolean isCompressed){
+        this.isCompressed = isCompressed;
+    }
+
+    public boolean getIsCompressed(){
         return isCompressed;
     }
 
-    public void setIsCompressed(boolean compressed) {
-        isCompressed = compressed;
+    public void setIsEncrypted(boolean isEncrypted){
+        this.isEncrypted = isEncrypted;
     }
 
-    public boolean getIsEncrypted() {
+    public boolean getIsEncrypted(){
         return isEncrypted;
-    }
-
-    public void setIsEncrypted(boolean encrypted) {
-        isEncrypted = encrypted;
     }
 
     public void setSize(long size){
@@ -107,19 +103,11 @@ public class Video {
         return size;
     }
 
-    public String getFilepath() {
-        return filepath;
-    }
+    public String getFilePath() { return filePath; }
 
-    public void setFilepath(String filepath) {
-        this.filepath = filepath;
-    }
+    public void setFilePath(String filePath) { this.filePath = filePath; }
 
-    public String getDevice_mac() {
-        return device_mac;
-    }
+    public String getDeviceMac() { return deviceMac; }
 
-    public void setDevice_mac(String device_mac) {
-        this.device_mac = device_mac;
-    }
+    public void setDeviceMac(String deviceMac) { this.deviceMac = deviceMac; }
 }
