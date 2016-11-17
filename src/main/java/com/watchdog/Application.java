@@ -27,14 +27,15 @@ public class Application {
         VideoInsertDeleteService videoInsertDeleteService = new VideoInsertDeleteService();
         List<File> fileList = videoInsertDeleteService.getFiles(directory);
 
+
         for (final File file : fileList) {
             if (videoInsertDeleteService.overMaxAllowedAge(file)) {
                 System.out.println("Delete file:  " + file.getName());
 
                 videoInsertDeleteService.deleteFile(file);
                 
-            } else {
-                System.out.println("Keep for now.");
+            } else if (!videoInsertDeleteService.fileExists(file.getName(), directory)){
+                if
             }
         }
 

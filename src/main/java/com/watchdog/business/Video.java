@@ -8,7 +8,7 @@ public class Video {
 
     private int videoId;
     private int userId;
-    private int deviceId;
+    private String filePath;
     private Time length;
     private Date date;
     private Time time;
@@ -28,10 +28,6 @@ public class Video {
     public int getUserId() { return userId; }
 
     public void setUserId(int userId) { this.userId= userId; }
-
-    public int getDeviceId() {return deviceId; }
-
-    public void setDeviceId(int deviceId) { this.deviceId = deviceId; }
 
     public void setLength(Time length){
         this.length = length;
@@ -105,4 +101,7 @@ public class Video {
         return size;
     }
 
+    public String getFilePath() { return filePath; }
+
+    public void setFilePath(String filePath) { this.filePath = filePath }
 }

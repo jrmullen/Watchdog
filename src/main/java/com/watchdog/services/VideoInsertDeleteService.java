@@ -8,6 +8,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by renee on 11/15/2016.
@@ -91,6 +92,23 @@ public class VideoInsertDeleteService {
         long difference = (one.getTime()-two.getTime())/86400000;
         return (int)Math.abs(difference);
     }
+
+    public boolean fileExists(String fileName, File directory) {
+
+        List<File> fileList = getFiles(directory);
+
+        for (final File file : fileList) {
+            if (file.getName().equals(fileName)) {
+                System.out.println(file.getName() + " already exists in folder.");
+                return true;
+            }
+            else // remove else after testing
+                System.out.println(file.getName() + " does NOT exist in folder.");
+        }
+        return false;
+    }
+
+
 }
 
 
