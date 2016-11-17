@@ -23,6 +23,8 @@ public interface VideoDao {
     //Delete
     void deleteById(int id);
 
+    void deleteByName(String videoName);
+
     //Get All
     List<Video> getAll();
 }

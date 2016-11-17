@@ -1,14 +1,13 @@
 package com.watchdog.services;
 
 
-import com.watchdog.dao.device.DeviceDao;
 import com.watchdog.dao.video.VideoDao;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.File;
-import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by renee on 11/15/2016.
@@ -39,7 +38,9 @@ public class VideoInsertDeleteService {
     }
 
     public void deleteFile(File file) {
-       //deleteVideoFromDb(file.getName());
+
+        videoeDao.deleteByName(file.getName());
+        file.delete();
     }
 
     public void deleteVideoFromDb(String fileName) {

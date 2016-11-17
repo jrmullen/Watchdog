@@ -100,6 +100,15 @@ public class VideoDaoImpl implements VideoDao {
     }
 
     @Override
+    public void deleteByName(String videoName) {
+
+        int out = jdbcTemplate.update(Constants.DELETE_VIDEO_BY_ID_QUERY, videoName);
+        if (out != 0) {
+            System.out.println("Video deleted with id= " + videoName);
+        } else System.out.println("No Video found with id= " + videoName);
+    }
+
+    @Override
     public List<Video> getAll() {
 
         List<Video> videoList = new ArrayList<Video>();
