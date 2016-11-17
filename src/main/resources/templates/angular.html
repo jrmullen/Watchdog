@@ -86,10 +86,10 @@
                                                     </td>
                                                 </tr>
                                             </table>
-                                            <div>
-                                                <input type="text" class="in-line" id="addTag" placeholder="Tag" />
+                                            <form role="form" ng-submit="addTagRow()">
+                                                <input type="text" class="form-control" name="tagName" ng-model="tagName" placeholder="New Tag" />
                                                 <button type="submit" class="btn btn-success">Add Tag</button>
-                                            </div>
+                                            </form>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -126,12 +126,16 @@
         $scope.tableList = JSON.parse(json);
         console.log($scope.tableList);
 
-//        $scope.addRow = function(){
-//            $scope.tableList.push({ 'headoffice':$scope.headoffice });
-//            $scope.name='';
-//            $scope.employees='';
-//            $scope.headoffice='';
-//        };
+
+
+
+        $scope.addTagRow = function(){
+            $scope.tableList.push({ 'tagName':$scope.tagName });
+            $scope.tagName='';
+        };
+
+
+
 
         /*<![CDATA[*/
         $scope.removeRow = function(id, vid_id){
@@ -160,6 +164,10 @@
                     });
             /*]]>*/
         };
+
+
+
+
 
         /*<![CDATA[*/
         $scope.removeTag = function(vid_id, tagId){
