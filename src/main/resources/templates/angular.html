@@ -82,7 +82,7 @@
                                                 <tr ng-repeat="tag in x.tagList">
                                                     <td>{{tag.tagName}}</td>
                                                     <td>
-                                                        <input type="button" value="Delete Tag" class="btn btn-danger" ng-click="removeTag(x.vid_id, tag.tagId)" />
+                                                        <input type="button" value="Delete Tag" class="btn btn-danger" ng-click="removeTag(x.id, x.vid_id, tag.tagId)" />
                                                     </td>
                                                 </tr>
                                             </table>
@@ -170,15 +170,39 @@
 
 
         /*<![CDATA[*/
-        $scope.removeTag = function(vid_id, tagId){
+        $scope.removeTag = function(id, vid_id, tagId){
             console.log(arguments);
-            var tagData = 'tagId' + $scope.tagId + 'vid_id' + $scope.vid_id;
+            var tagData = 'id' + id + 'tagId' + $scope.tagId + 'vid_id' + $scope.vid_id;
+//            console.log(tagData);
+            console.log($scope.tableList);
+            var tagListIndex = -1;
+            var videoArray = eval( $scope.tableList );
+            console.log('videoArray:');
+            console.log(videoArray);
+            for( var i = 0; i < videoArray.length; i++ ) {
+                if (videoArray[i].id === id) {
+                    console.log('videoArray[i]:');
+                    console.log(videoArray[i]);
+                    var tagList = videoArray[i].tagList;
+                    console.log('tagList');
+                    console.log(tagList);
+                    for (var j = 0; j < tagList.length; j++) {
+                        if (tagList[j].tagId === tagId) {
+                            tagListIndex = j;
+                            tagList.splice( tagListIndex, 1 );
+                            break;
+                        }
+                    }
+                }
+            }
+            if( tagListIndex === -1 ) {
+                alert( "Something has gone wrong" );
+            }
 
             $http.delete('/angular/tag/' + vid_id + '/' + tagId)
                     .success(function(data, status, headers, config) {
                         $scope.message = tagData;
                         console.log('Deleted tag');
-//                        $scope.tableList.splice( index, 1 );
                     })
                     .error(function(tagData, status, headers, config) {
                         alert( "failure message: " + JSON.stringify({data: tagData}));
