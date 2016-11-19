@@ -106,4 +106,24 @@ public class Angular {
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+
+    @RequestMapping(value="/tag/{videoId}/{newTag}", method=RequestMethod.PUT)
+    public ResponseEntity createNewTag(
+            @PathVariable("videoId") int videoId,
+            @PathVariable("newTag") String newTag) {
+
+        //Initialize database and create videoDao, tagDao object
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+        TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
+
+//        tagDao.deleteTagToVidByTagId(tagId);
+
+//        logList.remove(id);
+//        model.addAttribute("logList", logList);
+
+        System.out.println("New tag: " + newTag + " for video ID: " + videoId);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }
