@@ -87,8 +87,8 @@
                                                 </tr>
                                             </table>
                                             <form role="form" ng-submit="addTagRow()">
-                                                <input type="text" class="form-control" name="tagName" ng-model="tagName" placeholder="New Tag" />
-                                                <button type="submit" class="btn btn-success">Add Tag</button>
+                                                <input type="text" class="form-control" name="tagName" ng-model="newTag" placeholder="New Tag" />
+                                                <button type="submit" class="btn btn-success" ng-click="addTagRow(x.id, newTag)">Add Tag</button>
                                             </form>
                                         </div>
                                         <div class="modal-footer">
@@ -128,13 +128,52 @@
 
 
 
+        /*<![CDATA[*/
+        $scope.addTagRow = function(id, newTag){
+            console.log('addTagRow function has been called.');
+            console.log(arguments);
+            var tagExists = 0;
+//            var tagListIndex = -1;
+            var videoArray = eval( $scope.tableList );
+            console.log('videoArray:');
+            console.log(videoArray);
 
-        $scope.addTagRow = function(){
-            $scope.tableList.push({ 'tagName':$scope.tagName });
-            $scope.tagName='';
+                for( var i = 0; i < videoArray.length; i++ ) {
+                    if (videoArray[i].id === id) {
+                        console.log('videoArray[i]:');
+                        console.log(videoArray[i]);
+                        var tagList = videoArray[i].tagList;
+                        console.log('tagList');
+                        console.log(tagList);
+                        for (var j = 0; j < tagList.length; j++) {
+                            if (tagList[j].tagName === newTag.toLowerCase()) {
+                                console.log('tag already exists');
+                                tagExists = 1;
+                                break;
+                            }
+                        }
+                        if (tagExists === 0) {
+                            tagList[tagList.length] = { "tagId": null, "tagName": newTag };
+                            console.log('tag ' + newTag + ' added');
+                            console.log(tagList);
+                            update($scope.tableList[id].tagList, tagList);
+                        }
+                    }
+                }
+//            if( tagListIndex === -1 ) {
+//                alert( "Something has gone wrong" );
+//            }
+
+//            $http.delete('/angular/tag/' + vid_id + '/' + tagId)
+//                    .success(function(data, status, headers, config) {
+//                        $scope.message = tagData;
+//                        console.log('Deleted tag');
+//                    })
+//                    .error(function(tagData, status, headers, config) {
+//                        alert( "failure message: " + JSON.stringify({data: tagData}));
+//                    });
+            /*]]>*/
         };
-
-
 
 
         /*<![CDATA[*/
