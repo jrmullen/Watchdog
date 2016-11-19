@@ -108,21 +108,27 @@ public class Angular {
     }
 
 
-    @RequestMapping(value="/tag/{videoId}/{newTag}", method=RequestMethod.PUT)
+    @RequestMapping(value="/tag/{videoId}/{newTagName}", method=RequestMethod.PUT)
     public ResponseEntity createNewTag(
             @PathVariable("videoId") int videoId,
-            @PathVariable("newTag") String newTag) {
+            @PathVariable("newTagName") String newTagName) {
 
         //Initialize database and create videoDao, tagDao object
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
         TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
+
+        tagDao.checkTagExists(newTagName);
+
+        Tag newTag = new Tag();
+        newTag.setTagName(newTagName);
+        tagDao.save(newTag);
 
 //        tagDao.deleteTagToVidByTagId(tagId);
 
 //        logList.remove(id);
 //        model.addAttribute("logList", logList);
 
-        System.out.println("New tag: " + newTag + " for video ID: " + videoId);
+        System.out.println("New tag: " + newTagName + " for video ID: " + videoId);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

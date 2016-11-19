@@ -21,6 +21,8 @@ public interface TagDao {
     //Delete
     void deleteByTagId(int id);
 
+    boolean checkTagExists(String newTag);
+
     void deleteTagToVidByVidId(int id);
 
     void deleteTagToVidByTagId(int id);

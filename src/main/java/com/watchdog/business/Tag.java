@@ -27,7 +27,7 @@ public class Tag {
         return tagName;
     }
 
-    public void setTagName(String tagName) {
+    public static void setTagName(String tagName) {
         this.tagName = tagName;
     }
 }

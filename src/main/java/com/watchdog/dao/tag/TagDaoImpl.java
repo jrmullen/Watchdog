@@ -94,6 +94,27 @@ public class TagDaoImpl implements TagDao {
         } else System.out.println("No Tag found with tag_id= " + tag_id);
     }
 
+    @Override
+    public boolean checkTagExists(String newTag) {
+        try {
+            Tag tag = jdbcTemplate.queryForObject(Constants.SELECT_TAG_NAME_QUERY, new Object[]{newTag}, new RowMapper<Tag>() {
+
+                @Override
+                public Tag mapRow(ResultSet rs, int rowNum)
+                        throws SQLException {
+                    Tag tag = new Tag();
+                    Tag.setTagName(rs.getString("TAG_NAME"));
+                    return tag;
+                }
+            });
+            return true;
+        }
+        catch(Exception e) {
+            return false;
+        }
+    }
+
+    @Override
     public void deleteTagToVidByTagId(int tag_id){
         int out = jdbcTemplate.update(Constants.DELETE_TTV_BY_TAG_ID_QUERY, tag_id);
         if(out != 0){
@@ -103,6 +124,7 @@ public class TagDaoImpl implements TagDao {
         }
     }
 
+    @Override
     public void deleteTagToVidByVidId(int vid_id){
         int out = jdbcTemplate.update(Constants.DELETE_TTV_BY_VID_ID_QUERY, vid_id);
         if(out != 0){
