@@ -113,23 +113,28 @@ public class Angular {
             @PathVariable("videoId") int videoId,
             @PathVariable("newTagName") String newTagName) {
 
-        //Initialize database and create videoDao, tagDao object
-        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
-        TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
-
-        tagDao.checkTagExists(newTagName);
-
-        Tag newTag = new Tag();
-        newTag.setTagName(newTagName);
-        tagDao.save(newTag);
-
-//        tagDao.deleteTagToVidByTagId(tagId);
-
-//        logList.remove(id);
-//        model.addAttribute("logList", logList);
+        createTag(videoId, newTagName);
 
         System.out.println("New tag: " + newTagName + " for video ID: " + videoId);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    private void createTag(int videoId, String newTagName) {
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
+        TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
+
+        Tag newTag = new Tag();
+        newTag.setTagName(newTagName);
+
+        if (tagDao.checkTagExists(newTagName)) {
+            System.out.println("tag " + newTagName + " already exists.");
+            tagDao.getTagIdByTagName(newTagName);
+        } else {
+            tagDao.save(newTag);
+            tagDao.getTagIdByTagName(newTagName);
+        }
+
+        tagDao.addTagToVid(newTag.getTagId(), videoId);
     }
 }

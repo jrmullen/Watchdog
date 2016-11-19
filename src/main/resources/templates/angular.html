@@ -151,7 +151,7 @@
                 }
 
             $http.put('/angular/tag/' + vid_id + '/' + newTag)
-                    .success(function(data, status, headers, config) {
+                    .success(function(newTagData, status, headers, config) {
                         $scope.message = newTagData;
                         console.log('Added new tag');
                     })

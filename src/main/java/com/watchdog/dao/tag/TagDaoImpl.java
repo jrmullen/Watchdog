@@ -59,6 +59,27 @@ public class TagDaoImpl implements TagDao {
         return tag;
     }
 
+    @Override
+    public int getTagIdByTagName(String tagName) {
+
+        //using RowMapper anonymous class, we can create a separate RowMapper for reuse
+        Tag tag = jdbcTemplate.queryForObject(Constants.GET_TAG_ID_BY_TAG_NAME, new Object[]{tagName}, new RowMapper<Tag>() {
+
+            @Override
+            public Tag mapRow(ResultSet rs, int rowNum)
+                    throws SQLException {
+
+                Tag tag = new Tag();
+                tag.setTagId(rs.getInt("TAG_ID"));
+                tag.setTagName(rs.getString("TAG_NAME"));
+                return tag;
+            }
+        });
+        System.out.println("Tag with name " + tagName + " has ID: " + tag.getTagId());
+        return tag.getTagId();
+    }
+
+    @Override
     public List<Tag> getByVidId(int id){
         List<Tag> tagList = new ArrayList<>();
 
@@ -103,7 +124,8 @@ public class TagDaoImpl implements TagDao {
                 public Tag mapRow(ResultSet rs, int rowNum)
                         throws SQLException {
                     Tag tag = new Tag();
-                    Tag.setTagName(rs.getString("TAG_NAME"));
+                    tag.setTagId(rs.getInt("TAG_ID"));
+                    tag.setTagName(rs.getString("TAG_NAME"));
                     return tag;
                 }
             });
@@ -115,11 +137,21 @@ public class TagDaoImpl implements TagDao {
     }
 
     @Override
+    public void addTagToVid(int tagId, int videoId) {
+        int out = jdbcTemplate.update(Constants.ADD_TAG_TO_VID_QUERY, tagId, videoId);
+        if (out != 0) {
+            System.out.println("Tag with tagId: " + tagId + " added to video with videoId: " + videoId);
+        } else {
+            System.out.println("Unable to add tagId: " + tagId + " to video videoId: " + videoId);
+        }
+    }
+
+    @Override
     public void deleteTagToVidByTagId(int tag_id){
         int out = jdbcTemplate.update(Constants.DELETE_TTV_BY_TAG_ID_QUERY, tag_id);
         if(out != 0){
             System.out.println("TTV deleted with tag_id = " + tag_id);
-        }else{
+        } else {
             System.out.println("Unable to delete TTV with tag_id = " + tag_id);
         }
     }
@@ -129,7 +161,7 @@ public class TagDaoImpl implements TagDao {
         int out = jdbcTemplate.update(Constants.DELETE_TTV_BY_VID_ID_QUERY, vid_id);
         if(out != 0){
             System.out.println("TTV deleted with vid_id = " + vid_id);
-        }else{
+        } else {
             System.out.println("Unable to delete TTV with vid_id = " + vid_id);
         }
     }

@@ -3,6 +3,7 @@ package com.watchdog.business;
 import java.util.List;
 
 public class Tag {
+
     private int tagId;
     private String tagName;
     private List<Video> vidList;
@@ -27,7 +28,7 @@ public class Tag {
         return tagName;
     }
 
-    public static void setTagName(String tagName) {
+    public void setTagName(String tagName) {
         this.tagName = tagName;
     }
 }
