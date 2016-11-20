@@ -49,6 +49,15 @@ public class Application {
 
         videoDao.save(video);
 
+        // test get video by title
+        // works if there is video in database with the title: A trespassing squirrel
+        Video video2 = videoDao.getByVideoTitle("A trespassing squirrel");
+        System.out.println("Video get by title test: " + video2.getVideoId() + " " + video2.getFilePath() +
+                " " + video2.getLength() + " "  + video2.getIsCompressed() + " " + video2.getIsEncrypted() +
+                " " + video2.getSize() + " " + video2.getDate()  + " " + video2.getTime()  + " " +
+                video2.getTitle()  + " " + video2.getLocation()  + " " + video2.getDescription() + " " +
+                video2.getDeviceMac());
+
         // test get vide by id
         Video video1 = videoDao.getByVidId(1);
         System.out.println("Video get by id test: " + video1.getFilePath() + " " + video1.getLength() + " "  +
@@ -59,7 +68,7 @@ public class Application {
 
         // test delete video by id
         // This works if there is a video with an id of 3 in database
-        // videoDao.deleteByVidId(3);
+        videoDao.deleteByVidId(3);
 
         // test update video
         video1.setFilePath("update path");
