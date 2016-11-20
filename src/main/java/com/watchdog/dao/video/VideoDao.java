@@ -20,7 +20,7 @@ public interface VideoDao {
     Video getByVidId(int id);
 
     //Update
-    void update(Video video);
+    void update(Video video, int vidId);
 
     //Delete
     void deleteByVidId(int id);

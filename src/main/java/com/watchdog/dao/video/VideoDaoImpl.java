@@ -115,10 +115,17 @@ public class VideoDaoImpl implements VideoDao {
     }
 
     @Override
-    public void update(Video video) {
+    public void update(Video video, int videoId) {
 
+        video.setVideoId(videoId);
         Object[] args = new Object[]{video.getFilePath(), video.getLength(), video.getIsCompressed(), video.getIsEncrypted(), video.getSize(),
-                video.getDate(), video.getTime(), video.getTitle(), video.getLocation(), video.getDescription(), video.getDeviceMac()};
+                video.getDate(), video.getTime(), video.getTitle(), video.getLocation(), video.getDescription(), video.getDeviceMac(), videoId};
+
+        System.out.println("Video: " + video.getFilePath() + " " + video.getLength() + " "  +
+                video.getIsCompressed() + " " + video.getIsEncrypted() + " " + video.getSize()
+                + " " + video.getDate()  + " " + video.getTime()  + " " + video.getTitle()  +
+                " " + video.getLocation()  + " " + video.getDescription() + " " +
+                video.getDeviceMac());
 
         int out = jdbcTemplate.update(Constants.UPDATE_VIDEO_BY_ID_QUERY, args);
         if (out != 0) {

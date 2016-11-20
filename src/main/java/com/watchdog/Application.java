@@ -58,19 +58,18 @@ public class Application {
         // videoDao.deleteByVidId(3);
 
 
-        video.setFilePath("update path");
-
-        video.setLength(time);
-        video.setIsCompressed(false);
-        video.setIsEncrypted(false);
-        video.setSize(999);
-        video.setDate(date);
-        video.setTime(time);
-        video.setTitle(" update file name");
-        video.setLocation(111.0);
-        video.setDescription("updated  description");
-        video.setDeviceMac("87:67:45:67:89:ab");
-        videoDao.update(video1);
+        video1.setFilePath("update   path");
+        video1.setLength(time);
+        video1.setIsCompressed(false);
+        video1.setIsEncrypted(false);
+        video1.setSize(999);
+        video1.setDate(date);
+        video1.setTime(time);
+        video1.setTitle(" update file name");
+        video1.setLocation(111.0);
+        video1.setDescription("updated  description");
+        video1.setDeviceMac("87:67:45:67:89:ab");
+        videoDao.update(video1, 11);
        // videoDao.getByVidId(1);
 
         // end test video query code here
