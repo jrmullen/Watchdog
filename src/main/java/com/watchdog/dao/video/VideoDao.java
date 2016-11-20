@@ -16,6 +16,8 @@ public interface VideoDao {
 
     Video getByVideoTitle(String videoTitle);
 
+    boolean checkVideoExists(String videoTitle);
+
     //Read
     Video getByVidId(int id);
 

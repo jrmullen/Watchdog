@@ -6,7 +6,7 @@ import java.util.List;
 public class Log {
     private int id;
     public int vid_id;
-    private Date date;
+    private String date;
     private String startTime;
     private String length;
     private String camera;
@@ -47,11 +47,11 @@ public class Log {
 
     public void setId(int id) { this.id = id;}
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

@@ -28,11 +28,11 @@ public class Application {
 
         //To use JdbcTemplate
         UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class); //first parameter is the id found in the spring.xml file
+        VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
 
         /*// start test video query code here
 
         // test insert video into database
-        VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
         Video video = new Video();
         video.setFilePath("test file path");
         Time time = new Time(1000);
@@ -107,6 +107,14 @@ public class Application {
          VideoInsertDeleteService videoInsertDeleteService = new VideoInsertDeleteService();
          List<File> fileList = videoInsertDeleteService.getFiles(directory);
 
+         // delete file if its info exists in database but not in folder
+         // steps
+         // 1. check if exists in db
+         // 2. if exists in db, check if exists in folder
+         // 3. if exists in db and NOt in folder, delete video info from db
+         // 4. otherwise do nothing
+
+         //if(videoDao.getByVideoTitle())
 
          for (final File file : fileList) {
              if (videoInsertDeleteService.overMaxAllowedAge(file)) {
@@ -114,17 +122,16 @@ public class Application {
 
                  videoInsertDeleteService.deleteFile(file);
 
-             } else if (!videoInsertDeleteService.fileExists(file.getName(), directory)) {
-
+             }
+             else if (videoInsertDeleteService.fileExists(file.getName(), directory) &&
+                     !videoDao.checkVideoExists(file.getName())) {
+                 videoInsertDeleteService.insertVideoIntoDb(file, directory);
              }
          }
-
-         videoInsertDeleteService.parseDays("hi");
      }
      else {
          System.out.println("Error! Unable to locate directory: " + directory.toString());
      }
-
         ctx.close();
     }
 

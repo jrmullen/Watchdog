@@ -1,6 +1,6 @@
 package com.watchdog.business;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Time;
 // import java.math.BigDecimal; Might be used later if we store video location as decimal instead of a String
 
@@ -10,8 +10,8 @@ public class Video {
     private int userId;
     private String filePath;
     private Time length;
-    private Date date;
-    private Time time;
+    private String date;
+    private String time;
     private String title;
     private double location;
     private String description;
@@ -39,19 +39,19 @@ public class Video {
         return length;
     }
 
-    public void setDate(Date date){
+    public void setDate(String date){
         this.date = date;
     }
 
-    public Date getDate(){
+    public String getDate(){
         return date;
     }
 
-    public void setTime(Time time){
+    public void setTime(String time){
         this.time = time;
     }
 
-    public Time getTime(){
+    public String getTime(){
         return time;
     }
 
