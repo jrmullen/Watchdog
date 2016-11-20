@@ -31,6 +31,7 @@ public class Constants {
     public static final String GET_VIDEO_BY_VID_TITLE = "select VID_ID, USER_ID, VID_FILE_PATH, VID_LENGTH, VID_IS_COMPRESSED, VID_IS_ENCRYPTED, VID_SIZE_ON_DISK, VID_DATE, VID_TIME, VID_TITLE, VID_LOCATION, VID_DESCRIPTION, DEVICE_MAC from video VID_TITLE = ?";
     public static final String UPDATE_VIDEO_BY_ID_QUERY = "update video set VID_FILE_PATH = ?, VID_LENGTH = ?, VID_IS_COMPRESSED = ?, VID_IS_ENCRYPTED = ?, VID_SIZE_ON_DISK = ?, VID_DATE = ?, VID_TIME = ?, VID_TITLE = ?, VID_LOCATION = ?, VID_DESCRIPTION = ?, DEVICE_MAC = ? where VID_ID = ?";
     public static final String DELETE_VIDEO_BY_ID_QUERY = "delete from video where VID_ID=?";
+    public static final String DELETE_VIDEO_BY_TITLE_QUERY = "delete from video where VID_TITLE=?";
     public static final String GET_ALL_VIDEOS_QUERY = "select VID_ID, USER_ID, VID_FILE_PATH, VID_LENGTH, VID_IS_COMPRESSED, VID_IS_ENCRYPTED, VID_SIZE_ON_DISK, VID_DATE, VID_TIME, VID_TITLE, VID_LOCATION, VID_DESCRIPTION, DEVICE_MAC from video";
     ;
 

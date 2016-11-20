@@ -11,6 +11,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.io.File;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
@@ -29,6 +30,7 @@ public class Application {
 
         // start test video query code here
 
+        // test insert video into database
         VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
         Video video = new Video();
         video.setFilePath("test file path");
@@ -47,6 +49,7 @@ public class Application {
 
         videoDao.save(video);
 
+        // test get vide by id
         Video video1 = videoDao.getByVidId(1);
         System.out.println("Video get by id test: " + video1.getFilePath() + " " + video1.getLength() + " "  +
                 video1.getIsCompressed() + " " + video1.getIsEncrypted() + " " + video1.getSize()
@@ -54,11 +57,12 @@ public class Application {
                 " " + video1.getLocation()  + " " + video1.getDescription() + " " +
                 video1.getDeviceMac());
 
+        // test delete video by id
         // This works if there is a video with an id of 3 in database
         // videoDao.deleteByVidId(3);
 
-
-        video1.setFilePath("update   path");
+        // test update video
+        video1.setFilePath("update path");
         video1.setLength(time);
         video1.setIsCompressed(false);
         video1.setIsEncrypted(false);
@@ -67,10 +71,24 @@ public class Application {
         video1.setTime(time);
         video1.setTitle(" update file name");
         video1.setLocation(111.0);
-        video1.setDescription("updated  description");
+        video1.setDescription("updated description");
         video1.setDeviceMac("87:67:45:67:89:ab");
-        videoDao.update(video1, 11);
-       // videoDao.getByVidId(1);
+        videoDao.update(video1, 1);
+
+        // test delete by name
+        // works if there is a video in the database with title of Trespasser
+        videoDao.deleteByName("Trespasser");
+
+        // test get all videos in database
+        List<Video> videoTestList = videoDao.getAll();
+        System.out.println("Get all videos test:");
+        for (Video v : videoTestList) {
+            System.out.println(v.getVideoId() + " " + v.getFilePath() + " " + v.getLength() + " "  +
+                    v.getIsCompressed() + " " + v.getIsEncrypted() + " " + v.getSize()
+                    + " " + v.getDate()  + " " + v.getTime()  + " " + v.getTitle()  +
+                    " " + v.getLocation()  + " " + v.getDescription() + " " +
+                    v.getDeviceMac());
+        }
 
         // end test video query code here
 
