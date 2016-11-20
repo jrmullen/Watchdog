@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -101,22 +102,28 @@ public class Application {
 
         // end test video query code here
 
-        VideoInsertDeleteService videoInsertDeleteService = new VideoInsertDeleteService();
-        List<File> fileList = videoInsertDeleteService.getFiles(directory);
+
+     if (directory.exists()) {
+         VideoInsertDeleteService videoInsertDeleteService = new VideoInsertDeleteService();
+         List<File> fileList = videoInsertDeleteService.getFiles(directory);
 
 
-        for (final File file : fileList) {
-            if (videoInsertDeleteService.overMaxAllowedAge(file)) {
-                System.out.println("Delete file:  " + file.getName());
+         for (final File file : fileList) {
+             if (videoInsertDeleteService.overMaxAllowedAge(file)) {
+                 System.out.println("Delete file:  " + file.getName());
 
-                videoInsertDeleteService.deleteFile(file);
-                
-            } else if (!videoInsertDeleteService.fileExists(file.getName(), directory)){
+                 videoInsertDeleteService.deleteFile(file);
 
-            }
-        }
+             } else if (!videoInsertDeleteService.fileExists(file.getName(), directory)) {
 
-        videoInsertDeleteService.parseDays("hi");
+             }
+         }
+
+         videoInsertDeleteService.parseDays("hi");
+     }
+     else {
+         System.out.println("Error! Unable to locate directory: " + directory.toString());
+     }
 
         ctx.close();
     }
