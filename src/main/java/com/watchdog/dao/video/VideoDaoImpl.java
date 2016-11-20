@@ -73,7 +73,7 @@ public class VideoDaoImpl implements VideoDao {
                 video.setDate(rs.getDate("VID_DATE"));
                 video.setTime(rs.getTime("VID_TIME"));
                 video.setTitle(rs.getString("VID_TITLE"));
-                video.setLocation(rs.getString("VID_LOCATION"));
+                video.setLocation(rs.getDouble("VID_LOCATION"));
                 video.setDescription(rs.getString("VID_DESCRIPTION"));
                 video.setDeviceMac(rs.getString("DEVICE_MAC"));
 
@@ -104,7 +104,7 @@ public class VideoDaoImpl implements VideoDao {
                 video.setDate(rs.getDate("VID_DATE"));
                 video.setTime(rs.getTime("VID_TIME"));
                 video.setTitle(rs.getString("VID_TITLE"));
-                video.setLocation(rs.getString("VID_LOCATION"));
+                video.setLocation(rs.getDouble("VID_LOCATION"));
                 video.setDescription(rs.getString("VID_DESCRIPTION"));
                 video.setDeviceMac(rs.getString("DEVICE_MAC"));
 
@@ -165,7 +165,7 @@ public class VideoDaoImpl implements VideoDao {
             video.setDate(Date.valueOf(String.valueOf(videoRow.get("VID_DATE"))));
             video.setTime(Time.valueOf(String.valueOf(videoRow.get("VID_TIME"))));
             video.setTitle(String.valueOf(videoRow.get("VID_TITLE")));
-            video.setLocation(String.valueOf(videoRow.get("VID_LOCATION")));
+            video.setLocation(Double.valueOf(String.valueOf(videoRow.get("VID_LOCATION"))));
             video.setDescription(String.valueOf(videoRow.get("VID_DESCRIPTION")));
             video.setDeviceMac(String.valueOf(videoRow.get("DEVICE_MAC")));
 

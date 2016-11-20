@@ -13,7 +13,7 @@ public class Video {
     private Date date;
     private Time time;
     private String title;
-    private String location;
+    private double location;
     private String description;
     private boolean isCompressed;
     private boolean isEncrypted;
@@ -63,11 +63,11 @@ public class Video {
         return title;
     }
 
-    public void setLocation(String location){
+    public void setLocation(Double location){
         this.location = location;
     }
 
-    public String getLocation(){
+    public Double getLocation(){
         return location;
     }
 
