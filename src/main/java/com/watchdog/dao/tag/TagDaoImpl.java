@@ -60,10 +60,10 @@ public class TagDaoImpl implements TagDao {
     }
 
     @Override
-    public int getTagIdByTagName(String tagName) {
+    public Tag getByTagName(String name) {
 
         //using RowMapper anonymous class, we can create a separate RowMapper for reuse
-        Tag tag = jdbcTemplate.queryForObject(Constants.GET_TAG_ID_BY_TAG_NAME, new Object[]{tagName}, new RowMapper<Tag>() {
+        Tag tag = jdbcTemplate.queryForObject(Constants.GET_TAG_BY_TAG_NAME, new Object[]{name}, new RowMapper<Tag>() {
 
             @Override
             public Tag mapRow(ResultSet rs, int rowNum)
@@ -75,6 +75,13 @@ public class TagDaoImpl implements TagDao {
                 return tag;
             }
         });
+        return tag;
+    }
+
+    @Override
+    public int getTagIdByTagName(String tagName) {
+
+        Tag tag = this.getByTagName(tagName);
         System.out.println("Tag with name " + tagName + " has ID: " + tag.getTagId());
         return tag.getTagId();
     }
@@ -118,27 +125,17 @@ public class TagDaoImpl implements TagDao {
     @Override
     public boolean checkTagExists(String newTag) {
         try {
-            Tag tag = jdbcTemplate.queryForObject(Constants.SELECT_TAG_NAME_QUERY, new Object[]{newTag}, new RowMapper<Tag>() {
-
-                @Override
-                public Tag mapRow(ResultSet rs, int rowNum)
-                        throws SQLException {
-                    Tag tag = new Tag();
-                    tag.setTagId(rs.getInt("TAG_ID"));
-                    tag.setTagName(rs.getString("TAG_NAME"));
-                    return tag;
-                }
-            });
+            this.getByTagName(newTag);
             return true;
         }
         catch(Exception e) {
             return false;
         }
-    }
+  }
 
     @Override
-    public void addTagToVid(int tagId, int videoId) {
-        int out = jdbcTemplate.update(Constants.ADD_TAG_TO_VID_QUERY, tagId, videoId);
+    public void addTagToVid(int videoId, int tagId) {
+        int out = jdbcTemplate.update(Constants.ADD_TAG_TO_VID_QUERY, videoId, tagId);
         if (out != 0) {
             System.out.println("Tag with tagId: " + tagId + " added to video with videoId: " + videoId);
         } else {

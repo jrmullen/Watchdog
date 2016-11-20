@@ -12,6 +12,7 @@ public interface TagDao {
 
     //Read
     Tag getByTagId(int id);
+    Tag getByTagName(String name);
 
     int getTagIdByTagName(String tagName);
 

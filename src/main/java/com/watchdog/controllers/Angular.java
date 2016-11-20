@@ -115,7 +115,7 @@ public class Angular {
 
         createTag(videoId, newTagName);
 
-        System.out.println("New tag: " + newTagName + " for video ID: " + videoId);
+//        System.out.println("New tag: " + newTagName + " for video ID: " + videoId);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

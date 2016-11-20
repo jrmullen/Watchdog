@@ -38,6 +38,7 @@ public class Constants {
     public static final String DELETE_TAG_BY_ID_QUERY = "delete from tag where TAG_ID=?";
     public static final String UPDATE_TAG_NAME_BY_ID_QUERY = "update tag set TAG_NAME = ? where TAG_ID = ?";
     public static final String GET_TAG_BY_TAG_ID = "select TAG_ID, TAG_NAME from tag where TAG_ID = ?";
+    public static final String GET_TAG_BY_TAG_NAME = "select TAG_ID, TAG_NAME from tag where TAG_NAME = ?";
     public static final String GET_TAG_ID_BY_TAG_NAME = "select TAG_ID from tag where TAG_NAME = ?";
     public static final String SELECT_TAG_NAME_QUERY = "select TAG_NAME from tag where TAG_NAME = ?";
     public static final String CREATE_TAG_QUERY = "insert into tag (TAG_NAME) values (?)";
@@ -50,7 +51,7 @@ public class Constants {
     public static final String DELETE_TTV_BY_VID_ID_QUERY = "delete from tag_to_video where tag_to_video.VID_ID = ?";
     public static final String GET_TAG_ID_BY_VID_ID_QUERY = "select TAG_ID from tag_to_video where VID_ID = ?";
     public static final String GET_VID_ID_BY_TAG_ID_QUERY = "select VID_ID from tag_to_video where TAG_ID = ?";
-    public static final String ADD_TAG_TO_VID_QUERY = "insert into tag_to_video (TAG_ID, VID_ID) values (?, ?)";
+    public static final String ADD_TAG_TO_VID_QUERY = "insert into tag_to_video (VID_ID, TAG_ID) values (?, ?)";
 
 
     // Permissions
