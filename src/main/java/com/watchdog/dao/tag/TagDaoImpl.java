@@ -1,6 +1,7 @@
 package com.watchdog.dao.tag;
 
 import com.watchdog.business.Tag;
+import com.watchdog.business.Video;
 import com.watchdog.dao.Constants;
 import com.watchdog.dao.tag.TagDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,34 @@ public class TagDaoImpl implements TagDao {
         return tag;
     }
 
+    @Override
+    public Tag getByTagName(String name) {
+
+        //using RowMapper anonymous class, we can create a separate RowMapper for reuse
+        Tag tag = jdbcTemplate.queryForObject(Constants.GET_TAG_BY_TAG_NAME, new Object[]{name}, new RowMapper<Tag>() {
+
+            @Override
+            public Tag mapRow(ResultSet rs, int rowNum)
+                    throws SQLException {
+
+                Tag tag = new Tag();
+                tag.setTagId(rs.getInt("TAG_ID"));
+                tag.setTagName(rs.getString("TAG_NAME"));
+                return tag;
+            }
+        });
+        return tag;
+    }
+
+    @Override
+    public int getTagIdByTagName(String tagName) {
+
+        Tag tag = this.getByTagName(tagName);
+        System.out.println("Tag with name " + tagName + " has ID: " + tag.getTagId());
+        return tag.getTagId();
+    }
+
+    @Override
     public List<Tag> getByVidId(int id){
         List<Tag> tagList = new ArrayList<>();
 
@@ -94,20 +123,65 @@ public class TagDaoImpl implements TagDao {
         } else System.out.println("No Tag found with tag_id= " + tag_id);
     }
 
+    @Override
+    public boolean checkTagExists(String newTag) {
+        try {
+            this.getByTagName(newTag);
+            return true;
+        }
+        catch(Exception e) {
+            return false;
+        }
+  }
+
+    @Override
+    public boolean checkTagToVidExists(int videoId, int tagId) {
+        try {
+            Tag tag = jdbcTemplate.queryForObject(Constants.GET_TAG_TO_VID_BY_VIDEO_ID_AND_TAG_ID_QUERY, new Object[]{videoId, tagId}, new RowMapper<Tag>() {
+
+                @Override
+                public Tag mapRow(ResultSet rs, int rowNum)
+                        throws SQLException {
+                    Tag tag = new Tag();
+                    Video video = new Video();
+                    tag.setTagId(rs.getInt("TAG_ID"));
+                    return tag;
+                }
+            });
+            return true;
+        }
+        catch(Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public void addTagToVid(int videoId, int tagId) {
+        System.out.println("video id: " + videoId + " tag id: " + tagId);
+        int out = jdbcTemplate.update(Constants.ADD_TAG_TO_VID_QUERY, videoId, tagId);
+        if (out != 0) {
+            System.out.println("Tag with tagId: " + tagId + " added to video with videoId: " + videoId);
+        } else {
+            System.out.println("Unable to add tagId: " + tagId + " to video videoId: " + videoId);
+        }
+    }
+
+    @Override
     public void deleteTagToVidByTagId(int tag_id){
         int out = jdbcTemplate.update(Constants.DELETE_TTV_BY_TAG_ID_QUERY, tag_id);
         if(out != 0){
             System.out.println("TTV deleted with tag_id = " + tag_id);
-        }else{
+        } else {
             System.out.println("Unable to delete TTV with tag_id = " + tag_id);
         }
     }
 
+    @Override
     public void deleteTagToVidByVidId(int vid_id){
         int out = jdbcTemplate.update(Constants.DELETE_TTV_BY_VID_ID_QUERY, vid_id);
         if(out != 0){
             System.out.println("TTV deleted with vid_id = " + vid_id);
-        }else{
+        } else {
             System.out.println("Unable to delete TTV with vid_id = " + vid_id);
         }
     }

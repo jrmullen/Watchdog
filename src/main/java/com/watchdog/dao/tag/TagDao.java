@@ -12,6 +12,9 @@ public interface TagDao {
 
     //Read
     Tag getByTagId(int id);
+    Tag getByTagName(String name);
+
+    int getTagIdByTagName(String tagName);
 
     List<Tag> getByVidId(int id);
 
@@ -20,6 +23,12 @@ public interface TagDao {
 
     //Delete
     void deleteByTagId(int id);
+
+    boolean checkTagExists(String newTag);
+
+    boolean checkTagToVidExists(int videoId, int tagId);
+
+    void addTagToVid(int videoId, int tagId);
 
     void deleteTagToVidByVidId(int id);
 
