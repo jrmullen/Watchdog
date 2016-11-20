@@ -1,6 +1,7 @@
 package com.watchdog.dao.tag;
 
 import com.watchdog.business.Tag;
+import com.watchdog.business.Video;
 import com.watchdog.dao.Constants;
 import com.watchdog.dao.tag.TagDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -134,7 +135,29 @@ public class TagDaoImpl implements TagDao {
   }
 
     @Override
+    public boolean checkTagToVidExists(int videoId, int tagId) {
+        try {
+            Tag tag = jdbcTemplate.queryForObject(Constants.GET_TAG_TO_VID_BY_VIDEO_ID_AND_TAG_ID_QUERY, new Object[]{videoId, tagId}, new RowMapper<Tag>() {
+
+                @Override
+                public Tag mapRow(ResultSet rs, int rowNum)
+                        throws SQLException {
+                    Tag tag = new Tag();
+                    Video video = new Video();
+                    tag.setTagId(rs.getInt("TAG_ID"));
+                    return tag;
+                }
+            });
+            return true;
+        }
+        catch(Exception e) {
+            return false;
+        }
+    }
+
+    @Override
     public void addTagToVid(int videoId, int tagId) {
+        System.out.println("video id: " + videoId + " tag id: " + tagId);
         int out = jdbcTemplate.update(Constants.ADD_TAG_TO_VID_QUERY, videoId, tagId);
         if (out != 0) {
             System.out.println("Tag with tagId: " + tagId + " added to video with videoId: " + videoId);
