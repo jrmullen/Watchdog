@@ -28,7 +28,7 @@ public class Application {
         //To use JdbcTemplate
         UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class); //first parameter is the id found in the spring.xml file
 
-        // start test video query code here
+        /*// start test video query code here
 
         // test insert video into database
         VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
@@ -97,11 +97,11 @@ public class Application {
                     + " " + v.getDate()  + " " + v.getTime()  + " " + v.getTitle()  +
                     " " + v.getLocation()  + " " + v.getDescription() + " " +
                     v.getDeviceMac());
-        }
+        }*/
 
         // end test video query code here
 
-        /*VideoInsertDeleteService videoInsertDeleteService = new VideoInsertDeleteService();
+        VideoInsertDeleteService videoInsertDeleteService = new VideoInsertDeleteService();
         List<File> fileList = videoInsertDeleteService.getFiles(directory);
 
 
@@ -116,7 +116,7 @@ public class Application {
             }
         }
 
-        videoInsertDeleteService.parseDays("hi");*/
+        videoInsertDeleteService.parseDays("hi");
 
         ctx.close();
     }
