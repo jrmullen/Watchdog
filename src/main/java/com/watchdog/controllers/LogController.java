@@ -114,13 +114,11 @@ public class LogController {
 
         Tag newTag = new Tag();
         newTag.setTagName(newTagName);
-        System.out.println(videoId);
 
         if (tagDao.checkTagExists(newTagName)) {
             System.out.println("tag " + newTagName + " already exists.");
             newTag.setTagId(tagDao.getTagIdByTagName(newTagName));
         } else {
-            System.out.println(newTag.getTagId());
             tagDao.save(newTag);
             newTag.setTagId(tagDao.getTagIdByTagName(newTagName));
         }
