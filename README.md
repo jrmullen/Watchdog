@@ -123,9 +123,9 @@ First, do a sudo apt-get install ncftp on the Raspberry Pi.
 We'll be using a bash script to upload log videos via FTP.
 You can create it using a CLI text editor such as vim/nano or you can do it in windows and transfer via sftp.
 
-The script, watchdog.sh, is as follows:
-'#!/bin/bash' 																			<br />
-'ncftpput -R -v -u watchdog -p cit480 projectwatchdog.ddns.net /video /tmp/motion/*' 	<br />
-'rm -fr /tmp/motion/*' 																	<br />
+The script, watchdog.sh, is as follows: 												<br />
+`#!/bin/bash`																			<br />
+`ncftpput -R -v -u watchdog -p cit480 projectwatchdog.ddns.net /video /tmp/motion/*` 	<br />
+`rm -fr /tmp/motion/*`																	<br />
 
 /tmp/motion is our default recording location on the pi. If you've changed it you'll need to modify the script.
