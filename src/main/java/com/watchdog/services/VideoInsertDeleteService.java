@@ -3,6 +3,7 @@ package com.watchdog.services;
 
 import com.watchdog.business.Video;
 import com.watchdog.dao.video.VideoDao;
+import com.watchdog.dao.tag.TagDao;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.File;
@@ -23,16 +24,15 @@ public class VideoInsertDeleteService {
 
     ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
     VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
+    TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
 
      public ArrayList<File> getFiles(File folder) {
          ArrayList<File> fileList = new ArrayList<File>();
 
          for (final File fileEntry : folder.listFiles()) {
              if (fileEntry.isFile()) {
-                 System.out.println("File:  " + fileEntry.getName());
                  fileList.add(fileEntry);
              } else if (fileEntry.isDirectory()) {
-                 System.out.println("Directory:  " + fileEntry.getName());
              }
          }
          return fileList;
@@ -64,14 +64,18 @@ public class VideoInsertDeleteService {
 
 
     public void deleteFileFromFolderAndDatabase(File file) {
-
+        Video video = videoDao.getByVideoTitle(file.getName());
+        // create query and use here to check if video id exists in tag table
+        tagDao.deleteTagToVidByVidId(video.getVideoId());
         videoDao.deleteByName(file.getName());
         file.delete();
     }
 
 
     public void deleteVideoInfoFromDatabase(String videoName) {
-
+        Video video = videoDao.getByVideoTitle(videoName);
+        // create query and use here to check if video id exists in tag table
+        tagDao.deleteTagToVidByVidId(video.getVideoId());
         videoDao.deleteByName(videoName);
     }
 
@@ -144,7 +148,6 @@ public class VideoInsertDeleteService {
 
         for (final File file : fileList) {
             if (file.getName().equals(fileName)) {
-                System.out.println(file.getName() + " exists in folder.");
                 return true;
             }
         }

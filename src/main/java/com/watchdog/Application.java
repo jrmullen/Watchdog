@@ -1,6 +1,7 @@
 package com.watchdog;
 
 import com.watchdog.business.Video;
+import com.watchdog.dao.tag.TagDao;
 import com.watchdog.dao.user.UserDao;
 import com.watchdog.dao.video.VideoDao;
 import com.watchdog.services.VideoInsertDeleteService;
@@ -27,8 +28,8 @@ public class Application {
 
         //To use JdbcTemplate
         UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class);
+        TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
 
-        VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
 
         // Run thread to check for add or delete video files and add the video info to the database
         ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
@@ -53,32 +54,27 @@ public class Application {
                         }
                     }
 
-                   /* List<Video> videoList = videoInsertDeleteService.getAllVideosInDatabase();
+                    List<Video> videoList = videoInsertDeleteService.getAllVideosInDatabase();
 
                     for (final Video video : videoList) {
-                        System.out.println("Inside videList loop with video: " + video.getTitle());
                         if (videoInsertDeleteService.videoInfoExistsInDatabase(video.getTitle())) {
-                            System.out.println("Returned true that video exists in db: " + video.getTitle());
 
                             for (final File file: fileList) {
-                                System.out.println("Inside fileList with file: " + file.getName());
-                                if(!videoInsertDeleteService.fileExistsInFolder(video.getTitle(), directory)) {
+                                if(!videoInsertDeleteService.fileExistsInFolder(video.getTitle(), directory) &&
+                                        videoInsertDeleteService.videoInfoExistsInDatabase(video.getTitle())) {
+
                                     System.out.println("Video will be deleted from database: " + video.getTitle());
                                     videoInsertDeleteService.deleteVideoInfoFromDatabase(video.getTitle());
-
-
                                 }
-                                else
-                                    System.out.println("Video NOT deleted database: " + video.getTitle());
                             }
                         }
-                    }*/
+                    }
                 }
                 else {
                     System.out.println("Error! Unable to locate directory: " + directory.toString());
                 }
             }
-        }, 0, 60, TimeUnit.SECONDS);
+        }, 0, 70, TimeUnit.SECONDS);
 
         ctx.close();
     }
