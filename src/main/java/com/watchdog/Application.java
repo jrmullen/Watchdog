@@ -1,6 +1,8 @@
 package com.watchdog;
 
+import com.watchdog.business.Video;
 import com.watchdog.dao.user.UserDao;
+import com.watchdog.dao.video.VideoDao;
 import com.watchdog.services.VideoInsertDeleteService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,6 +28,8 @@ public class Application {
         //To use JdbcTemplate
         UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class);
 
+        VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
+
         // Run thread to check for add or delete video files and add the video info to the database
         ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
         exec.scheduleAtFixedRate(new Runnable() {
@@ -37,31 +41,38 @@ public class Application {
                     VideoInsertDeleteService videoInsertDeleteService = new VideoInsertDeleteService();
                     List<File> fileList = videoInsertDeleteService.getFiles(directory);
 
-                    // delete file if its info exists in database but not in folder
-                    // steps
-                    // 1. check if exists in db
-                    // 2. if exists in db, check if exists in folder
-                    // 3. if exists in db and NOt in folder, delete video info from db
-                    // 4. otherwise do nothing
-
-                    //if(videoDao.getByVideoTitle())
-
                     for (final File file : fileList) {
                         if (videoInsertDeleteService.overMaxAllowedAge(file)) {
                             System.out.println("Delete file:  " + file.getName());
 
-                            videoInsertDeleteService.deleteFile(file);
+                            videoInsertDeleteService.deleteFileFromFolderAndDatabase(file);
 
-                        }
-                        else if (videoInsertDeleteService.fileExists(file.getName(), directory) &&
+                        } else if (videoInsertDeleteService.fileExistsInFolder(file.getName(), directory) &&
                                 !videoInsertDeleteService.videoInfoExistsInDatabase(file.getName())) {
                             videoInsertDeleteService.insertVideoIntoDb(file, directory);
                         }
-                        else if (!videoInsertDeleteService.fileExists(file.getName(), directory) &&
-                                videoInsertDeleteService.videoInfoExistsInDatabase(file.getName())) {
-                            videoInsertDeleteService.insertVideoIntoDb(file, directory);
-                        }
                     }
+
+                   /* List<Video> videoList = videoInsertDeleteService.getAllVideosInDatabase();
+
+                    for (final Video video : videoList) {
+                        System.out.println("Inside videList loop with video: " + video.getTitle());
+                        if (videoInsertDeleteService.videoInfoExistsInDatabase(video.getTitle())) {
+                            System.out.println("Returned true that video exists in db: " + video.getTitle());
+
+                            for (final File file: fileList) {
+                                System.out.println("Inside fileList with file: " + file.getName());
+                                if(!videoInsertDeleteService.fileExistsInFolder(video.getTitle(), directory)) {
+                                    System.out.println("Video will be deleted from database: " + video.getTitle());
+                                    videoInsertDeleteService.deleteVideoInfoFromDatabase(video.getTitle());
+
+
+                                }
+                                else
+                                    System.out.println("Video NOT deleted database: " + video.getTitle());
+                            }
+                        }
+                    }*/
                 }
                 else {
                     System.out.println("Error! Unable to locate directory: " + directory.toString());

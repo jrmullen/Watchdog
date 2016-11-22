@@ -111,11 +111,9 @@ public class VideoDaoImpl implements VideoDao {
                    return video;
                }
            });
-           //System.out.println("Video with name: " + videoTitle + " DOES exist in the database.");
            return true;
        }
        catch(Exception e) {
-           //System.out.println("Video with name: " + videoTitle + " does not exist in the database.");
           return false;
        }
     }

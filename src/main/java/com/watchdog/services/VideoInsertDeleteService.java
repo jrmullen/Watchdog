@@ -38,6 +38,7 @@ public class VideoInsertDeleteService {
          return fileList;
      }
 
+
     public void insertVideoIntoDb(File file, File directory) {
         Video video = new Video();
         Time time = new Time(0);
@@ -61,10 +62,17 @@ public class VideoInsertDeleteService {
 
     }
 
-    public void deleteFile(File file) {
+
+    public void deleteFileFromFolderAndDatabase(File file) {
 
         videoDao.deleteByName(file.getName());
         file.delete();
+    }
+
+
+    public void deleteVideoInfoFromDatabase(String videoName) {
+
+        videoDao.deleteByName(videoName);
     }
 
 
@@ -78,6 +86,7 @@ public class VideoInsertDeleteService {
             return false;
         }
     }
+
 
     public int parseDays(String fileName) {
 
@@ -107,10 +116,12 @@ public class VideoInsertDeleteService {
         return days;
     }
 
+
     private static int daysBetween(Date one, Date two) {
         long difference = (one.getTime()-two.getTime())/86400000;
         return (int)Math.abs(difference);
     }
+
 
     private String parseDate(String fileName) {
         String fileYear = fileName.substring(3,7);
@@ -121,11 +132,13 @@ public class VideoInsertDeleteService {
         return dateCreatedStr;
     }
 
+
     private String parseTime(String fileName) {
         return "00:00";
     }
 
-    public boolean fileExists(String fileName, File directory) {
+
+    public boolean fileExistsInFolder(String fileName, File directory) {
 
         List<File> fileList = getFiles(directory);
 
@@ -138,11 +151,17 @@ public class VideoInsertDeleteService {
         return false;
     }
 
-    public boolean videoInfoExistsInDatabase(String filename) {
-        if(videoDao.checkVideoExists(filename))
+
+    public boolean videoInfoExistsInDatabase(String name) {
+        if(videoDao.checkVideoExists(name))
             return true;
         else
             return false;
+    }
+
+    public List getAllVideosInDatabase() {
+        List videoList = videoDao.getAll();
+        return videoList;
     }
 }
 
