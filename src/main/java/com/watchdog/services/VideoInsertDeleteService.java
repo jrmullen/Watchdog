@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class VideoInsertDeleteService {
 
-    private static final int MAX_ALLOWED_AGE = 30;
+    private static final int MAX_ALLOWED_AGE = 10;
 
 
     ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
@@ -82,7 +82,7 @@ public class VideoInsertDeleteService {
 
     public boolean overMaxAllowedAge(File file) {
 
-        int days = parseDays(file.getName());
+        int days = findDaysSinceFileCreated(file.getName());
 
         if (days >= MAX_ALLOWED_AGE) {
             return true;
@@ -92,15 +92,10 @@ public class VideoInsertDeleteService {
     }
 
 
-    public int parseDays(String fileName) {
+    public int findDaysSinceFileCreated(String fileName) {
 
-        String fileYear = fileName.substring(3,7);
-        String fileMonth = fileName.substring(7,9);
-        String fileDay = fileName.substring(9,11);
-
-        String dateCreatedStr = fileYear + "-" +fileMonth + "-" + fileDay;
+        String dateCreatedStr = parseDate(fileName);
         Date now = new Date();
-
         int days = 0;
 
         try {
@@ -109,7 +104,7 @@ public class VideoInsertDeleteService {
             Date dateCreated = dateFormat.parse(dateCreatedStr);
             String nowStr = dateFormat.format(now);
             Date currentDate = dateFormat.parse(nowStr);
-            days = daysBetween(dateCreated, currentDate);
+            days = calculateDaysBetweenDates(dateCreated, currentDate);
 
             System.out.println("\nDate video created: " + dateCreated + "  Current Date: " +
                             currentDate + "\nDays between dates: " + days);
@@ -121,7 +116,7 @@ public class VideoInsertDeleteService {
     }
 
 
-    private static int daysBetween(Date one, Date two) {
+    private static int calculateDaysBetweenDates(Date one, Date two) {
         long difference = (one.getTime()-two.getTime())/86400000;
         return (int)Math.abs(difference);
     }
@@ -132,13 +127,19 @@ public class VideoInsertDeleteService {
         String fileMonth = fileName.substring(7,9);
         String fileDay = fileName.substring(9,11);
 
-        String dateCreatedStr = fileYear + "-" +fileMonth + "-" + fileDay;
-        return dateCreatedStr;
+        String dateRecordedStr = fileYear + "-" +fileMonth + "-" + fileDay;
+        return dateRecordedStr;
     }
 
 
     private String parseTime(String fileName) {
-        return "00:00";
+
+        String fileHour = fileName.substring(11,13);
+        String fileMinute = fileName.substring(13,15);
+        String fileSecond = fileName.substring(15,17);
+
+        String timeRecordedStr = fileHour + ":" +fileMinute + ":" + fileSecond;
+        return timeRecordedStr;
     }
 
 
