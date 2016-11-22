@@ -8,16 +8,18 @@ public class Video {
 
     private int videoId;
     private int userId;
-    private int deviceId;
+    private String filePath;
     private Time length;
     private Date date;
     private Time time;
     private String title;
-    private String location;
+    private double location;
     private String description;
     private boolean isCompressed;
     private boolean isEncrypted;
     private long size;
+    private String deviceMac;
+    private String device_mac;
 
     public void setVideoId(int videoId){
         this.videoId = videoId;
@@ -28,10 +30,6 @@ public class Video {
     public int getUserId() { return userId; }
 
     public void setUserId(int userId) { this.userId= userId; }
-
-    public int getDeviceId() {return deviceId; }
-
-    public void setDeviceId(int deviceId) { this.deviceId = deviceId; }
 
     public void setLength(Time length){
         this.length = length;
@@ -65,11 +63,11 @@ public class Video {
         return title;
     }
 
-    public void setLocation(String location){
+    public void setLocation(Double location){
         this.location = location;
     }
 
-    public String getLocation(){
+    public Double getLocation(){
         return location;
     }
 
@@ -105,4 +103,11 @@ public class Video {
         return size;
     }
 
+    public String getFilePath() { return filePath; }
+
+    public void setFilePath(String filePath) { this.filePath = filePath; }
+
+    public String getDeviceMac() { return deviceMac; }
+
+    public void setDeviceMac(String deviceMac) { this.deviceMac = deviceMac; }
 }

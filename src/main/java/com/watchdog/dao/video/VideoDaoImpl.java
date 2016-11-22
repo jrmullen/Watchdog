@@ -33,25 +33,58 @@ public class VideoDaoImpl implements VideoDao {
 
     @Override
     public void save(Video video) {
-        Object[] args = new Object[]{video.getLength(), video.getIsCompressed(), video.getIsEncrypted(), video.getSize(),
-                video.getDate(), video.getTime(), video.getTitle(), video.getLocation(), video.getDescription()};
+        Object[] args = new Object[]{1, video.getFilePath(), video.getLength(), video.getIsCompressed(), video.getIsEncrypted(), video.getSize(),
+                video.getDate(), video.getTime(), video.getTitle(), video.getLocation(), video.getDescription(), video.getDeviceMac()};
 
         int out = jdbcTemplate.update(Constants.CREATE_VIDEO_QUERY, args);
 
         if (out != 0) {
-            System.out.println("Video " + video.getLength() + " "  + video.getIsCompressed() + " " +
-                    video.getIsEncrypted() + " " + video.getSize()  + " " + video.getDate()  + " " +
-                    video.getTime()  + " " + video.getTitle()  + " " + video.getLocation()  + " " +
-                    video.getDescription() + " saved");
+            System.out.println("Video " + video.getFilePath() + " " + video.getLength() + " "  +
+                    video.getIsCompressed() + " " + video.getIsEncrypted() + " " + video.getSize()
+                    + " " + video.getDate()  + " " + video.getTime()  + " " + video.getTitle()  +
+                    " " + video.getLocation()  + " " + video.getDescription() + " " +
+                    video.getDeviceMac() + " saved");
 
-        } else System.out.println("Video " + video.getLength() + " "  + video.getIsCompressed() + " " +
-                video.getIsEncrypted() + " " + video.getSize()  + " " + video.getDate()  + " " +
-                video.getTime()  + " " + video.getTitle()  + " " + video.getLocation()  + " " +
-                video.getDescription() + " failed");
+        } else System.out.println("Video " + video.getFilePath() + " " + video.getLength() + " "  +
+                video.getIsCompressed() + " " + video.getIsEncrypted() + " " + video.getSize()
+                + " " + video.getDate()  + " " + video.getTime()  + " " + video.getTitle()  +
+                " " + video.getLocation()  + " " + video.getDescription() +  " " +
+                video.getDeviceMac() + " failed to save");
     }
 
     @Override
-    public Video getById(int id) {
+    public Video getByVideoTitle(String videoTitle) {
+
+        //using RowMapper anonymous class, we can create a separate RowMapper for reuse
+        Video video = jdbcTemplate.queryForObject(Constants.GET_VIDEO_BY_VID_TITLE, new Object[]{videoTitle}, new RowMapper<Video>() {
+
+            @Override
+            public Video mapRow(ResultSet rs, int rowNum)
+                    throws SQLException {
+                Video video = new Video();
+
+                video.setVideoId(rs.getInt("VID_ID"));
+                video.setUserId(rs.getInt("USER_ID"));
+                video.setFilePath(rs.getString("VID_FILE_PATH"));
+                video.setLength(rs.getTime("VID_LENGTH"));
+                video.setIsCompressed(rs.getBoolean("VID_IS_COMPRESSED"));
+                video.setIsEncrypted(rs.getBoolean("VID_IS_ENCRYPTED"));
+                video.setSize(rs.getLong("VID_SIZE_ON_DISK"));
+                video.setDate(rs.getDate("VID_DATE"));
+                video.setTime(rs.getTime("VID_TIME"));
+                video.setTitle(rs.getString("VID_TITLE"));
+                video.setLocation(rs.getDouble("VID_LOCATION"));
+                video.setDescription(rs.getString("VID_DESCRIPTION"));
+                video.setDeviceMac(rs.getString("DEVICE_MAC"));
+
+                return video;
+            }
+        });
+        return video;
+    }
+
+    @Override
+    public Video getByVidId(int id) {
 
         //using RowMapper anonymous class, we can create a separate RowMapper for reuse
         Video video = jdbcTemplate.queryForObject(Constants.GET_VIDEO_BY_ID, new Object[]{id}, new RowMapper<Video>() {
@@ -61,6 +94,9 @@ public class VideoDaoImpl implements VideoDao {
                     throws SQLException {
                 Video video = new Video();
 
+                video.setVideoId(rs.getInt("VID_ID"));
+                video.setUserId(rs.getInt("USER_ID"));
+                video.setFilePath(rs.getString("VID_FILE_PATH"));
                 video.setLength(rs.getTime("VID_LENGTH"));
                 video.setIsCompressed(rs.getBoolean("VID_IS_COMPRESSED"));
                 video.setIsEncrypted(rs.getBoolean("VID_IS_ENCRYPTED"));
@@ -68,8 +104,9 @@ public class VideoDaoImpl implements VideoDao {
                 video.setDate(rs.getDate("VID_DATE"));
                 video.setTime(rs.getTime("VID_TIME"));
                 video.setTitle(rs.getString("VID_TITLE"));
-                video.setLocation(rs.getString("VID_LOCATION"));
+                video.setLocation(rs.getDouble("VID_LOCATION"));
                 video.setDescription(rs.getString("VID_DESCRIPTION"));
+                video.setDeviceMac(rs.getString("DEVICE_MAC"));
 
                 return video;
             }
@@ -78,10 +115,17 @@ public class VideoDaoImpl implements VideoDao {
     }
 
     @Override
-    public void update(Video video) {
+    public void update(Video video, int videoId) {
 
-        Object[] args = new Object[]{video.getLength(), video.getIsCompressed(), video.getIsEncrypted(), video.getSize(),
-                video.getDate(), video.getTime(), video.getTitle(), video.getLocation(), video.getDescription()};
+        video.setVideoId(videoId);
+        Object[] args = new Object[]{video.getFilePath(), video.getLength(), video.getIsCompressed(), video.getIsEncrypted(), video.getSize(),
+                video.getDate(), video.getTime(), video.getTitle(), video.getLocation(), video.getDescription(), video.getDeviceMac(), videoId};
+
+        System.out.println("Video: " + video.getFilePath() + " " + video.getLength() + " "  +
+                video.getIsCompressed() + " " + video.getIsEncrypted() + " " + video.getSize()
+                + " " + video.getDate()  + " " + video.getTime()  + " " + video.getTitle()  +
+                " " + video.getLocation()  + " " + video.getDescription() + " " +
+                video.getDeviceMac());
 
         int out = jdbcTemplate.update(Constants.UPDATE_VIDEO_BY_ID_QUERY, args);
         if (out != 0) {
@@ -91,12 +135,21 @@ public class VideoDaoImpl implements VideoDao {
 
 
     @Override
-    public void deleteById(int videoId) {
+    public void deleteByVidId(int videoId) {
 
         int out = jdbcTemplate.update(Constants.DELETE_VIDEO_BY_ID_QUERY, videoId);
         if (out != 0) {
             System.out.println("Video deleted with id= " + videoId);
         } else System.out.println("No Video found with id= " + videoId);
+    }
+
+    @Override
+    public void deleteByName(String videoName) {
+
+        int out = jdbcTemplate.update(Constants.DELETE_VIDEO_BY_TITLE_QUERY, videoName);
+        if (out != 0) {
+            System.out.println("Video deleted with name = " + videoName);
+        } else System.out.println("No Video found with name = " + videoName);
     }
 
     @Override
@@ -111,7 +164,7 @@ public class VideoDaoImpl implements VideoDao {
 
             video.setVideoId(Integer.parseInt(String.valueOf(videoRow.get("VID_ID"))));
             video.setUserId(Integer.parseInt(String.valueOf(videoRow.get("USER_ID"))));
-            video.setDeviceId(Integer.parseInt(String.valueOf(videoRow.get("DEVICE_ID"))));
+            video.setFilePath((String.valueOf(videoRow.get("VID_FILE_PATH"))));
             video.setLength(Time.valueOf(String.valueOf(videoRow.get("VID_LENGTH"))));
             video.setIsCompressed(Boolean.valueOf(String.valueOf(videoRow.get("VID_IS_COMPRESSED")))); // will error?, stored in db as tinyint
             video.setIsEncrypted(Boolean.valueOf(String.valueOf(videoRow.get("VID_IS_ENCRYPTED")))); // will error?, stored in db as tinyint
@@ -119,8 +172,9 @@ public class VideoDaoImpl implements VideoDao {
             video.setDate(Date.valueOf(String.valueOf(videoRow.get("VID_DATE"))));
             video.setTime(Time.valueOf(String.valueOf(videoRow.get("VID_TIME"))));
             video.setTitle(String.valueOf(videoRow.get("VID_TITLE")));
-            video.setLocation(String.valueOf(videoRow.get("VID_LOCATION")));
+            video.setLocation(Double.valueOf(String.valueOf(videoRow.get("VID_LOCATION"))));
             video.setDescription(String.valueOf(videoRow.get("VID_DESCRIPTION")));
+            video.setDeviceMac(String.valueOf(videoRow.get("DEVICE_MAC")));
 
             videoList.add(video);
         }

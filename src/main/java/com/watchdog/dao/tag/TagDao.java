@@ -11,13 +11,28 @@ public interface TagDao {
     void save(Tag tag);
 
     //Read
-    Tag getById(int id);
+    Tag getByTagId(int id);
+    Tag getByTagName(String name);
+
+    int getTagIdByTagName(String tagName);
+
+    List<Tag> getByVidId(int id);
 
     //Update
     void update(Tag tag);
 
     //Delete
-    void deleteById(int id);
+    void deleteByTagId(int id);
+
+    boolean checkTagExists(String newTag);
+
+    boolean checkTagToVidExists(int videoId, int tagId);
+
+    void addTagToVid(int videoId, int tagId);
+
+    void deleteTagToVidByVidId(int id);
+
+    void deleteTagToVidByTagId(int id);
 
     //Get All
     List<Tag> getAll();

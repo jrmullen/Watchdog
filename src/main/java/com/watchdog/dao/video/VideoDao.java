@@ -14,16 +14,21 @@ public interface VideoDao {
     //Create
     void save(Video video);
 
+    Video getByVideoTitle(String videoTitle);
+
     //Read
-    Video getById(int id);
+    Video getByVidId(int id);
 
     //Update
-    void update(Video video);
+    void update(Video video, int vidId);
 
     //Delete
-    void deleteById(int id);
+    void deleteByVidId(int id);
+
+    void deleteByName(String videoName);
 
     //Get All
     List<Video> getAll();
+
 }
 

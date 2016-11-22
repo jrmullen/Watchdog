@@ -1,0 +1,222 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Angular Tests</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}"
+          href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.css" rel="stylesheet" media="screen"/>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<div th:include="fragments/header :: header"></div>
+<body>
+
+<div class="container">
+    <div ng-app="myApp" ng-controller="tagController" class="table-responsive">
+        <h2 align="center">Angular Tag Table</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th align="center">date</th>
+                    <th align="center">time recorded</th>
+                    <th align="center">length</th>
+                    <th align="center">camera</th>
+                    <th align="center">tags</th>
+                    <th></th>
+                    <th><input type="search" class="form-control" placeholder="Type to search" ng-model="searchKeyword" /></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="x in tableList | filter: searchKeyword as results" class="ng-scope">
+                    <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#playModal">Play
+                        </button>
+
+                        <!-- Play Modal -->
+                        <div id="playModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Log Playback</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <iframe width="560" height="315" src="https://www.youtube.com/embed/PZUiT7yoEPg"
+                                                frameborder="0"></iframe>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- End Play Modal -->
+                    </td>
+                    <td>{{x.date}}</td>
+                    <td>{{x.startTime}}</td>
+                    <td>{{x.length}}</td>
+                    <td>{{x.camera}}</td>
+                    <td>{{x.tags}}</td>
+
+                    <td>
+                        <form  method="post" class="in-line">
+                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#tagsModal{{$index}}">Edit Tags</button>
+
+                            <!-- Edit Tags Modal -->
+                            <div id="tagsModal{{$index}}" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Edit Tags</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table class="table">
+                                                <tr ng-repeat="tag in x.tagList">
+                                                    <td>{{tag.tagName}}</td>
+                                                    <td>
+                                                        <input type="button" value="Delete Tag" class="btn btn-danger" ng-click="removeTag(x.id, x.vid_id, tag.tagId)" />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                            <form role="form" ng-submit="addTagRow()">
+                                                <input type="text" class="form-control" name="tagName" ng-model="newTag" placeholder="New Tag" />
+                                                <button type="submit" class="btn btn-success" ng-click="addTagRow(x.id, newTag, x.vid_id)">Add Tag</button>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- End Edit Tags Modal -->
+                        </form>
+                    </td>
+                    <td>
+                        <input type="button" value="Remove" class="btn btn-danger" ng-click="removeRow(x.id, x.vid_id)" />
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<script type="text/javascript" th:inline="javascript">
+    var myApp = angular.module("myApp", []);
+
+    var json = /*[[${logListJson}]]*/ "default";
+
+    myApp.config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+    }]);
+
+    myApp.controller('tagController', function($scope, $http) {
+        $scope.tableList = JSON.parse(json);
+        console.log($scope.tableList);
+
+        /*<![CDATA[*/
+        $scope.addTagRow = function(id, newTag, vid_id){
+            var newTagData = 'id' + $scope.id + 'newTag' + $scope.newTag + 'vid_id' + $scope.vid_id;
+            var tagExists = 0;
+            var videoArray = eval( $scope.tableList );
+                for( var i = 0; i < videoArray.length; i++ ) {
+                    if (videoArray[i].id === id) {
+                        var tagList = videoArray[i].tagList;
+                        for (var j = 0; j < tagList.length; j++) {
+                            if (tagList[j].tagName === newTag.toLowerCase()) {
+                                console.log('tag already exists');
+                                tagExists = 1;
+                                break;
+                            }
+                        }
+                        if (tagExists === 0) {
+                            tagList[tagList.length] = { "tagId": null, "tagName": newTag };
+                            $scope.tableList[id].tagList = tagList;
+                        }
+                    }
+                }
+            $http.put('/logview/tag/' + vid_id + '/' + newTag)
+                    .success(function(newTagData, status, headers, config) {
+                        $scope.message = newTagData;
+                        console.log('Added new tag');
+                    })
+                    .error(function(newTagData, status, headers, config) {
+                        alert( "failure message: " + JSON.stringify({data: newTagData}));
+                    });
+            /*]]>*/
+        };
+
+        /*<![CDATA[*/
+        $scope.removeRow = function(id, vid_id){
+            var videoData = 'id' + $scope.id + 'vid_id' + $scope.vid_id;
+            var index = -1;
+            var comArr = eval( $scope.tableList );
+            for( var i = 0; i < comArr.length; i++ ) {
+                if( comArr[i].id === id ) {
+                    index = i;
+                    break;
+                }
+            }
+            if( index === -1 ) {
+                alert( "Something has gone wrong" );
+            }
+            $http.delete('/logview/video/' + vid_id)
+                    .success(function(data, status, headers, config) {
+                        $scope.message = videoData;
+                        console.log('Deleted video');
+                        $scope.tableList.splice( index, 1 );
+                    })
+                    .error(function(videoData, status, headers, config) {
+                        alert( "failure message: " + JSON.stringify({data: videoData}));
+                    });
+            /*]]>*/
+        };
+
+        /*<![CDATA[*/
+        $scope.removeTag = function(id, vid_id, tagId){
+            var tagData = 'id' + id + 'tagId' + $scope.tagId + 'vid_id' + $scope.vid_id;
+            var tagListIndex = -1;
+            var videoArray = eval( $scope.tableList );
+            for( var i = 0; i < videoArray.length; i++ ) {
+                if (videoArray[i].id === id) {
+                    var tagList = videoArray[i].tagList;
+                    for (var j = 0; j < tagList.length; j++) {
+                        if (tagList[j].tagId === tagId) {
+                            tagListIndex = j;
+                            tagList.splice( tagListIndex, 1 );
+                            break;
+                        }
+                    }
+                }
+            }
+            if( tagListIndex === -1 ) {
+                alert( "Something has gone wrong" );
+            }
+            $http.delete('/logview/tag/' + vid_id + '/' + tagId)
+                    .success(function(data, status, headers, config) {
+                        $scope.message = tagData;
+                        console.log('Deleted tag');
+                    })
+                    .error(function(tagData, status, headers, config) {
+                        alert( "failure message: " + JSON.stringify({data: tagData}));
+                    });
+            /*]]>*/
+        };
+    });
+</script>
+<br />
+<br />
+<script type="text/javascript" th:src="@{/js/footer.js}" />
+</body>
+</html>

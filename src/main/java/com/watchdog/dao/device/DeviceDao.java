@@ -19,6 +19,7 @@ public interface DeviceDao {
     //Read
     Device getById (int id);
 
+    public String getDeviceNameByVidId(int id);
 
     boolean checkMacExists(String mac);
 
