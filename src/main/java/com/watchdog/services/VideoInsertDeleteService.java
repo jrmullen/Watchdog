@@ -138,7 +138,12 @@ public class VideoInsertDeleteService {
         return false;
     }
 
-
+    public boolean videoInfoExistsInDatabase(String filename) {
+        if(videoDao.checkVideoExists(filename))
+            return true;
+        else
+            return false;
+    }
 }
 
 

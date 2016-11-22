@@ -1,8 +1,6 @@
 package com.watchdog;
 
-import com.watchdog.business.Video;
 import com.watchdog.dao.user.UserDao;
-import com.watchdog.dao.video.VideoDao;
 import com.watchdog.services.VideoInsertDeleteService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,8 +24,7 @@ public class Application {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
 
         //To use JdbcTemplate
-        UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class); //first parameter is the id found in the spring.xml file
-        VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
+        UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class);
 
         // Run thread to check for add or delete video files and add the video info to the database
         ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
@@ -57,7 +54,11 @@ public class Application {
 
                         }
                         else if (videoInsertDeleteService.fileExists(file.getName(), directory) &&
-                                !videoDao.checkVideoExists(file.getName())) {
+                                !videoInsertDeleteService.videoInfoExistsInDatabase(file.getName())) {
+                            videoInsertDeleteService.insertVideoIntoDb(file, directory);
+                        }
+                        else if (!videoInsertDeleteService.fileExists(file.getName(), directory) &&
+                                videoInsertDeleteService.videoInfoExistsInDatabase(file.getName())) {
                             videoInsertDeleteService.insertVideoIntoDb(file, directory);
                         }
                     }
@@ -65,7 +66,6 @@ public class Application {
                 else {
                     System.out.println("Error! Unable to locate directory: " + directory.toString());
                 }
-
             }
         }, 0, 60, TimeUnit.SECONDS);
 
