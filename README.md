@@ -46,9 +46,13 @@ Setting Up Environmental Variables for Java and Maven:
 
 Dynamic DNS Account Setup:
 
-	1. Sign up for a free dynamic DNS account here: https://www.noip.com/sign-up This will give you a free URL that will redirect to your public IP address. 
+	1. Sign up for a free dynamic DNS account here: https://www.noip.com/sign-up This will give you a free URL that will <br />
+		redirect to your public IP address. 
 	
-	2. Since your public IP is dynamic you'll need to install the DNS update client (https://www.noip.com/download). This will update your public IP whenever it renews so it can redirect to your custom URL. Some routers come preconfigured with DDNS updaters built in and you'll just have to login to your No-IP account. In that case you wouldn't need the update client. 
+	2. Since your public IP is dynamic you'll need to install the DNS update client (https://www.noip.com/download). This <br />
+	will update your public IP whenever it renews so it can redirect to your custom URL. Some routers come preconfigured  <br />
+	with DDNS updaters built in and you'll just have to login to your No-IP account. In that case you wouldn't need the   <br />
+	update client. 
 	
 	3. You'll also need to set a static IP or create a DHCP reservation for whichever device you want to remote into. 
 	
@@ -63,20 +67,21 @@ RDP into Raspberry Pi (Windows):
 	
 
 ##Database setup
-You must set up a localhost MySQL schema. You can do this using WAMP/LAMP/XAMP/MySQLWorkbench/etc.
-Once you have your program set up, import the script on the google drive scripts page 'create and populate db.sql'.
-Create a new schema. It MUST be called bsbuckne.
-NOTE: Your login credentials must be set to username:root password:password (should be default). Port 3306
-Import the script to create and populate the tables.
-That's it.
+
+	1. You must set up a localhost MySQL schema. You can do this using WAMP/LAMP/XAMP/MySQLWorkbench/etc.
+
+	2. Once you have your program set up, import the script on the google drive scripts page 'create and populate db.sql'.
+
+	3. Create a new schema. It MUST be called bsbuckne.
+	NOTE: Your login credentials must be set to username:root password:password (should be default). Port 3306
+
+	4. Import the script to create and populate the tables.
 
 Database URL localhost:3306/bsbuckne  localhost DB, port 3306, schema name bsbuckne
 username: root
 password: password
 
 Queries for the User are written in the UserDaoImpl
-
-
 
 ##Install and configure Motion
 1) 	Install motion
