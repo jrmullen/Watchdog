@@ -86,21 +86,21 @@
                                             </div>
                                             <div class="modal-body" >
                                                 <table class="table">
-                                                    <tr ng-repeat="tag in x.tagList">
+                                                    <tr style="width: 100%" ng-repeat="tag in x.tagList">
                                                         <td>{{tag.tagName}}</td>
                                                         <td>
-                                                            <input type="button" value="Delete Tag" class="btn btn-danger" ng-click="removeTag(x.id, x.vid_id, tag.tagId)" />
+                                                            <input style="float: right;" type="button" value="Delete Tag" class="btn btn-danger" ng-click="removeTag(x.id, x.vid_id, tag.tagId)" />
                                                         </td>
                                                     </tr>
                                                 </table>
                                                 <form role="form" ng-submit="addTagRow()">
-                                                    <table  style="width: 76%">
+                                                    <table align="center" style="width: 100%">
                                                         <tr>
                                                             <td>
                                                                 <input type="text" class="form-control" name="tagName" ng-model="newTag" placeholder="New Tag" />
                                                             </td>
                                                             <td>
-                                                                <button type="submit" class="btn btn-success" ng-click="addTagRow(x.id, newTag, x.vid_id)">Add Tag</button>
+                                                                <button style="float: right;" type="submit" align="right" class="btn btn-success" ng-click="addTagRow(x.id, newTag, x.vid_id)">Add Tag</button>
                                                             </td>
                                                         </tr>
                                                     </table>
