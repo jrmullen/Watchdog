@@ -3,6 +3,7 @@ package com.watchdog.dao;
 /**
  * Created by jmullen on 10/10/16.
  */
+
 public class Constants {
 
     //User queries
@@ -33,7 +34,8 @@ public class Constants {
     public static final String DELETE_VIDEO_BY_ID_QUERY = "delete from video where VID_ID=?";
     public static final String DELETE_VIDEO_BY_TITLE_QUERY = "delete from video where VID_TITLE=?";
     public static final String GET_ALL_VIDEOS_QUERY = "select VID_ID, USER_ID, VID_FILE_PATH, VID_LENGTH, VID_IS_COMPRESSED, VID_IS_ENCRYPTED, VID_SIZE_ON_DISK, VID_DATE, VID_TIME, VID_TITLE, VID_LOCATION, VID_DESCRIPTION, DEVICE_MAC from video";
-    ;
+    public static final String GET_DEVICE_MAC_BY_VID_ID = "select DEVICE_MAC from video where VID_ID = ?";
+
 
     //Tag queries
     public static final String GET_ALL_TAGS_QUERY = "select TAG_ID, TAG_NAME from tag";
@@ -55,6 +57,7 @@ public class Constants {
     public static final String GET_VID_ID_BY_TAG_ID_QUERY = "select VID_ID from tag_to_video where TAG_ID = ?";
     public static final String ADD_TAG_TO_VID_QUERY = "insert into tag_to_video (VID_ID, TAG_ID) values (?, ?)";
     public static final String GET_TAG_TO_VID_BY_VIDEO_ID_AND_TAG_ID_QUERY = "select VID_ID, TAG_ID from tag_to_video where VID_ID=? and TAG_ID=?";
+    public static final String DELETE_VIDEO_TAG_QUERY= "delete from tag_to_video where tag_to_video.TAG_ID = ? and tag_to_video.VID_ID = ?";
 
 
     // Permissions

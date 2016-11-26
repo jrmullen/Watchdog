@@ -22,7 +22,7 @@ public interface TagDao {
     void update(Tag tag);
 
     //Delete
-    void deleteByTagId(int id);
+    void deleteTagFromVideo(int tagId, int videoId);
 
     boolean checkTagExists(String newTag);
 

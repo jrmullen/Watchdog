@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Angular Tests</title>
+    <title>Video Log</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link th:href="@{/webjars/bootstrap/3.3.1/css/bootstrap.min.css}"
           href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.css" rel="stylesheet" media="screen"/>
@@ -14,7 +14,8 @@
 
 <div class="container">
     <div ng-app="myApp" ng-controller="tagController" class="table-responsive">
-        <h2 align="center">Angular Tag Table</h2>
+        <br />
+        <h1 align="center">Video Log</h1>
         <table class="table">
             <thead>
                 <tr>
@@ -60,7 +61,7 @@
                     <td>{{x.date}}</td>
                     <td>{{x.startTime}}</td>
                     <td>{{x.length}}</td>
-                    <td>{{x.camera}}</td>
+                    <td>{{x.camera}} {{cameraNotExistsMessage}}</td>
                     <td>{{x.tags}}</td>
 
                     <td>
