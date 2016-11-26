@@ -109,7 +109,7 @@ enable pi camera to use with motion:                <br />
 If you get a message saying this is not permission, your camera probably is not recognized. <br />
 `sudo vcgencmd get_camera` to view cameras          <br />
 if pi camera is not detected here use the following <br />
-`sudo apt-get install lua-5.2`
+`sudo apt-get install lua5.2`
 
 set up pi cam to be used with Motion on boot:       <br />
 `vim /etc/rc.local      (emacs/nano optional)`      <br />
