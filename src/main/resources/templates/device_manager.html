@@ -9,30 +9,31 @@
 </head>
 
 <div th:include="fragments/header :: header"></div>
-<br />
+<br/>
 <body>
 
 <h3 class="text-center">Add Device</h3>
- <form th:action="@{?addDevice}" th:object="${device}" method="post" id="devices" class="in-line" align="center">
+<form th:action="@{?addDevice}" th:object="${device}" method="post" id="devices" class="in-line" align="center">
 
     <div id="centered">
-        <input type="text" class="in-line" id="deviceName" th:field="*{deviceName}" placeholder="Device Name" />
+        <input type="text" class="in-line" id="deviceName" th:field="*{deviceName}" placeholder="Device Name"/>
         <input type="text" class="in-line" id="deviceMac" th:field="*{deviceMac}" placeholder="Device MAC"/>
         <input type="text" class="in-line" id="deviceAddress" th:field="*{deviceAddress}" placeholder="Device Address"/>
-        <input type="text" class="in-line" id="devicePort" th:field="*{devicePort}" placeholder="Device Port (Optional)"/>
+        <input type="text" class="in-line" id="devicePort" th:field="*{devicePort}"
+               placeholder="Device Port (Optional)"/>
         <button type="submit" class="btn btn-success" id="btn-add">Add New</button>
         <button class="btn btn-info" onclick="clearText()">Clear</button>
 
     </div>
-     <span class="help-block" style="color: red" th:text="${errorMessage}"></span>
-     <span class="help-block" th:if="${successMessage != null}" th:text="${successMessage}"></span>
+    <span class="help-block" style="color: red" th:text="${errorMessage}"></span>
+    <span class="help-block" th:if="${successMessage != null}" th:text="${successMessage}"></span>
 
- </form>
-<br />
+</form>
+<br/>
 
 <h3 class="text-center">Registered Devices</h3>
 <div class="panel panel-primary" id="table-holder" th:if="${not #lists.isEmpty(deviceList)}">
-    <table class="table" >
+    <table class="table">
         <thead>
         <tr>
             <th>Device Name</th>
@@ -43,19 +44,19 @@
         </tr>
 
 
-            <tr th:each="device, iter : ${deviceList}">
+        <tr th:each="device, iter : ${deviceList}">
 
-                <td th:text="${device.deviceName}"></td>
-                <td th:text="${device.deviceMac}"></td>
-                <td th:text="${device.deviceAddress}"></td>
-                <td th:text="${device.devicePort}"></td>
-                <td>
-                    <form th:action="@{?deleteDevice}" th:object="${device}" method="post" class="in-line">
-                        <input type="hidden" th:value="${device.id}" name="id" />
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </td>
-            </tr>
+            <td th:text="${device.deviceName}"></td>
+            <td th:text="${device.deviceMac}"></td>
+            <td th:text="${device.deviceAddress}"></td>
+            <td th:text="${device.devicePort}"></td>
+            <td>
+                <form th:action="@{?deleteDevice}" th:object="${device}" method="post" class="in-line">
+                    <input type="hidden" th:value="${device.id}" name="id"/>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
 
         </thead>
         <tbody>
@@ -63,13 +64,13 @@
         </tbody>
     </table>
 </div>
-<br />
+<br/>
 
 <script>
     // test alert
-    $(function(){
+    $(function () {
         // if we use id we need $('#some-name'); or class we use $('.some-name');
-        $('#btn-add').click(function(){
+        $('#btn-add').click(function () {
             // declare variable
             var _name = $('input[name="name"]').val();
             var _mac = $('input [name="mac"]').val();
@@ -77,7 +78,7 @@
             var _port = $('input[name="port"]').val();
 
 
-          var _tr = '<tr><td>'+ _name +'</td> <td>'+ _mac +'</td> <td>'+ _ip +'</td> <td>'+ _port +'</td><td><button type="button" class="btn btn-danger btn-delete">Delete </button></td></tr>';
+            var _tr = '<tr><td>' + _name + '</td> <td>' + _mac + '</td> <td>' + _ip + '</td> <td>' + _port + '</td><td><button type="button" class="btn btn-danger btn-delete">Delete </button></td></tr>';
 
             $('tbody').append(_tr);
         });
@@ -86,7 +87,7 @@
     });
 
     // clear form data after submission
-    function clearText(){
+    function clearText() {
         // declare textbox variables
         var tb0 = document.getElementById("deviceName")
         var tb1 = document.getElementById("deviceMac")
@@ -100,7 +101,7 @@
     }
 </script>
 
-<script type="text/javascript" th:src="@{/js/footer.js}" />
+<script type="text/javascript" th:src="@{/js/footer.js}"/>
 
 </body>
 </html>

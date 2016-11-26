@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -11,22 +11,22 @@
 
 <div th:include="fragments/header :: header"></div>
 
-        <h3 class="text-center" id="welcome-text">Welcome <span th:text="${firstName}"></span>!</h3>
-        <h3 class="col-md-offset-1">Video Feed</h3>
+<h3 class="text-center" id="welcome-text">Welcome <span th:text="${firstName}"></span>!</h3>
+<h3 class="col-md-offset-1">Video Feed</h3>
 
-        <div class="row" th:if="${not #lists.isEmpty(deviceList)}">
-            <div class="col-md-4 col-md-offset-1" th:each="device, iter : ${deviceList}">
-                <h5 th:text="'Cam ' + ${iter.index + 1} + ': ' + ${device.deviceName}"></h5>
+<div class="row" th:if="${not #lists.isEmpty(deviceList)}">
+    <div class="col-md-4 col-md-offset-1" th:each="device, iter : ${deviceList}">
+        <h5 th:text="'Cam ' + ${iter.index + 1} + ': ' + ${device.deviceName}"></h5>
 
-                <p><img th:src="${device.deviceUrl}" th:width="300" th:height="300" alt="image"> </img></p>
+        <p><img th:src="${device.deviceUrl}" th:width="300" th:height="300" alt="image"> </img></p>
 
-            </div>
-        </div>
-<br />
-<br />
-<br />
+    </div>
+</div>
+<br/>
+<br/>
+<br/>
 
-    <script type="text/javascript" th:src="@{/js/footer.js}" />
+<script type="text/javascript" th:src="@{/js/footer.js}"/>
 
 </body>
 </html>
