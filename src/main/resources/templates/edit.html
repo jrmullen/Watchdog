@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Edit</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -7,7 +7,7 @@
           href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.1/css/bootstrap.css" rel="stylesheet" media="screen"/>
 </head>
 <div th:include="fragments/header :: header"></div>
-<br />
+<br/>
 <body>
 <div class="row container-fluid" th:fragment="edit">
     <div class="col-md-6 col-md-offset-3">
@@ -19,7 +19,8 @@
                     <div class="row container-fluid form-group">
                         <div class="col-md-12">
                             <label for="firstName">First Name:</label>
-                            <input type="text" class="form-control" id="firstName" th:value="${user.firstName}"  th:field="*{firstName}" />
+                            <input type="text" class="form-control" id="firstName" th:value="${user.firstName}"
+                                   th:field="*{firstName}"/>
                             <span class="help-block" style="color:red" th:if="${#fields.hasErrors('firstName')}">Please enter your first name</span>
                         </div>
                     </div>
@@ -27,7 +28,8 @@
                     <div class="row container-fluid form-group">
                         <div class="col-md-12">
                             <label for="lastName">Last Name:</label>
-                            <input type="text" class="form-control" id="lastName" th:value="${user.lastName}" th:field="*{lastName}" />
+                            <input type="text" class="form-control" id="lastName" th:value="${user.lastName}"
+                                   th:field="*{lastName}"/>
                             <span class="help-block" style="color:red" th:if="${#fields.hasErrors('lastName')}">Please enter your last name</span>
                         </div>
                     </div>
@@ -35,16 +37,17 @@
                     <div class="row container-fluid form-group">
                         <div class="col-md-12">
                             <label for="password">New Password:</label>
-                            <input type="password" class="form-control" id="password" th:field="*{password}" />
+                            <input type="password" class="form-control" id="password" th:field="*{password}"/>
                             <span class="help-block" style="color:red" th:if="${#fields.hasErrors('password')}">Password must be
-                                                                                            at least 8 characters long</span>
+                                                                                                at least 8 characters long</span>
                         </div>
                     </div>
 
                     <div class="row container-fluid form-group">
                         <div class="col-md-12">
                             <label for="passwordconfirm">Confirm New Password:</label>
-                            <input type="password" class="form-control" id="passwordconfirm" th:field="*{passwordConfirm}"/>
+                            <input type="password" class="form-control" id="passwordconfirm"
+                                   th:field="*{passwordConfirm}"/>
                             <span class="help-block" style="color:red" th:if="${#fields.hasErrors('passwordConfirm')}">Password must match</span>
                         </div>
                     </div>
