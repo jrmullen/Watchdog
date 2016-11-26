@@ -51,6 +51,7 @@ public class LogController {
 
             log.setId(i);
             log.setVidId(video.getVideoId());
+            log.setVideoFilePath(video.getFilePath());
             log.setDate(video.getDate());
             log.setStartTime(String.valueOf(video.getTime()));
             log.setLength(String.valueOf(video.getLength()));
