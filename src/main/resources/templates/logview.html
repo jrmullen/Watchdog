@@ -32,6 +32,7 @@
                         <th align="center">Length</th>
                         <th align="center">Camera</th>
                         <th align="center">Tags</th>
+                        <th></th>
                         <th colspan="2"><input type="search" class="form-control" placeholder="Type to search" ng-model="searchKeyword" /></th>
                     </tr>
                 </thead>
@@ -117,7 +118,8 @@
                         </td>
                         <td>
                             <input type="button" value="Remove" class="btn btn-danger" ng-click="removeRow(x.id, x.vid_id)" />
-                            <div class="divider" />
+                        </td>
+                        <td>
                             <input type="button" value="Download" class="btn btn-warning" />
                         </td>
                     </tr>
@@ -138,7 +140,6 @@
 
     myApp.controller('tagController', function($scope, $http) {
         $scope.tableList = JSON.parse(json);
-        $scope.ta
         console.log($scope.tableList);
 
         /*<![CDATA[*/
@@ -159,6 +160,7 @@
                         if (tagExists === 0) {
                             tagList[tagList.length] = { "tagId": null, "tagName": newTag };
                             $scope.tableList[id].tagList = tagList;
+                            console.log($scope.data);
                         }
                     }
                 }
