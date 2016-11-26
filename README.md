@@ -46,12 +46,12 @@ Setting Up Environmental Variables for Java and Maven:
 
 Dynamic DNS Account Setup:
 
-	1. Sign up for a free dynamic DNS account here: https://www.noip.com/sign-up This will give you a free URL that will <br />
+	1. Sign up for a free dynamic DNS account here: https://www.noip.com/sign-up This will give you a free URL that will
 		redirect to your public IP address. 
 	
-	2. Since your public IP is dynamic you'll need to install the DNS update client (https://www.noip.com/download). This <br />
-	will update your public IP whenever it renews so it can redirect to your custom URL. Some routers come preconfigured  <br />
-	with DDNS updaters built in and you'll just have to login to your No-IP account. In that case you wouldn't need the   <br />
+	2. Since your public IP is dynamic you'll need to install the DNS update client (https://www.noip.com/download). This
+	will update your public IP whenever it renews so it can redirect to your custom URL. Some routers come preconfigured
+	with DDNS updaters built in and you'll just have to login to your No-IP account. In that case you wouldn't need the
 	update client. 
 	
 	3. You'll also need to set a static IP or create a DHCP reservation for whichever device you want to remote into. 
@@ -84,80 +84,80 @@ password: password
 Queries for the User are written in the UserDaoImpl
 
 ##Install and configure Motion
-1) 	Install motion
-	a) 	From raspberry pi terminal execute the following commands:                      					<br />
-			`sudo apt-get install vim   (optional if you like Vim editor over emacs/nano)`  				<br />
-			`sudo apt-get update`                                                           				<br />
-			`sudo apt-get upgrade`                                                          				<br />
-			`sudo apt-get install motion`                                                   				<br />
-			`mkdir /tmp/motion`                                                             				<br />
-			`sudo raspi-config`                                                             				<br />
-	b) 	Enable Pi Camera set to 'yes' (Step 3 on the Install and configure Motion list)
+	1. 	Install motion
+		a) 	From raspberry pi terminal execute the following commands:                      					<br />
+				`sudo apt-get install vim   (optional if you like Vim editor over emacs/nano)`  				<br />
+				`sudo apt-get update`                                                           				<br />
+				`sudo apt-get upgrade`                                                          				<br />
+				`sudo apt-get install motion`                                                   				<br />
+				`mkdir /tmp/motion`                                                             				<br />
+				`sudo raspi-config`                                                             				<br />
+		b) 	Enable Pi Camera set to 'yes' (Step 3 on the Install and configure Motion list)
 
-2) 	Edit motion.conf
-	a)	Open motion.conf file in text editor    															<br />
-	 	`sudo vim /etc/motion/motion.conf  (or use emacs/nano instead of vim)`
-	b) 	make edits to motion.conf file where necessary:
-			* daemon on
-			* width 320
-			* height 240
-			* framerate 30            (video file framerate. Default is 1 and it's terrible)
-			* minimum_motion_frames 5
-			* max_movie_time 5       (sets max length of recorded clip to 10 seconds)
-			* output_pictures off     (if this is left on the directory where files are stored will be filled very quickly with images)
-			* target_dir /tmp/motion  (this is where our motion detection video clips will be stored)
-			* stream_port 8081        (doesn't have to be 8081 but you need to know the port for the device manager page)
-			* stream_maxrate 15       (default is like 1FPS which is extremely low and laggy. 15 is good quality)
-			* stream_localhost off
-			* webcontrol_localhost off                          											<br />
-	c) 	save file
-	
-	
-(Optional) Set up motion with multiple cameras off one Raspberry Pi											<br />
-	a) 	create configuration files for cameras where the number of cameras connected to the Raspberry Pi 	<br />
-		is the number of config file you create 															<br />
-		`sudo vim thread[CAMERA NUMBER HERE].conf`	(I.e. `sudo vim thread1.conf`)							<br />
-	b)	add configuratiuon info unique to each camera to each config file									<br />
-		I.e `videodevice /dev/video0																		<br />
-			 stream_port 8081`																				<br />
-	c)	Save file																							<br />
-	d)	set up motion.conf to use config files just created													<br />
-		`sudo vim /etc/motion/motion.conf`					
-	e)	uncomment camera config files for the number of cameras connected to the pi at the bottom of the 
-		motion.conf file by changing:																		<br />
-		`;  thread /etc/motion/thread1.conf` to `thread /etc/motion/thread1.conf`							<br />
+	2. 	Edit motion.conf
+		a)	Open motion.conf file in text editor    															<br />
+			`sudo vim /etc/motion/motion.conf  (or use emacs/nano instead of vim)`
+		b) 	make edits to motion.conf file where necessary:
+				* daemon on
+				* width 320
+				* height 240
+				* framerate 30            (video file framerate. Default is 1 and it's terrible)
+				* minimum_motion_frames 5
+				* max_movie_time 5       (sets max length of recorded clip to 10 seconds)
+				* output_pictures off     (if this is left on the directory where files are stored will be filled very quickly with images)
+				* target_dir /tmp/motion  (this is where our motion detection video clips will be stored)
+				* stream_port 8081        (doesn't have to be 8081 but you need to know the port for the device manager page)
+				* stream_maxrate 15       (default is like 1FPS which is extremely low and laggy. 15 is good quality)
+				* stream_localhost off
+				* webcontrol_localhost off                          											<br />
+		c) 	save file
+		
+		
+	(Optional) Set up motion with multiple cameras off one Raspberry Pi											<br />
+		a) 	create configuration files for cameras where the number of cameras connected to the Raspberry Pi 	<br />
+			is the number of config file you create 															<br />
+			`sudo vim thread[CAMERA NUMBER HERE].conf`	(I.e. `sudo vim thread1.conf`)							<br />
+		b)	add configuratiuon info unique to each camera to each config file									<br />
+			I.e `videodevice /dev/video0																		<br />
+				 stream_port 8081`																				<br />
+		c)	Save file																							<br />
+		d)	set up motion.conf to use config files just created													<br />
+			`sudo vim /etc/motion/motion.conf`					
+		e)	uncomment camera config files for the number of cameras connected to the pi at the bottom of the 
+			motion.conf file by changing:																		<br />
+			`;  thread /etc/motion/thread1.conf` to `thread /etc/motion/thread1.conf`							<br />
 
-3)	Enable motion start daemon                          													<br />
-	a)	`sudo vim /etc/default/motion`                      												<br />
-	b)	change no to yes                                    												<br />
-	c)	save file                                           												<br />
+	3.	Enable motion start daemon                          													<br />
+		a)	`sudo vim /etc/default/motion`                      												<br />
+		b)	change no to yes                                    												<br />
+		c)	save file                                           												<br />
 
-4)	Enable pi camera to use with motion		               													<br />
-	a) 	`sudo modprobe bcm2835-v4l2`                       													<br />
-	b) 	If you get a message saying this is not permission, your camera probably is not recognized. 		<br />
-		`sudo vcgencmd get_camera` to view cameras          												<br />
-	c) 	If pi camera is not detected here use the following: 												<br />
-		`sudo apt-get install lua5.2`
+	4.	Enable pi camera to use with motion		               													<br />
+		a) 	`sudo modprobe bcm2835-v4l2`                       													<br />
+		b) 	If you get a message saying this is not permission, your camera probably is not recognized. 		<br />
+			`sudo vcgencmd get_camera` to view cameras          												<br />
+		c) 	If pi camera is not detected here use the following: 												<br />
+			`sudo apt-get install lua5.2`
 
-5) 	Set up pi cam to be used with Motion on boot:       													<br />
-	a)	`vim /etc/rc.local      (emacs/nano optional)`      												<br />
-	b)	add line to file:                                   												<br />
-		`sudo modprobe bcm2835-v4l2`                        												<br />
-	c)	save file
+	5. 	Set up pi cam to be used with Motion on boot:       													<br />
+		a)	`vim /etc/rc.local      (emacs/nano optional)`      												<br />
+		b)	add line to file:                                   												<br />
+			`sudo modprobe bcm2835-v4l2`                        												<br />
+		c)	save file
 
-Note: If motion does not start on boot (see Step 3 for starting motion on boot) 							<br />
-	Type the following every time the system is restarted to run motion:
-	`sudo service motion start`
+	Note: If motion does not start on boot (see Step 3 for starting motion on boot) 							<br />
+		Type the following every time the system is restarted to run motion:
+		`sudo service motion start`
 
 ##FTP setup on Pi
-First, do a sudo apt-get install ncftp on the Raspberry Pi.
+	1. First, do a sudo apt-get install ncftp on the Raspberry Pi.
 
-We'll be using a bash script to upload log videos via FTP.
-You can create it using a CLI text editor such as vim/nano or you can do it in windows and transfer via sftp.
+	2. We'll be using a bash script to upload log videos via FTP.
+	You can create it using a CLI text editor such as vim/nano or you can do it in windows and transfer via sftp.
 
-The script, watchdog.sh, is as follows: 												<br />
-`#!/bin/bash`																			<br />
-`ncftpput -R -v -u watchdog -p cit480 projectwatchdog.ddns.net /video /tmp/motion/*` 	<br />
-`rm -fr /tmp/motion/*`																	<br />
+	3. The script, watchdog.sh, is as follows: 												<br />
+	`#!/bin/bash`																			<br />
+	`ncftpput -R -v -u watchdog -p cit480 projectwatchdog.ddns.net /video /tmp/motion/*` 	<br />
+	`rm -fr /tmp/motion/*`																	<br />
 
-/tmp/motion is our default recording location on the pi. If you've changed it you'll need to modify the script.
+	4. /tmp/motion is our default recording location on the pi. If you've changed it you'll need to modify the script.
