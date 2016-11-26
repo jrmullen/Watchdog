@@ -49,7 +49,7 @@ public class DeviceManagerController {
                         " Please enter a unqiue MAC address.");
             }
             else if (!isValidPort(device.getDevicePort()) || !device.getDevicePort().equals(device.getDevicePort())) {
-                model.addAttribute("errorMessage", "Port field must be left blank or be a number between 1 and 65,535.");
+                model.addAttribute("errorMessage", "Port field must be a number between 1 and 65,535.");
             } else {
                 deviceDao.save(device);
                 model.addAttribute("successMessage", "Device successfully saved.");

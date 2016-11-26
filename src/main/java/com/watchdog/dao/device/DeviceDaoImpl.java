@@ -62,9 +62,7 @@ public class DeviceDaoImpl implements DeviceDao {
                 device.setDeviceName(rs.getString("DEVICE_NAME"));
                 device.setDeviceMac(rs.getString ("DEVICE_MAC"));
                 device.setDeviceAddress(rs.getString("DEVICE_ADDRESS"));
-                if (null != rs.getString("DEVICE_PORT")) {
-                    device.setDevicePort(rs.getString("DEVICE_PORT"));
-                }
+                device.setDevicePort(rs.getString("DEVICE_PORT"));
 
                 return device;
             }
@@ -153,9 +151,7 @@ public class DeviceDaoImpl implements DeviceDao {
             device.setDeviceName(String.valueOf(deviceRow.get("DEVICE_NAME")));
             device.setDeviceMac(String.valueOf(deviceRow.get("DEVICE_MAC")));
             device.setDeviceAddress(String.valueOf(deviceRow.get("DEVICE_ADDRESS")));
-            if (null != deviceRow.get("DEVICE_PORT")) {
-                device.setDevicePort(String.valueOf(deviceRow.get("DEVICE_PORT")));
-            }
+            device.setDevicePort(String.valueOf(deviceRow.get("DEVICE_PORT")));
             device.buildDeviceUrl(device.getDeviceAddress(), device.getDevicePort());
 
             deviceList.add(device);
