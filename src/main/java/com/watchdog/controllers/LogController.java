@@ -42,7 +42,7 @@ public class LogController {
         logList.clear();
 
         List<Video> videoList = videoDao.getAll();
-
+        boolean cameraNotExistsMessage =  false;
 
         for (int i = 0; i < videoList.size(); i++) {
             Log log = new Log();
@@ -64,9 +64,8 @@ public class LogController {
                 logList.add(log);
             }
             catch(Exception e) {
-                String cameraNotExistsMessage = " Defaulting to saved camera MAC address. Camera no longer exists in database.";
-                String deviceMac = videoDao.getVideoDeviceMacByVidId(video.getVideoId()) + cameraNotExistsMessage;
-                model.addAttribute("cameraNotExistsMessage", cameraNotExistsMessage);
+                String deviceMac = videoDao.getVideoDeviceMacByVidId(video.getVideoId());
+
                 log.setId(i);
                 log.setVidId(video.getVideoId());
                 log.setDate(video.getDate());
@@ -76,6 +75,8 @@ public class LogController {
                 log.setTagList(tagList);
                 log.setTags(log.getTagsString());
                 logList.add(log);
+                cameraNotExistsMessage = true;
+                model.addAttribute("cameraNotExistsMessage", cameraNotExistsMessage);
             }
         }
 

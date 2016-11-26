@@ -4,6 +4,14 @@
     margin-right: auto;
 }
 
+#override-align-center {
+    text-align: left;
+}
+
+#wide {
+    width: 97%;
+}
+
 /* Navbar styling */
 .navbar-inverse {
     background-color: #161616;
@@ -84,6 +92,7 @@ th {
     background-color: darkblue;
     color: white;
     padding: 10px;
+    text-align: center;
 }
 
 /* Table row styling */
@@ -94,6 +103,7 @@ tr:nth-child(odd){background-color: white}
 td {
     padding: 10px;
     color: darkblue;
+    text-align: center;
 }
 /* End table styling */
 
