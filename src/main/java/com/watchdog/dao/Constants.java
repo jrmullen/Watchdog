@@ -3,6 +3,7 @@ package com.watchdog.dao;
 /**
  * Created by jmullen on 10/10/16.
  */
+
 public class Constants {
 
     //User queries

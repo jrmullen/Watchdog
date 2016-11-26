@@ -7,7 +7,6 @@ package com.watchdog.dao.device;
 import com.watchdog.business.Device;
 import com.watchdog.business.Video;
 import com.watchdog.dao.Constants;
-import com.watchdog.dao.device.DeviceDao;
 import com.watchdog.dao.video.VideoDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

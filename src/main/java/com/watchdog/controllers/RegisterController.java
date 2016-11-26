@@ -1,7 +1,6 @@
 package com.watchdog.controllers;
 
 
-import com.watchdog.business.Tag;
 import com.watchdog.business.User;
 import com.watchdog.dao.user.UserDao;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

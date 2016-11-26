@@ -1,6 +1,5 @@
 package com.watchdog.controllers;
 
-import com.watchdog.business.Device;
 import com.watchdog.business.User;
 import com.watchdog.dao.device.DeviceDao;
 import com.watchdog.dao.user.UserDao;

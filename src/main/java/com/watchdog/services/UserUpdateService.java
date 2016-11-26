@@ -4,8 +4,6 @@ import com.watchdog.business.User;
 import com.watchdog.dao.user.UserDao;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.Random;
-
 /**
  * Created by Richard on 10/27/2016.
  */
