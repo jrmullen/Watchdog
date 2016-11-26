@@ -3,7 +3,6 @@ package com.watchdog.dao.tag;
 import com.watchdog.business.Tag;
 import com.watchdog.business.Video;
 import com.watchdog.dao.Constants;
-import com.watchdog.dao.tag.TagDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

@@ -19,7 +19,7 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<bean id="permissionsDaoImpl" class="com.watchdog.dao.PermissionsDaoImpl">
+	<bean id="permissionsDaoImpl" class="com.watchdog.dao.permissions.PermissionsDaoImpl">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
