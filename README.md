@@ -106,7 +106,7 @@ save file                                           <br />
 
 if motion does not start on boot (see 'enable start <br />
 motion daemon' above for starting motion on boot) 	<br />
-'sudo service motion start'
+`sudo service motion start`
 
 enable pi camera to use with motion:                <br />
 `sudo modprobe bcm2835-v4l2`                        <br />
