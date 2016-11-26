@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,17 +50,33 @@ public class LogController {
             Video video = videoList.get(i);
             List<Tag> tagList = tagDao.getByVidId(video.getVideoId());
 
-            String camera = deviceDao.getDeviceNameByVidId(video.getVideoId());
+            try{
+                String deviceMac = deviceDao.getDeviceNameByVidId(video.getVideoId());
 
-            log.setId(i);
-            log.setVidId(video.getVideoId());
-            log.setDate(video.getDate());
-            log.setStartTime(String.valueOf(video.getTime()));
-            log.setLength(String.valueOf(video.getLength()));
-            log.setCamera(camera);
-            log.setTagList(tagList);
-            log.setTags(log.getTagsString());
-            logList.add(log);
+                log.setId(i);
+                log.setVidId(video.getVideoId());
+                log.setDate(video.getDate());
+                log.setStartTime(String.valueOf(video.getTime()));
+                log.setLength(String.valueOf(video.getLength()));
+                log.setCamera(deviceMac);
+                log.setTagList(tagList);
+                log.setTags(log.getTagsString());
+                logList.add(log);
+            }
+            catch(Exception e) {
+                String cameraNotExistsMessage = " Defaulting to saved camera MAC address. Camera no longer exists in database.";
+                String deviceMac = videoDao.getVideoDeviceMacByVidId(video.getVideoId()) + cameraNotExistsMessage;
+                model.addAttribute("cameraNotExistsMessage", cameraNotExistsMessage);
+                log.setId(i);
+                log.setVidId(video.getVideoId());
+                log.setDate(video.getDate());
+                log.setStartTime(String.valueOf(video.getTime()));
+                log.setLength(String.valueOf(video.getLength()));
+                log.setCamera(deviceMac);
+                log.setTagList(tagList);
+                log.setTags(log.getTagsString());
+                logList.add(log);
+            }
         }
 
         String logListJson = jsonConverterService.objectToJson(logList);

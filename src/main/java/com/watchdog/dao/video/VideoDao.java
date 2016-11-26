@@ -19,6 +19,8 @@ public interface VideoDao {
     //Read
     Video getByVidId(int id);
 
+    String getVideoDeviceMacByVidId(int id);
+
     //Update
     void update(Video video, int vidId);
 
