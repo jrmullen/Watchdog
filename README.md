@@ -171,7 +171,7 @@ Queries for the User are written in the UserDaoImpl
 	modify the script.
 	
 	5. edit motion.conf
-		'sudo vim /etc/motion/motion.conf'
+		`sudo vim /etc/motion/motion.conf`
 	remove comment for on_movie_end command and add script (this is w/ script in /tmp/ dir)
-		'on_movie_end /tmp/script.sh %f'
+		`on_movie_end /tmp/script.sh %f`
 		
