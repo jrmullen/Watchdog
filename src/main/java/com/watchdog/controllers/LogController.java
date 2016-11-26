@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,14 +50,15 @@ public class LogController {
             List<Tag> tagList = tagDao.getByVidId(video.getVideoId());
 
             try{
-                String deviceMac = deviceDao.getDeviceNameByVidId(video.getVideoId());
+                String cameraName = deviceDao.getDeviceNameByVidId(video.getVideoId());
 
                 log.setId(i);
                 log.setVidId(video.getVideoId());
+                log.setVideoFilePath(video.getFilePath());
                 log.setDate(video.getDate());
                 log.setStartTime(String.valueOf(video.getTime()));
                 log.setLength(String.valueOf(video.getLength()));
-                log.setCamera(deviceMac);
+                log.setCamera(cameraName);
                 log.setTagList(tagList);
                 log.setTags(log.getTagsString());
                 logList.add(log);
@@ -112,7 +112,7 @@ public class LogController {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
         TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
 
-        tagDao.deleteTagToVidByTagId(tagId);
+        tagDao.deleteTagFromVideo(tagId, videoId);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
