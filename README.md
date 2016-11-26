@@ -99,16 +99,16 @@ make edits to motion.conf file where necessary:
 * webcontrol_localhost off                          <br />
 save file
 
-Set up motion with multiple cameras off one Raspberry Pi (optional)												<br />
-create configuration files for cameras where the number of cameras connected to the Raspberry Pi is the number of config <br />
-file you create 									<br />
+Set up motion with multiple cameras off one Raspberry Pi (optional)										<br />
+create configuration files for cameras where the number of cameras connected to the Raspberry Pi 		<br />
+is the number of config file you create 																<br />
 `sudo vim thread[CAMERA NUMBER HERE].conf`	(I.e. `sudo vim thread1.conf`)								<br />
 add configuratiuon info unique to each camera to each config file										<br />
 I.e `videodevice /dev/video0						<br />
 	 stream_port 8081`								<br />
 Save file											<br />
 set up motion.conf to use config files just created	<br />
-`sudo vim /etc/motion/motion.conf`					<br />		
+`sudo vim /etc/motion/motion.conf`					
 uncomment camera config files for the number of cameras connected to the pi at the bottom of the motion.conf file by changing:			<br />
 `;  thread /etc/motion/thread1.conf` to `thread /etc/motion/thread1.conf`								<br />
 
