@@ -21,7 +21,7 @@
         <input type="text" class="in-line" id="deviceAddress" th:field="*{deviceAddress}" placeholder="Device Address"/>
         <input type="text" class="in-line" id="devicePort" th:field="*{devicePort}"
                placeholder="Device Port (Optional)"/>
-        <button type="submit" class="btn btn-success" id="btn-add">Add Device</button>
+        <button type="submit" class="btn btn-success" id="btn-add">Add New</button>
         <button class="btn btn-info" onclick="clearText()">Clear</button>
 
     </div>
@@ -31,40 +31,38 @@
 </form>
 <br/>
 
-<div  th:if="${not #lists.isEmpty(deviceList)}">
-    <h3 class="text-center">Registered Devices</h3>
-    <div class="panel panel-primary" id="table-holder">
+<h3 class="text-center">Registered Devices</h3>
+<div class="panel panel-primary" id="table-holder" th:if="${not #lists.isEmpty(deviceList)}">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Device Name</th>
+            <th>Device MAC</th>
+            <th>Device Address</th>
+            <th>Device Port</th>
+            <th>Action</th>
+        </tr>
 
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Device Name</th>
-                <th>Device MAC</th>
-                <th>Device Address</th>
-                <th>Device Port</th>
-                <th>Action</th>
-            </tr>
 
-            <tr th:each="device, iter : ${deviceList}">
+        <tr th:each="device, iter : ${deviceList}">
 
-                <td th:text="${device.deviceName}"></td>
-                <td th:text="${device.deviceMac}"></td>
-                <td th:text="${device.deviceAddress}"></td>
-                <td th:text="${device.devicePort}"></td>
-                <td>
-                    <form th:action="@{?deleteDevice}" th:object="${device}" method="post" class="in-line">
-                        <input type="hidden" th:value="${device.id}" name="id"/>
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </td>
-            </tr>
+            <td th:text="${device.deviceName}"></td>
+            <td th:text="${device.deviceMac}"></td>
+            <td th:text="${device.deviceAddress}"></td>
+            <td th:text="${device.devicePort}"></td>
+            <td>
+                <form th:action="@{?deleteDevice}" th:object="${device}" method="post" class="in-line">
+                    <input type="hidden" th:value="${device.id}" name="id"/>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
 
-            </thead>
-            <tbody>
+        </thead>
+        <tbody>
 
-            </tbody>
-        </table>
-    </div>
+        </tbody>
+    </table>
 </div>
 <br/>
 

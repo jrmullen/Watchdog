@@ -16,14 +16,14 @@
         <thead>
         <tr>
             <th>Role</th>
-            <th id="override-align-center">Description</th>
+            <th>Description</th>
         </tr>
         </thead>
 
         <tbody>
         <tr th:each="permissions, iter : ${permissionsList}">
             <td th:text="${permissions.role}"></td>
-            <td id="override-align-center" th:text="${permissions.description}"></td>
+            <td th:text="${permissions.description}"></td>
         </tr>
         </tbody>
     </table>
