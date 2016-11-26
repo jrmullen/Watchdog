@@ -51,6 +51,7 @@ public class LogController {
 
             log.setId(i);
             log.setVidId(video.getVideoId());
+            log.setVideoFilePath(video.getFilePath());
             log.setDate(video.getDate());
             log.setStartTime(String.valueOf(video.getTime()));
             log.setLength(String.valueOf(video.getLength()));
@@ -93,7 +94,7 @@ public class LogController {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
         TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
 
-        tagDao.deleteTagToVidByTagId(tagId);
+        tagDao.deleteTagFromVideo(tagId, videoId);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
