@@ -169,3 +169,9 @@ Queries for the User are written in the UserDaoImpl
 
 	4. /tmp/motion is our default recording location on the pi. If you've changed it you'll need to 
 	modify the script.
+	
+	5. edit motion.conf
+		'sudo vim /etc/motion/motion.conf'
+	remove comment for on_movie_end command and add script (this is w/ script in /tmp/ dir)
+		'on_movie_end /tmp/script.sh %f'
+		
