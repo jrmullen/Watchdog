@@ -1,6 +1,5 @@
 package com.watchdog;
 
-import com.watchdog.business.Device;
 import com.watchdog.dao.user.UserDao;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

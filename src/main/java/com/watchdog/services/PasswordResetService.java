@@ -3,7 +3,6 @@ package com.watchdog.services;
 import com.watchdog.business.User;
 import com.watchdog.dao.user.UserDao;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.dao.EmptyResultDataAccessException;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

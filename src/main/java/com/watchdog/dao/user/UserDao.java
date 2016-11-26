@@ -7,6 +7,7 @@ import java.util.List;
 /**
  * Created by jmullen on 9/20/16.
  */
+
 //CRUD operations
 public interface UserDao {
 

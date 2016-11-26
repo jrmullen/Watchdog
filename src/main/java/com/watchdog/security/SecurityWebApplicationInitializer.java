@@ -1,9 +1,5 @@
 package com.watchdog.security;
 
-/**
- * Created by jmullen on 10/8/16.
- */
-
 import com.watchdog.config.SecurityConfig;
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

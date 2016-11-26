@@ -2,7 +2,6 @@ package com.watchdog.business;
 
 import java.sql.Date;
 import java.sql.Time;
-// import java.math.BigDecimal; Might be used later if we store video location as decimal instead of a String
 
 public class Video {
 

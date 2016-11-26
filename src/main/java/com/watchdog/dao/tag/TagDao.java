@@ -1,7 +1,6 @@
 package com.watchdog.dao.tag;
 
 import com.watchdog.business.Tag;
-import com.watchdog.business.Video;
 
 import java.util.List;
 
