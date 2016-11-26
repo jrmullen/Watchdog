@@ -113,14 +113,12 @@ public class TagDaoImpl implements TagDao {
         } else System.out.println("No Tag found with id= " + tag.getTagId());
     }
 
-    //Delete
     @Override
-    public void deleteByTagId(int tag_id) {
-        this.deleteTagToVidByTagId(tag_id);
-        int out = jdbcTemplate.update(Constants.DELETE_TAG_BY_ID_QUERY, tag_id);
+    public void deleteTagFromVideo(int tagId, int videoId) {
+        int out = jdbcTemplate.update(Constants.DELETE_VIDEO_TAG_QUERY, tagId, videoId);
         if (out != 0) {
-            System.out.println("Tag deleted with tag_id= " + tag_id);
-        } else System.out.println("No Tag found with tag_id= " + tag_id);
+            System.out.println("TTV tag " + tagId + " deleted from video " + videoId);
+        } else System.out.println("No TTV found for tag " + tagId + " and video " + videoId);
     }
 
     @Override

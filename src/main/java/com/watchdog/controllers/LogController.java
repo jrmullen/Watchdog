@@ -93,7 +93,7 @@ public class LogController {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
         TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
 
-        tagDao.deleteTagToVidByTagId(tagId);
+        tagDao.deleteTagFromVideo(tagId, videoId);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
