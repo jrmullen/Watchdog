@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class VideoInsertDeleteService {
 
-    private static final int MAX_ALLOWED_AGE = 5;
+    private static final int MAX_ALLOWED_AGE = 7;
 
     ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
     VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
@@ -69,7 +69,7 @@ public class VideoInsertDeleteService {
 
     public void deleteVideoInfoFromDatabase(String videoName) {
         Video video = videoDao.getByVideoTitle(videoName);
-        // create query and use here to check if video id exists in tag table
+
         if (tagDao.checkVidIdExistsInTagToVideo(video.getVideoId())) {
             tagDao.deleteTagToVidByVidId(video.getVideoId());
         }
@@ -77,6 +77,7 @@ public class VideoInsertDeleteService {
             System.out.println("Video with id " + video.getVideoId() +
                     " is not tagged");
         }
+
         videoDao.deleteByName(videoName);
     }
 

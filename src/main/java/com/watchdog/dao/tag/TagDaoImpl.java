@@ -4,6 +4,7 @@ import com.watchdog.business.Tag;
 import com.watchdog.business.Video;
 import com.watchdog.dao.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -132,12 +133,27 @@ public class TagDaoImpl implements TagDao {
   }
 
     @Override
-    public boolean checkVidIdExistsInTagToVideo(int vidId) {
+    public boolean checkVidIdExistsInTagToVideo(int videoId) {
         try {
-            int out = jdbcTemplate.update(Constants.GET_VID_ID_QUERY, vidId);
+            Tag tag = jdbcTemplate.queryForObject(Constants.GET_VID_ID_QUERY, new Object[]{videoId}, new RowMapper<Tag>() {
+
+                @Override
+                public Tag mapRow(ResultSet rs, int rowNum)
+                        throws SQLException {
+                    Tag tag = new Tag();
+                    tag.setTagId(rs.getInt("VID_ID"));
+                    return tag;
+                }
+            });
             return true;
         }
-        catch(Exception e) {
+        catch(IncorrectResultSizeDataAccessException e) {
+            if (e.getActualSize() >= 2) {
+                return true;
+            }
+            return false;
+        }
+        catch(Exception e1) {
             return false;
         }
     }
@@ -151,7 +167,6 @@ public class TagDaoImpl implements TagDao {
                 public Tag mapRow(ResultSet rs, int rowNum)
                         throws SQLException {
                     Tag tag = new Tag();
-                    Video video = new Video();
                     tag.setTagId(rs.getInt("TAG_ID"));
                     return tag;
                 }
