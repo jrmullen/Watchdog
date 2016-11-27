@@ -44,7 +44,8 @@ public class Application {
                         List<File> fileList = videoInsertDeleteService.getFiles(directory);
 
                         for (final File file : fileList) {
-                            if (videoInsertDeleteService.overMaxAllowedAge(file)) {
+                            if (videoInsertDeleteService.overMaxAllowedAge(file) &&
+                                    videoInsertDeleteService.videoInfoExistsInDatabase(file.getName())) {
                                 System.out.println("Delete file:  " + file.getName());
 
                                 videoInsertDeleteService.deleteFileFromFolderAndDatabase(file);
