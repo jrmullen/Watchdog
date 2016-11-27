@@ -160,13 +160,19 @@
                         if (tagExists === 0) {
                             tagList[tagList.length] = { "tagId": null, "tagName": newTag };
                             $scope.tableList[id].tagList = tagList;
-                            console.log($scope.data);
                         }
                     }
                 }
             $http.put('/logview/tag/' + vid_id + '/' + newTag)
                     .success(function(newTagData, status, headers, config) {
                         $scope.message = newTagData;
+                        var tags = $scope.tableList[id].tags;
+                        if (tags === '')  {
+                            tags = newTag;
+                        } else {
+                            tags = tags + ', ' + newTag;
+                        }
+                        $scope.tableList[id].tags = tags;
                         console.log('Added new tag');
                     })
                     .error(function(newTagData, status, headers, config) {
