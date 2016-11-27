@@ -132,6 +132,17 @@ public class TagDaoImpl implements TagDao {
   }
 
     @Override
+    public boolean checkVidIdExistsInTagToVideo(int vidId) {
+        try {
+            int out = jdbcTemplate.update(Constants.GET_VID_ID_QUERY, vidId);
+            return true;
+        }
+        catch(Exception e) {
+            return false;
+        }
+    }
+
+    @Override
     public boolean checkTagToVidExists(int videoId, int tagId) {
         try {
             Tag tag = jdbcTemplate.queryForObject(Constants.GET_TAG_TO_VID_BY_VIDEO_ID_AND_TAG_ID_QUERY, new Object[]{videoId, tagId}, new RowMapper<Tag>() {

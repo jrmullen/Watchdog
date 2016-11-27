@@ -21,7 +21,6 @@ public class VideoInsertDeleteService {
 
     private static final int MAX_ALLOWED_AGE = 5;
 
-
     ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
     VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
     TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
@@ -41,51 +40,43 @@ public class VideoInsertDeleteService {
 
     public void insertVideoIntoDb(File file, File directory) {
 
-
         Video video = new Video();
         Time time = new Time(0);
 
-      /*  if (file.getName().indexOf('-') <= 5) {*/
+        video.setFilePath(directory.getAbsolutePath());
+        video.setLength(time);
+        video.setIsCompressed(false);
+        video.setIsEncrypted(false);
+        video.setSize(file.length());
+        video.setDate(parseDate(file.getName()));
+        video.setTime(parseTime(file.getName()));
+        video.setTitle(file.getName());
+        video.setLocation(0.0);
+        video.setDescription("Video description here");
+        video.setDeviceMac("b8:27:eb:b3:10:82");
+        System.out.println(video.getFilePath() + " " +
+                video.getSize() + " " + video.getTitle());
 
+        videoDao.save(video);
 
-            video.setFilePath(directory.getAbsolutePath());
-            video.setLength(time);
-            video.setIsCompressed(false);
-            video.setIsEncrypted(false);
-            video.setSize(file.length());
-            video.setDate(parseDate(file.getName()));
-            video.setTime(parseTime(file.getName()));
-            video.setTitle(file.getName());
-            video.setLocation(0.0);
-            video.setDescription("Video description here");
-            video.setDeviceMac("b8:27:eb:b3:10:82");
-            System.out.println(video.getFilePath() + " " +
-                    video.getSize() + " " + video.getTitle());
-
-            videoDao.save(video);
-       /* }
-        else
-        {
-            System.out.println(" The ideo file number before dash unreasonably large. " +
-                    "File " + file.getName() + " was not added to database and will " +
-                    "now be deleted from the directory.");
-            file.delete();
-        }*/
     }
 
 
     public void deleteFileFromFolderAndDatabase(File file) {
-        Video video = videoDao.getByVideoTitle(file.getName());
-        tagDao.deleteTagToVidByVidId(video.getVideoId());
-        videoDao.deleteByName(file.getName());
+        this.deleteVideoInfoFromDatabase(file.getName());
         file.delete();
     }
-
 
     public void deleteVideoInfoFromDatabase(String videoName) {
         Video video = videoDao.getByVideoTitle(videoName);
         // create query and use here to check if video id exists in tag table
-        tagDao.deleteTagToVidByVidId(video.getVideoId());
+        if (tagDao.checkVidIdExistsInTagToVideo(video.getVideoId())) {
+            tagDao.deleteTagToVidByVidId(video.getVideoId());
+        }
+        else {
+            System.out.println("Video with id " + video.getVideoId() +
+                    " is not tagged");
+        }
         videoDao.deleteByName(videoName);
     }
 
@@ -102,7 +93,7 @@ public class VideoInsertDeleteService {
     }
 
 
-    public int findDaysSinceFileCreated(String fileName) {
+    private int findDaysSinceFileCreated(String fileName) {
 
         String dateCreatedStr = parseDate(fileName);
         Date now = new Date();
