@@ -2,6 +2,7 @@ package com.watchdog.services;
 
 
 import com.watchdog.business.Video;
+import com.watchdog.dao.device.DeviceDao;
 import com.watchdog.dao.video.VideoDao;
 import com.watchdog.dao.tag.TagDao;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -24,6 +25,7 @@ public class VideoInsertDeleteService {
     ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
     VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
     TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
+    DeviceDao deviceDao = ctx.getBean("deviceDaoImpl", DeviceDao.class);
 
      public ArrayList<File> getFiles(File folder) {
          ArrayList<File> fileList = new ArrayList<File>();
@@ -58,7 +60,16 @@ public class VideoInsertDeleteService {
                 video.getSize() + " " + video.getTitle() +
                                  " " +video.getDeviceMac());
 
-        videoDao.save(video);
+        //if ((deviceDao.checkMacExists(video.getDeviceMac()))) {
+            videoDao.save(video);
+        //}
+        /*else {
+            System.out.println("No registered recording device with mac address of: " +
+            video.getDeviceMac() + " in database. Video file " + video.getTitle() +
+            " will now be deleted from directory.");
+                    file.delete();
+        }*/
+
 
     }
 
