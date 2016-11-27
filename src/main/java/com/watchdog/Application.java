@@ -43,19 +43,31 @@ public class Application {
                         VideoInsertDeleteService videoInsertDeleteService = new VideoInsertDeleteService();
                         List<File> fileList = videoInsertDeleteService.getFiles(directory);
 
+                        // Iterate through files in directory
                         for (final File file : fileList) {
+
+                            // Delete old file info if it is stored in the database
                             if (videoInsertDeleteService.overMaxAllowedAge(file) &&
                                     videoInsertDeleteService.videoInfoExistsInDatabase(file.getName())) {
                                 System.out.println("Delete file:  " + file.getName());
 
                                 videoInsertDeleteService.deleteFileFromFolderAndDatabase(file);
+                            }
+                            // Delete old file form directory if it its info is not stored in the database
+                            else if (videoInsertDeleteService.overMaxAllowedAge(file) &&
+                                        !videoInsertDeleteService.videoInfoExistsInDatabase(file.getName())) {
+                                System.out.println("Delete file from folder ONLY:  " + file.getName());
 
-                            } else if (videoInsertDeleteService.fileExistsInFolder(file.getName(), directory) &&
+                                file.delete();
+                            }
+                            // Add new video file found in folder
+                            else if (videoInsertDeleteService.fileExistsInFolder(file.getName(), directory) &&
                                     !videoInsertDeleteService.videoInfoExistsInDatabase(file.getName())) {
                                 videoInsertDeleteService.insertVideoIntoDb(file, directory);
                             }
                         }
 
+                        // Get rid of file info stored in database if someone manually deletes it from the directory.
                         List<Video> videoList = videoInsertDeleteService.getAllVideosInDatabase();
 
                         for (final Video video : videoList) {

@@ -42,7 +42,6 @@ public class VideoInsertDeleteService {
     public void insertVideoIntoDb(File file, File directory) {
         Video video = new Video();
         Time time = new Time(0);
-        Date date = new Date();
 
         video.setFilePath(directory.getAbsolutePath());
         video.setLength(time);
@@ -65,7 +64,6 @@ public class VideoInsertDeleteService {
 
     public void deleteFileFromFolderAndDatabase(File file) {
         Video video = videoDao.getByVideoTitle(file.getName());
-        // create query and use here to check if video id exists in tag table
         tagDao.deleteTagToVidByVidId(video.getVideoId());
         videoDao.deleteByName(file.getName());
         file.delete();
