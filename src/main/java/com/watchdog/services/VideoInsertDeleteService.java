@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class VideoInsertDeleteService {
 
-    private static final int MAX_ALLOWED_AGE = 7;
+    private static final int MAX_ALLOWED_AGE = 60;
 
     ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
     VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
@@ -53,9 +53,10 @@ public class VideoInsertDeleteService {
         video.setTitle(file.getName());
         video.setLocation(0.0);
         video.setDescription("Video description here");
-        video.setDeviceMac("b8:27:eb:b3:10:82");
+        video.setDeviceMac(parseDeviceMac(file.getName()));
         System.out.println(video.getFilePath() + " " +
-                video.getSize() + " " + video.getTitle());
+                video.getSize() + " " + video.getTitle() +
+                                 " " +video.getDeviceMac());
 
         videoDao.save(video);
 
@@ -167,6 +168,37 @@ public class VideoInsertDeleteService {
         return dateRecordedStr;
     }
 
+    private String parseDeviceMac(String fileName) {
+
+        String fileMac = "";
+        if(fileName.indexOf('_') == 15)
+        {
+            fileMac = fileName.substring(16, 33);
+
+        }
+        else if(fileName.indexOf('_') == 16)
+        {
+            fileMac = fileName.substring(17, 34);
+        }
+        else if(fileName.indexOf('_') == 17)
+        {
+            fileMac = fileName.substring(18, 35);
+        }
+        else if(fileName.indexOf('_') == 18)
+        {
+            fileMac = fileName.substring(19, 36);
+        }
+        else if(fileName.indexOf('_') == 19)
+        {
+            fileMac = fileName.substring(20, 37);
+        }
+        else {
+            System.out.println("bad mac");
+            return "00:0a:95:9d:68:16";
+        }
+        System.out.println("File mac: " + fileMac);
+        return fileMac;
+    }
 
     private String parseTime(String fileName) {
 
