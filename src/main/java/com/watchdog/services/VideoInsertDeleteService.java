@@ -142,20 +142,27 @@ public class VideoInsertDeleteService {
         String fileMonth = "";
         String fileDay = "";
 
-        /*int index = 1;
-        while(fileName.indexOf('-', index) == -1 && index <=5) {
-            fileYear = fileName.substring(index + 1, index +4 );
-            fileMonth = fileName.substring(index, index + 2);
-            fileDay = fileName.substring(index, index + 2);
-            index -= 8;
-        }
-        if(index > 5 || index < 1) {
-            return "0000-00-00";
-        }
-         */
+        int index = 1;
+        while(index <=5) {
 
+            if (fileName.indexOf('-', index) == index) {
 
-        if(fileName.indexOf('-') == 1)
+                index += 5;
+                fileYear = fileName.substring(index - 4, index);
+                index += 2;
+                fileMonth = fileName.substring(index - 2, index);
+                index += 2;
+                fileDay = fileName.substring(index - 2, index);
+                String dateRecordedStr = fileYear + "-" +fileMonth + "-" + fileDay;
+                return dateRecordedStr;
+            }
+            else {
+                index += 1;
+            }
+        }
+        return "0000-00-00";
+        
+      /*  if(fileName.indexOf('-') == 1)
         {
             fileYear = fileName.substring(2, 6);
             fileMonth = fileName.substring(6, 8);
@@ -187,10 +194,10 @@ public class VideoInsertDeleteService {
         }
         else {
             return "0000-00-00";
-        }
+        }*/
 
-        String dateRecordedStr = fileYear + "-" +fileMonth + "-" + fileDay;
-        return dateRecordedStr;
+      /*  String dateRecordedStr = fileYear + "-" +fileMonth + "-" + fileDay;
+        return dateRecordedStr;*/
     }
 
     private String parseDeviceMac(String fileName) {
