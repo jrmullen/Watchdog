@@ -198,6 +198,9 @@ public class VideoInsertDeleteService {
                     "to mac address of: 00:0a:95:9d:68:16");
             return "00:0a:95:9d:68:16";
         }
+
+        fileMac = new StringBuilder(fileMac).insert(2, ":")
+                .insert(5, ":").insert(8, ":").insert(11, ":").insert(14, ":").toString();
         System.out.println("File mac: " + fileMac);
         return fileMac;
     }
