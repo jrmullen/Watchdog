@@ -36,42 +36,46 @@ public class Application {
         exec.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
-                System.out.println("\n\nRUNNING THREAD");
-                if (directory.exists()) {
+                try {
+                    System.out.println("\n\nRUNNING THREAD");
+                    if (directory.exists()) {
 
-                    VideoInsertDeleteService videoInsertDeleteService = new VideoInsertDeleteService();
-                    List<File> fileList = videoInsertDeleteService.getFiles(directory);
+                        VideoInsertDeleteService videoInsertDeleteService = new VideoInsertDeleteService();
+                        List<File> fileList = videoInsertDeleteService.getFiles(directory);
 
-                    for (final File file : fileList) {
-                        if (videoInsertDeleteService.overMaxAllowedAge(file)) {
-                            System.out.println("Delete file:  " + file.getName());
+                        for (final File file : fileList) {
+                            if (videoInsertDeleteService.overMaxAllowedAge(file)) {
+                                System.out.println("Delete file:  " + file.getName());
 
-                            videoInsertDeleteService.deleteFileFromFolderAndDatabase(file);
+                                videoInsertDeleteService.deleteFileFromFolderAndDatabase(file);
 
-                        } else if (videoInsertDeleteService.fileExistsInFolder(file.getName(), directory) &&
-                                !videoInsertDeleteService.videoInfoExistsInDatabase(file.getName())) {
-                            videoInsertDeleteService.insertVideoIntoDb(file, directory);
+                            } else if (videoInsertDeleteService.fileExistsInFolder(file.getName(), directory) &&
+                                    !videoInsertDeleteService.videoInfoExistsInDatabase(file.getName())) {
+                                videoInsertDeleteService.insertVideoIntoDb(file, directory);
+                            }
                         }
-                    }
 
-                    List<Video> videoList = videoInsertDeleteService.getAllVideosInDatabase();
+                        List<Video> videoList = videoInsertDeleteService.getAllVideosInDatabase();
 
-                    for (final Video video : videoList) {
-                        if (videoInsertDeleteService.videoInfoExistsInDatabase(video.getTitle())) {
+                        for (final Video video : videoList) {
+                            if (videoInsertDeleteService.videoInfoExistsInDatabase(video.getTitle())) {
 
-                            for (final File file: fileList) {
-                                if(!videoInsertDeleteService.fileExistsInFolder(video.getTitle(), directory) &&
-                                        videoInsertDeleteService.videoInfoExistsInDatabase(video.getTitle())) {
+                                for (final File file : fileList) {
+                                    if (!videoInsertDeleteService.fileExistsInFolder(video.getTitle(), directory) &&
+                                            videoInsertDeleteService.videoInfoExistsInDatabase(video.getTitle())) {
 
-                                    System.out.println("Video will be deleted from database: " + video.getTitle());
-                                    videoInsertDeleteService.deleteVideoInfoFromDatabase(video.getTitle());
+                                        System.out.println("Video will be deleted from database: " + video.getTitle());
+                                        videoInsertDeleteService.deleteVideoInfoFromDatabase(video.getTitle());
+                                    }
                                 }
                             }
                         }
+                    } else {
+                        System.out.println("Error! Unable to locate directory: " + directory.toString());
                     }
-                }
-                else {
-                    System.out.println("Error! Unable to locate directory: " + directory.toString());
+                }catch (Exception e) {
+                    e.printStackTrace();
+
                 }
             }
         }, 0, 70, TimeUnit.SECONDS);
