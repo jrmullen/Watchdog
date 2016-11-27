@@ -58,6 +58,7 @@ public class Constants {
     public static final String ADD_TAG_TO_VID_QUERY = "insert into tag_to_video (VID_ID, TAG_ID) values (?, ?)";
     public static final String GET_TAG_TO_VID_BY_VIDEO_ID_AND_TAG_ID_QUERY = "select VID_ID, TAG_ID from tag_to_video where VID_ID=? and TAG_ID=?";
     public static final String DELETE_VIDEO_TAG_QUERY= "delete from tag_to_video where tag_to_video.TAG_ID = ? and tag_to_video.VID_ID = ?";
+    public static final String GET_VID_ID_QUERY = "select VID_ID from tag_to_video where VID_ID = ?";
 
 
     // Permissions

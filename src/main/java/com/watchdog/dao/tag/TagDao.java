@@ -26,6 +26,8 @@ public interface TagDao {
 
     boolean checkTagExists(String newTag);
 
+    boolean checkVidIdExistsInTagToVideo(int vidId);
+
     boolean checkTagToVidExists(int videoId, int tagId);
 
     void addTagToVid(int videoId, int tagId);
