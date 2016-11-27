@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class VideoInsertDeleteService {
 
-    private static final int MAX_ALLOWED_AGE = 10;
+    private static final int MAX_ALLOWED_AGE = 5;
 
 
     ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
@@ -125,29 +125,31 @@ public class VideoInsertDeleteService {
         String fileYear = "";
         String fileMonth = "";
         String fileDay = "";
-        if(fileName.indexOf("-", 1) != -1)
+        if(fileName.indexOf('-') == 1)
         {
             fileYear = fileName.substring(2, 6);
             fileMonth = fileName.substring(6, 8);
             fileDay = fileName.substring(8, 10);
         }
-        else if(fileName.indexOf("-", 2) != -1) {
+        else if(fileName.indexOf('-') == 2)
+        {
             fileYear = fileName.substring(3, 7);
             fileMonth = fileName.substring(7, 9);
             fileDay = fileName.substring(9, 11);
         }
-        else if (fileName.indexOf("-", 3) != -1) {
+        else if (fileName.indexOf('-') == 3)
+        {
             fileYear = fileName.substring(4, 8);
             fileMonth = fileName.substring(8, 10);
             fileDay = fileName.substring(10, 12);
         }
-        else if (fileName.indexOf("-", 4) != -1)
+        else if (fileName.indexOf('-') == 4)
         {
             fileYear = fileName.substring(5, 9);
             fileMonth = fileName.substring(9, 11);
             fileDay = fileName.substring(11, 13);
         }
-        else if (fileName.indexOf("-", 5) != -1)
+        else if (fileName.indexOf('-') == 5)
         {
             fileYear = fileName.substring(6, 10);
             fileMonth = fileName.substring(10, 12);
@@ -173,31 +175,31 @@ public class VideoInsertDeleteService {
         String fileMinute = "";
         String fileSecond = "";
 
-        if(fileName.indexOf("-", 1) != -1)
+        if(fileName.indexOf('-') == 1)
         {
             fileHour = fileName.substring(10, 12);
             fileMinute = fileName.substring(12, 14);
             fileSecond = fileName.substring(14, 16);
         }
-        else if(fileName.indexOf("-", 2) != -1)
+        else if(fileName.indexOf('-') == 2)
         {
             fileHour = fileName.substring(11, 13);
             fileMinute = fileName.substring(13, 15);
             fileSecond = fileName.substring(15, 17);
         }
-        else if (fileName.indexOf("-", 3) != -1)
+        else if (fileName.indexOf('-') == 3)
         {
             fileHour = fileName.substring(12, 14);
             fileMinute = fileName.substring(14, 16);
             fileSecond = fileName.substring(16, 18);
         }
-        else if (fileName.indexOf("-", 4) != -1)
+        else if (fileName.indexOf('-') == 4)
         {
             fileHour = fileName.substring(13, 15);
             fileMinute = fileName.substring(15, 17);
             fileSecond = fileName.substring(17, 19);
         }
-        else if (fileName.indexOf("-", 5) != -1)
+        else if (fileName.indexOf('-') == 5)
         {
             fileHour = fileName.substring(14, 16);
             fileMinute = fileName.substring(16, 18);
