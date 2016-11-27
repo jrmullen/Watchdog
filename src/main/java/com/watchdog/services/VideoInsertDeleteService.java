@@ -121,9 +121,35 @@ public class VideoInsertDeleteService {
 
 
     private String parseDate(String fileName) {
-        String fileYear = fileName.substring(3,7);
-        String fileMonth = fileName.substring(7,9);
-        String fileDay = fileName.substring(9,11);
+
+        String fileYear = "";
+        String fileMonth = "";
+        String fileDay = "";
+
+        if(fileName.indexOf("-", 2) != -1) {
+            fileYear = fileName.substring(3, 7);
+            fileMonth = fileName.substring(7, 9);
+            fileDay = fileName.substring(9, 11);
+        }
+        else if (fileName.indexOf("-", 3) != -1) {
+            fileYear = fileName.substring(4, 8);
+            fileMonth = fileName.substring(9, 10);
+            fileDay = fileName.substring(11, 12);
+        }
+        else if (fileName.indexOf("-", 4) != -1)
+        {
+            fileYear = fileName.substring(5, 9);
+            fileMonth = fileName.substring(10, 11);
+            fileDay = fileName.substring(12, 13);
+        }
+        else {
+
+            fileYear = "0000";
+            fileMonth = "00";
+            fileDay = "00";
+            System.out.println("Video file number unreasonably large. Adding file date as: " +
+                    fileYear + "-" +fileMonth + "-" + fileDay);
+        }
 
         String dateRecordedStr = fileYear + "-" +fileMonth + "-" + fileDay;
         return dateRecordedStr;
@@ -132,9 +158,35 @@ public class VideoInsertDeleteService {
 
     private String parseTime(String fileName) {
 
-        String fileHour = fileName.substring(11,13);
-        String fileMinute = fileName.substring(13,15);
-        String fileSecond = fileName.substring(15,17);
+        String fileHour = "";
+        String fileMinute = "";
+        String fileSecond = "";
+
+        if(fileName.indexOf("-", 2) != -1)
+        {
+            fileHour = fileName.substring(11,13);
+            fileMinute = fileName.substring(13,15);
+            fileSecond = fileName.substring(15,17);
+        }
+        else if (fileName.indexOf("-", 3) != -1)
+        {
+            fileHour = fileName.substring(12,14);
+            fileMinute = fileName.substring(14,16);
+            fileSecond = fileName.substring(16,18);
+        }
+        else if (fileName.indexOf("-", 4) != -1)
+        {
+            fileHour = fileName.substring(13,15);
+            fileMinute = fileName.substring(15,17);
+            fileSecond = fileName.substring(17,19);
+        }
+        else {
+            fileHour = "00";
+            fileMinute = "00";
+            fileSecond = "00";
+            System.out.println("Video file number unreasonably large. Adding file date as: " +
+                    fileHour + ":" +fileMinute + ":" + fileSecond);
+        }
 
         String timeRecordedStr = fileHour + ":" +fileMinute + ":" + fileSecond;
         return timeRecordedStr;
