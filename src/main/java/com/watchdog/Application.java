@@ -73,13 +73,11 @@ public class Application {
                         for (final Video video : videoList) {
                             if (videoInsertDeleteService.videoInfoExistsInDatabase(video.getTitle())) {
 
-                                for (final File file : fileList) {
-                                    if (!videoInsertDeleteService.fileExistsInFolder(video.getTitle(), directory) &&
-                                            videoInsertDeleteService.videoInfoExistsInDatabase(video.getTitle())) {
+                                if (!videoInsertDeleteService.fileExistsInFolder(video.getTitle(), directory) &&
+                                        videoInsertDeleteService.videoInfoExistsInDatabase(video.getTitle())) {
 
-                                        System.out.println("Video will be deleted from database: " + video.getTitle());
-                                        videoInsertDeleteService.deleteVideoInfoFromDatabase(video.getTitle());
-                                    }
+                                    System.out.println("Video will be deleted from database: " + video.getTitle());
+                                    videoInsertDeleteService.deleteVideoInfoFromDatabase(video.getTitle());
                                 }
                             }
                         }
