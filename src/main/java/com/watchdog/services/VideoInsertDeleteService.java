@@ -40,25 +40,37 @@ public class VideoInsertDeleteService {
 
 
     public void insertVideoIntoDb(File file, File directory) {
+
+
         Video video = new Video();
         Time time = new Time(0);
 
-        video.setFilePath(directory.getAbsolutePath());
-        video.setLength(time);
-        video.setIsCompressed(false);
-        video.setIsEncrypted(false);
-        video.setSize(file.length());
-        video.setDate(parseDate(file.getName()));
-        video.setTime(parseTime(file.getName()));
-        video.setTitle(file.getName());
-        video.setLocation(0.0);
-        video.setDescription("Video description here");
-        video.setDeviceMac("b8:27:eb:b3:10:82");
-        System.out.println(video.getFilePath() +  " "  +
-                video.getSize() + " " + video.getTitle());
+      /*  if (file.getName().indexOf('-') <= 5) {*/
 
-        videoDao.save(video);
 
+            video.setFilePath(directory.getAbsolutePath());
+            video.setLength(time);
+            video.setIsCompressed(false);
+            video.setIsEncrypted(false);
+            video.setSize(file.length());
+            video.setDate(parseDate(file.getName()));
+            video.setTime(parseTime(file.getName()));
+            video.setTitle(file.getName());
+            video.setLocation(0.0);
+            video.setDescription("Video description here");
+            video.setDeviceMac("b8:27:eb:b3:10:82");
+            System.out.println(video.getFilePath() + " " +
+                    video.getSize() + " " + video.getTitle());
+
+            videoDao.save(video);
+       /* }
+        else
+        {
+            System.out.println(" The ideo file number before dash unreasonably large. " +
+                    "File " + file.getName() + " was not added to database and will " +
+                    "now be deleted from the directory.");
+            file.delete();
+        }*/
     }
 
 
@@ -156,12 +168,7 @@ public class VideoInsertDeleteService {
             fileDay = fileName.substring(12, 14);
         }
         else {
-
-            fileYear = "0000";
-            fileMonth = "00";
-            fileDay = "00";
-            System.out.println("Video file number unreasonably large. Adding file date as: " +
-                    fileYear + "-" +fileMonth + "-" + fileDay);
+            return "0000-00-00";
         }
 
         String dateRecordedStr = fileYear + "-" +fileMonth + "-" + fileDay;
@@ -206,11 +213,7 @@ public class VideoInsertDeleteService {
             fileSecond = fileName.substring(18, 20);
         }
         else {
-            fileHour = "00";
-            fileMinute = "00";
-            fileSecond = "00";
-            System.out.println("Video file number unreasonably large. Adding file date as: " +
-                    fileHour + ":" +fileMinute + ":" + fileSecond);
+            return "00:00:00";
         }
 
         String timeRecordedStr = fileHour + ":" +fileMinute + ":" + fileSecond;
