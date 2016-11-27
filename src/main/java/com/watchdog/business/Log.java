@@ -12,6 +12,7 @@ public class Log {
     private String camera;
     private List<Tag> tagList;
     private String tags;
+    private String videoFilePath;
 
 
     //pull all tags for log and construct into comma separated string
@@ -37,6 +38,14 @@ public class Log {
         beta = commaSepValueBuilder.toString();
 
         return beta;
+    }
+
+    public String getVideoFilePath() {
+        return videoFilePath;
+    }
+
+    public void setVideoFilePath(String videoFilePath) {
+        this.videoFilePath = videoFilePath;
     }
 
     public int getVidId() { return vid_id;}

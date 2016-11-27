@@ -150,6 +150,23 @@ public class VideoDaoImpl implements VideoDao {
     }
 
     @Override
+    public String getVideoDeviceMacByVidId(int id) {
+
+        //using RowMapper anonymous class, we can create a separate RowMapper for reuse
+        Video video = jdbcTemplate.queryForObject(Constants.GET_DEVICE_MAC_BY_VID_ID, new Object[]{id}, new RowMapper<Video>() {
+
+            @Override
+            public Video mapRow(ResultSet rs, int rowNum)
+                    throws SQLException {
+                Video video = new Video();
+                video.setDeviceMac(rs.getString("DEVICE_MAC"));
+                return video;
+            }
+        });
+        return video.getDeviceMac();
+    }
+
+    @Override
     public void update(Video video, int videoId) {
 
         video.setVideoId(videoId);

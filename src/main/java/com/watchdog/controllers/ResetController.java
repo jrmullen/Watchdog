@@ -1,8 +1,8 @@
 package com.watchdog.controllers;
 
 
-import com.watchdog.services.PasswordResetService;
 import com.watchdog.business.User;
+import com.watchdog.services.PasswordResetService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

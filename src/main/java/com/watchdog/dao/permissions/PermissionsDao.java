@@ -1,4 +1,4 @@
-package com.watchdog.dao;
+package com.watchdog.dao.permissions;
 
 import com.watchdog.business.Permissions;
 

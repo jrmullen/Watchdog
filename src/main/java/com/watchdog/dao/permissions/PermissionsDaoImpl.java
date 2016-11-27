@@ -1,10 +1,11 @@
-package com.watchdog.dao;
+package com.watchdog.dao.permissions;
 
 /**
  * Created by BBuck on 10/4/16.
  */
 
 import com.watchdog.business.Permissions;
+import com.watchdog.dao.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
