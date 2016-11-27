@@ -90,7 +90,7 @@
                                                     <tr style="width: 100%" ng-repeat="tag in x.tagList">
                                                         <td>{{tag.tagName}}</td>
                                                         <td>
-                                                            <input style="float: right;" type="button" value="Delete Tag" class="btn btn-danger" ng-click="removeTag(x.id, x.vid_id, tag.tagId)" />
+                                                            <input style="float: right;" type="button" value="Delete Tag" class="btn btn-danger" ng-click="removeTag(x.id, x.vid_id, tag.tagId, tag.tagName)" />
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -208,8 +208,8 @@
         };
 
         /*<![CDATA[*/
-        $scope.removeTag = function(id, vid_id, tagId){
-            var tagData = 'id' + id + 'tagId' + $scope.tagId + 'vid_id' + $scope.vid_id;
+        $scope.removeTag = function(id, vid_id, tagId, tagName){
+            var tagData = 'id' + id + 'tagId' + $scope.tagId + 'vid_id' + $scope.vid_id + 'tagName' + tagName;
             var tagListIndex = -1;
             var videoArray = eval( $scope.tableList );
             for( var i = 0; i < videoArray.length; i++ ) {
@@ -230,6 +230,13 @@
             $http.delete('/logview/tag/' + vid_id + '/' + tagId)
                     .success(function(data, status, headers, config) {
                         $scope.message = tagData;
+                        var tags = $scope.tableList[id].tags;
+                        if (tags === tagName) {
+                            tags = '';
+                        } else {
+                            tags = tags.replace(', ' + tagName, '');
+                        }
+                        $scope.tableList[id].tags = tags;
                         console.log('Deleted tag');
                     })
                     .error(function(tagData, status, headers, config) {
