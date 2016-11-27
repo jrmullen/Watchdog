@@ -171,29 +171,31 @@ public class VideoInsertDeleteService {
     private String parseDeviceMac(String fileName) {
 
         String fileMac = "";
-        if(fileName.indexOf('_') == 15)
-        {
-            fileMac = fileName.substring(16, 33);
 
-        }
-        else if(fileName.indexOf('_') == 16)
+        if(fileName.indexOf('_') == 16)
         {
-            fileMac = fileName.substring(17, 34);
+            fileMac = fileName.substring(17, 29);
         }
         else if(fileName.indexOf('_') == 17)
         {
-            fileMac = fileName.substring(18, 35);
+            fileMac = fileName.substring(18, 30);
         }
         else if(fileName.indexOf('_') == 18)
         {
-            fileMac = fileName.substring(19, 36);
+            fileMac = fileName.substring(19, 31);
         }
         else if(fileName.indexOf('_') == 19)
         {
-            fileMac = fileName.substring(20, 37);
+            fileMac = fileName.substring(20, 32);
+        }
+        else if(fileName.indexOf('_') == 20)
+        {
+            fileMac = fileName.substring(21, 33);
+
         }
         else {
-            System.out.println("bad mac");
+            System.out.println("Bbad Mac or no Mac address on this file. Defaulting" +
+                    "to mac address of: 00:0a:95:9d:68:16");
             return "00:0a:95:9d:68:16";
         }
         System.out.println("File mac: " + fileMac);
