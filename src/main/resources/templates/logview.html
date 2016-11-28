@@ -170,7 +170,6 @@
                         }
                     }
                 }
-
             if(/^\s*$/.test(newTag)){
                 console.log('Tag contains only whitespace');
             } else {
@@ -179,10 +178,12 @@
                             console.log(newTagData);
                             $scope.message = newTagData;
                             var tags = $scope.tableList[id].tags;
-                            $scope.tableList[id].tagList.push({
-                                tagId: newTagData.id,
-                                tagName: newTag
-                            });
+                            if (tagExists === 0) {
+                                $scope.tableList[id].tagList.push({
+                                    tagId: newTagData.id,
+                                    tagName: newTag
+                                });
+                            }
                             console.log($scope.tableList);
                             console.log(tags);
                             if (tags === '')  {
