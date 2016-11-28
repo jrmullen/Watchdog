@@ -18,7 +18,6 @@ public class Video {
     private boolean isEncrypted;
     private long size;
     private String deviceMac;
-    private String device_mac;
 
     public void setVideoId(int videoId){
         this.videoId = videoId;

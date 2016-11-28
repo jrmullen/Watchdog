@@ -6,11 +6,13 @@ package com.watchdog.dao.video;
 
 import com.watchdog.business.Video;
 import com.watchdog.dao.Constants;
+import com.watchdog.services.VideoInsertDeleteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
+import java.io.File;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,8 +25,8 @@ public class VideoDaoImpl implements VideoDao {
 
     @Autowired
     private DataSource dataSource;
-
     private JdbcTemplate jdbcTemplate;
+    private static File directory = new File("c:/ftp/video");
 
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -189,10 +191,25 @@ public class VideoDaoImpl implements VideoDao {
     @Override
     public void deleteByVidId(int videoId) {
 
+        Video video = getByVidId(videoId);
+
         int out = jdbcTemplate.update(Constants.DELETE_VIDEO_BY_ID_QUERY, videoId);
         if (out != 0) {
             System.out.println("Video deleted with id= " + videoId);
-        } else System.out.println("No Video found with id= " + videoId);
+            VideoInsertDeleteService videoInsertDeleteService = new VideoInsertDeleteService();
+            List<File> fileList = videoInsertDeleteService.getFiles(directory);
+
+            // Iterate through files in directory
+            for (final File file : fileList) {
+                if(videoInsertDeleteService.fileExistsInFolder(video.getTitle(), directory) &&
+                        file.getName().equals(video.getTitle())) {
+                    file.delete();
+                }
+            }
+        }
+        else{
+            System.out.println("No Video found with id= " + videoId);
+        }
     }
 
     @Override
@@ -201,14 +218,25 @@ public class VideoDaoImpl implements VideoDao {
         int out = jdbcTemplate.update(Constants.DELETE_VIDEO_BY_TITLE_QUERY, videoName);
         if (out != 0) {
             System.out.println("Video deleted with name = " + videoName);
-        } else System.out.println("No Video found with name = " + videoName);
+            VideoInsertDeleteService videoInsertDeleteService = new VideoInsertDeleteService();
+            List<File> fileList = videoInsertDeleteService.getFiles(directory);
+
+            // Iterate through files in directory
+            for (final File file : fileList) {
+                if(videoInsertDeleteService.fileExistsInFolder(videoName, directory) &&
+                        file.getName().equals(videoName)) {
+                    file.delete();
+                }
+            }
+        } else {
+            System.out.println("No Video found with name = " + videoName);
+        }
     }
 
     @Override
     public List<Video> getAll() {
 
         List<Video> videoList = new ArrayList<Video>();
-
         List<Map<String, Object>> videoRows = jdbcTemplate.queryForList(Constants.GET_ALL_VIDEOS_QUERY);
 
         for (Map<String, Object> videoRow : videoRows) {

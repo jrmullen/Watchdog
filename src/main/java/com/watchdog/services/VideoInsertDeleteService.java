@@ -2,6 +2,7 @@ package com.watchdog.services;
 
 
 import com.watchdog.business.Video;
+import com.watchdog.dao.device.DeviceDao;
 import com.watchdog.dao.video.VideoDao;
 import com.watchdog.dao.tag.TagDao;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -24,6 +25,7 @@ public class VideoInsertDeleteService {
     ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
     VideoDao videoDao = ctx.getBean("videoDaoImpl", VideoDao.class);
     TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
+    DeviceDao deviceDao = ctx.getBean("deviceDaoImpl", DeviceDao.class);
 
      public ArrayList<File> getFiles(File folder) {
          ArrayList<File> fileList = new ArrayList<File>();
@@ -58,7 +60,18 @@ public class VideoInsertDeleteService {
                 video.getSize() + " " + video.getTitle() +
                                  " " +video.getDeviceMac());
 
-        videoDao.save(video);
+        // LEAVE THIS COMMENTED OUT UNTIL SCRIPT FOR APPENDING MAC ADDRESSES TO END OF
+        // VIDEO FILES NAMES IS FULLY FUNCTIONAL
+        //if ((deviceDao.checkMacExists(video.getDeviceMac()))) {
+            videoDao.save(video);
+        //}
+        /*else {
+            System.out.println("No registered recording device with mac address of: " +
+            video.getDeviceMac() + " in database. Video file " + video.getTitle() +
+            " will now be deleted from directory.");
+                    file.delete();
+        }*/
+
 
     }
 
@@ -67,6 +80,7 @@ public class VideoInsertDeleteService {
         this.deleteVideoInfoFromDatabase(file.getName());
         file.delete();
     }
+
 
     public void deleteVideoInfoFromDatabase(String videoName) {
         Video video = videoDao.getByVideoTitle(videoName);
@@ -127,126 +141,81 @@ public class VideoInsertDeleteService {
 
     private String parseDate(String fileName) {
 
-        String fileYear = "";
-        String fileMonth = "";
-        String fileDay = "";
-        if(fileName.indexOf('-') == 1)
-        {
-            fileYear = fileName.substring(2, 6);
-            fileMonth = fileName.substring(6, 8);
-            fileDay = fileName.substring(8, 10);
-        }
-        else if(fileName.indexOf('-') == 2)
-        {
-            fileYear = fileName.substring(3, 7);
-            fileMonth = fileName.substring(7, 9);
-            fileDay = fileName.substring(9, 11);
-        }
-        else if (fileName.indexOf('-') == 3)
-        {
-            fileYear = fileName.substring(4, 8);
-            fileMonth = fileName.substring(8, 10);
-            fileDay = fileName.substring(10, 12);
-        }
-        else if (fileName.indexOf('-') == 4)
-        {
-            fileYear = fileName.substring(5, 9);
-            fileMonth = fileName.substring(9, 11);
-            fileDay = fileName.substring(11, 13);
-        }
-        else if (fileName.indexOf('-') == 5)
-        {
-            fileYear = fileName.substring(6, 10);
-            fileMonth = fileName.substring(10, 12);
-            fileDay = fileName.substring(12, 14);
-        }
-        else {
-            return "0000-00-00";
-        }
+        String  fileYear = "",
+                fileMonth = "",
+                fileDay = "";
+        int index = 1;
 
-        String dateRecordedStr = fileYear + "-" +fileMonth + "-" + fileDay;
-        return dateRecordedStr;
+        while(index <=5) {
+            if (fileName.indexOf('-', index) == index) {
+
+                index += 5;
+                fileYear = fileName.substring(index - 4, index);
+                index += 2;
+                fileMonth = fileName.substring(index - 2, index);
+                index += 2;
+                fileDay = fileName.substring(index - 2, index);
+                String dateRecordedStr = fileYear + "-" +fileMonth + "-" + fileDay;
+                return dateRecordedStr;
+            }
+            else {
+                index += 1;
+            }
+        }
+        return "0000-00-00";
     }
+
 
     private String parseDeviceMac(String fileName) {
 
         String fileMac = "";
+        int index = 16;
 
-        if(fileName.indexOf('_') == 16)
-        {
-            fileMac = fileName.substring(17, 29);
-        }
-        else if(fileName.indexOf('_') == 17)
-        {
-            fileMac = fileName.substring(18, 30);
-        }
-        else if(fileName.indexOf('_') == 18)
-        {
-            fileMac = fileName.substring(19, 31);
-        }
-        else if(fileName.indexOf('_') == 19)
-        {
-            fileMac = fileName.substring(20, 32);
-        }
-        else if(fileName.indexOf('_') == 20)
-        {
-            fileMac = fileName.substring(21, 33);
+        while(index <=20) {
+            if (fileName.indexOf('_', index) == index)
+            {
+                index += 13;
+                fileMac = fileName.substring(index - 12, index);
 
-        }
-        else {
-            System.out.println("Bbad Mac or no Mac address on this file. Defaulting" +
-                    "to mac address of: 00:0a:95:9d:68:16");
-            return "00:0a:95:9d:68:16";
-        }
+                fileMac = new StringBuilder(fileMac).insert(2, ":")
+                        .insert(5, ":").insert(8, ":").insert(11, ":").insert(14, ":").toString();
+                System.out.println("File mac: " + fileMac);
 
-        fileMac = new StringBuilder(fileMac).insert(2, ":")
-                .insert(5, ":").insert(8, ":").insert(11, ":").insert(14, ":").toString();
-        System.out.println("File mac: " + fileMac);
-        return fileMac;
+                return fileMac;
+            } else {
+                index += 1;
+            }
+        }
+        System.out.println("Bad MAC or no MAC address on this file. Defaulting" +
+                " to mac address of: 00:0a:95:9d:68:16");
+        return "00:0a:95:9d:68:16";
     }
+
 
     private String parseTime(String fileName) {
 
-        String fileHour = "";
-        String fileMinute = "";
-        String fileSecond = "";
+        String  fileHour = "",
+                fileMinute = "",
+                fileSecond = "";
 
-        if(fileName.indexOf('-') == 1)
-        {
-            fileHour = fileName.substring(10, 12);
-            fileMinute = fileName.substring(12, 14);
-            fileSecond = fileName.substring(14, 16);
+        int index = 1;
+        while(index <=5) {
+            if (fileName.indexOf('-', index) == index)
+            {
+                index += 11;
+                fileHour = fileName.substring(index - 2, index);
+                index += 2;
+                fileMinute = fileName.substring(index - 2, index);
+                index += 2;
+                fileSecond = fileName.substring(index - 2, index);
+                String timeRecordedStr = fileHour + ":" +fileMinute + ":" + fileSecond;
+                return timeRecordedStr;
+            }
+            else {
+                index += 1;
+            }
         }
-        else if(fileName.indexOf('-') == 2)
-        {
-            fileHour = fileName.substring(11, 13);
-            fileMinute = fileName.substring(13, 15);
-            fileSecond = fileName.substring(15, 17);
-        }
-        else if (fileName.indexOf('-') == 3)
-        {
-            fileHour = fileName.substring(12, 14);
-            fileMinute = fileName.substring(14, 16);
-            fileSecond = fileName.substring(16, 18);
-        }
-        else if (fileName.indexOf('-') == 4)
-        {
-            fileHour = fileName.substring(13, 15);
-            fileMinute = fileName.substring(15, 17);
-            fileSecond = fileName.substring(17, 19);
-        }
-        else if (fileName.indexOf('-') == 5)
-        {
-            fileHour = fileName.substring(14, 16);
-            fileMinute = fileName.substring(16, 18);
-            fileSecond = fileName.substring(18, 20);
-        }
-        else {
-            return "00:00:00";
-        }
-
-        String timeRecordedStr = fileHour + ":" +fileMinute + ":" + fileSecond;
-        return timeRecordedStr;
+        return "00:00:00";
     }
 
 
@@ -262,13 +231,13 @@ public class VideoInsertDeleteService {
         return false;
     }
 
-
     public boolean videoInfoExistsInDatabase(String name) {
         if(videoDao.checkVideoExists(name))
             return true;
         else
             return false;
     }
+
 
     public List getAllVideosInDatabase() {
         List videoList = videoDao.getAll();
