@@ -186,7 +186,7 @@ public class VideoInsertDeleteService {
                 index += 1;
             }
         }
-        System.out.println("Bad Mac or no Mac address on this file. Defaulting" +
+        System.out.println("Bad MAC or no MAC address on this file. Defaulting" +
                 " to mac address of: 00:0a:95:9d:68:16");
         return "00:0a:95:9d:68:16";
     }
