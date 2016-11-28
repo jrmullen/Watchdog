@@ -1,4 +1,4 @@
-package com.watchdog.controllers;
+package com.watchdog.controllers.logController;
 
 /**
  * Created by Jeremy on 10/20/2016.
@@ -7,6 +7,8 @@ package com.watchdog.controllers;
 import com.watchdog.business.Log;
 import com.watchdog.business.Tag;
 import com.watchdog.business.Video;
+import com.watchdog.controllers.logController.CreateVideoTagRequest;
+import com.watchdog.controllers.logController.EntityCreatedResponse;
 import com.watchdog.dao.device.DeviceDao;
 import com.watchdog.dao.tag.TagDao;
 import com.watchdog.dao.video.VideoDao;
@@ -17,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -54,7 +57,7 @@ public class LogController {
 
                 log.setId(i);
                 log.setVidId(video.getVideoId());
-                log.setVideoFilePath(video.getFilePath());
+                log.setVideoFilePath(video.getFilePath() + "/" + video.getTitle());
                 log.setDate(video.getDate());
                 log.setStartTime(String.valueOf(video.getTime()));
                 log.setLength(String.valueOf(video.getLength()));
@@ -118,17 +121,17 @@ public class LogController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @RequestMapping(value="/tag/{videoId}/{newTagName}", method=RequestMethod.PUT)
-    public ResponseEntity createNewTag(
+    @RequestMapping(value="/videos/{videoId}/tags", method=RequestMethod.POST)
+    public ResponseEntity<EntityCreatedResponse> createNewTag(
             @PathVariable("videoId") int videoId,
-            @PathVariable("newTagName") String newTagName) {
+            @RequestBody CreateVideoTagRequest request) {
 
-        createTag(videoId, newTagName);
+        int tagId = createTag(videoId, request.getTag());
 
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity.status(HttpStatus.OK).body(new EntityCreatedResponse(tagId));
     }
 
-    private void createTag(int videoId, String newTagName) {
+    private int createTag(int videoId, String newTagName) {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
         TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
 
@@ -148,5 +151,7 @@ public class LogController {
         } else {
             tagDao.addTagToVid(videoId, newTag.getTagId());
         }
+
+        return newTag.getTagId();
     }
 }
