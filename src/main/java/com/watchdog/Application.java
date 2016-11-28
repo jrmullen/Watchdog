@@ -46,14 +46,16 @@ public class Application {
                         // Iterate through files in directory
                         for (final File file : fileList) {
 
-                            // Delete old file info if it is stored in the database
+                            // Delete old file from database and directory
+                            // if it is stored in the database and directory
                             if (videoInsertDeleteService.overMaxAllowedAge(file) &&
                                     videoInsertDeleteService.videoInfoExistsInDatabase(file.getName())) {
                                 System.out.println("Delete file:  " + file.getName());
 
                                 videoInsertDeleteService.deleteFileFromFolderAndDatabase(file);
                             }
-                            // Delete old file form directory if it its info is not stored in the database
+                            // Delete old file from ONLY the directory if it is in the directory but NOT
+                            // stored in the database
                             else if (videoInsertDeleteService.overMaxAllowedAge(file) &&
                                         !videoInsertDeleteService.videoInfoExistsInDatabase(file.getName())) {
                                 System.out.println("Delete file from folder ONLY:  " + file.getName());
@@ -67,7 +69,8 @@ public class Application {
                             }
                         }
 
-                        // Get rid of file info stored in database if someone manually deletes it from the directory.
+                        // Get rid of file info stored in database if someone manually deletes it from the directory
+                        // meaning the file info is stored in the database, but the file is not in the directory.
                         List<Video> videoList = videoInsertDeleteService.getAllVideosInDatabase();
 
                         for (final Video video : videoList) {

@@ -161,80 +161,31 @@ public class VideoInsertDeleteService {
             }
         }
         return "0000-00-00";
-        
-      /*  if(fileName.indexOf('-') == 1)
-        {
-            fileYear = fileName.substring(2, 6);
-            fileMonth = fileName.substring(6, 8);
-            fileDay = fileName.substring(8, 10);
-        }
-        else if(fileName.indexOf('-') == 2)
-        {
-            fileYear = fileName.substring(3, 7);
-            fileMonth = fileName.substring(7, 9);
-            fileDay = fileName.substring(9, 11);
-        }
-        else if (fileName.indexOf('-') == 3)
-        {
-            fileYear = fileName.substring(4, 8);
-            fileMonth = fileName.substring(8, 10);
-            fileDay = fileName.substring(10, 12);
-        }
-        else if (fileName.indexOf('-') == 4)
-        {
-            fileYear = fileName.substring(5, 9);
-            fileMonth = fileName.substring(9, 11);
-            fileDay = fileName.substring(11, 13);
-        }
-        else if (fileName.indexOf('-') == 5)
-        {
-            fileYear = fileName.substring(6, 10);
-            fileMonth = fileName.substring(10, 12);
-            fileDay = fileName.substring(12, 14);
-        }
-        else {
-            return "0000-00-00";
-        }*/
-
-      /*  String dateRecordedStr = fileYear + "-" +fileMonth + "-" + fileDay;
-        return dateRecordedStr;*/
     }
 
     private String parseDeviceMac(String fileName) {
 
         String fileMac = "";
 
-        if(fileName.indexOf('_') == 16)
-        {
-            fileMac = fileName.substring(17, 29);
-        }
-        else if(fileName.indexOf('_') == 17)
-        {
-            fileMac = fileName.substring(18, 30);
-        }
-        else if(fileName.indexOf('_') == 18)
-        {
-            fileMac = fileName.substring(19, 31);
-        }
-        else if(fileName.indexOf('_') == 19)
-        {
-            fileMac = fileName.substring(20, 32);
-        }
-        else if(fileName.indexOf('_') == 20)
-        {
-            fileMac = fileName.substring(21, 33);
+        int index = 16;
+        while(index <=20) {
+            if (fileName.indexOf('_', index) == index)
+            {
+                index += 13;
+                fileMac = fileName.substring(index - 12, index);
 
-        }
-        else {
-            System.out.println("Bbad Mac or no Mac address on this file. Defaulting" +
-                    "to mac address of: 00:0a:95:9d:68:16");
-            return "00:0a:95:9d:68:16";
-        }
+                fileMac = new StringBuilder(fileMac).insert(2, ":")
+                        .insert(5, ":").insert(8, ":").insert(11, ":").insert(14, ":").toString();
+                System.out.println("File mac: " + fileMac);
 
-        fileMac = new StringBuilder(fileMac).insert(2, ":")
-                .insert(5, ":").insert(8, ":").insert(11, ":").insert(14, ":").toString();
-        System.out.println("File mac: " + fileMac);
-        return fileMac;
+                return fileMac;
+            } else {
+                index += 1;
+            }
+        }
+        System.out.println("Bad Mac or no Mac address on this file. Defaulting" +
+                "to mac address of: 00:0a:95:9d:68:16");
+        return "00:0a:95:9d:68:16";
     }
 
     private String parseTime(String fileName) {
