@@ -156,6 +156,7 @@
         $scope.addTagRow = function(id, newTag, vid_id){
             var newTagData = 'id' + $scope.id + 'newTag' + $scope.newTag + 'vid_id' + $scope.vid_id;
             var tagExists = 0;
+
             var videoArray = eval( $scope.tableList );
                 for( var i = 0; i < videoArray.length; i++ ) {
                     if (videoArray[i].id === id) {
@@ -167,36 +168,37 @@
                                 break;
                             }
                         }
-                        if (tagExists === 0) {
-                            tagList[tagList.length] = { "tagId": null, "tagName": newTag };
-                            $scope.tableList[id].tagList = tagList;
-                        }
                     }
                 }
-            $http.post('/logview/videos/' + vid_id + '/tags', {tag: newTag})
-                    .success(function(newTagData, status, headers, config) {
-                        console.log(newTagData);
-                        $scope.message = newTagData;
-                        var tags = $scope.tableList[id].tags;
-                        $scope.tableList[id].tagList.push({
-                            tagId: newTagData.id,
-                            tagName: newTag
+
+            if(/^\s*$/.test(newTag)){
+                console.log('Tag contains only whitespace');
+            } else {
+                $http.post('/logview/videos/' + vid_id + '/tags', {tag: newTag})
+                        .success(function(newTagData, status, headers, config) {
+                            console.log(newTagData);
+                            $scope.message = newTagData;
+                            var tags = $scope.tableList[id].tags;
+                            $scope.tableList[id].tagList.push({
+                                tagId: newTagData.id,
+                                tagName: newTag
+                            });
+                            console.log($scope.tableList);
+                            console.log(tags);
+                            if (tags === '')  {
+                                tags = newTag;
+                                console.log(tags);
+                            } else if(tags.indexOf(newTag) == -1) {
+                                tags = tags + ', ' + newTag;
+                                console.log(tags);
+                            }
+                            $scope.tableList[id].tags = tags;
+                            console.log('Added new tag');
+                        })
+                        .error(function(newTagData, status, headers, config) {
+                            alert( "failure message: " + JSON.stringify({data: newTagData}));
                         });
-                        console.log($scope.tableList);
-                        console.log(tags);
-                        if (tags === '')  {
-                            tags = newTag;
-                            console.log(tags);
-                        } else if(tags.indexOf(newTag) == -1) {
-                            tags = tags + ', ' + newTag;
-                            console.log(tags);
-                        }
-                        $scope.tableList[id].tags = tags;
-                        console.log('Added new tag');
-                    })
-                    .error(function(newTagData, status, headers, config) {
-                        alert( "failure message: " + JSON.stringify({data: newTagData}));
-                    });
+            }
             /*]]>*/
         };
 
@@ -255,15 +257,11 @@
                             tags = '';
                             console.log(tags);
                         }
-//                        else if () {
-//
-//                        }
+                        else if (tags.indexOf(tagName) == 0) {
+                          tags = tags.replace(tagName + ', ', '');
+                        }
                         else {
-                            if (tags.indexOf(tagName) == 0) {
-                                tags = tags.replace(tagName, '');
-                            } else {
-                                tags = tags.replace(', ' + tagName, '');
-                            }
+                            tags = tags.replace(', ' + tagName, '');
                             console.log(tags);
                         }
                         $scope.tableList[id].tags = tags;
