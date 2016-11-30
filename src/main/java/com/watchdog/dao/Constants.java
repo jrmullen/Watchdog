@@ -23,6 +23,8 @@ public class Constants {
     public static final String UPDATE_BY_DEVICE_ID_QUERY = "update device set DEVICE_NAME = ?, DEVICE_MAC = ?, DEVICE_ADDRESS = ?, DEVICE_PORT = ? where DEVICE_ID = ?";
     public static final String DELETE_DEVICE_BY_ID_QUERY = "delete from device where DEVICE_ID = ?";
     public static final String SELECT_MAC_QUERY = "select DEVICE_MAC from device where DEVICE_MAC = ?";
+    public static final String SELECT_DEVICE_NAME_QUERY = "select DEVICE_NAME from device where DEVICE_NAME = ?";
+
     public static final String GET_ALL_DEVICES_QUERY = "select DEVICE_ID, USER_ID, DEVICE_NAME, DEVICE_MAC, DEVICE_ADDRESS, DEVICE_PORT from device";
 
     // Video queries

@@ -62,14 +62,33 @@ public class DeviceDaoImpl implements DeviceDao {
                 device.setDeviceName(rs.getString("DEVICE_NAME"));
                 device.setDeviceMac(rs.getString ("DEVICE_MAC"));
                 device.setDeviceAddress(rs.getString("DEVICE_ADDRESS"));
-                if (null != rs.getString("DEVICE_PORT")) {
-                    device.setDevicePort(rs.getString("DEVICE_PORT"));
-                }
+                device.setDevicePort(rs.getString("DEVICE_PORT"));
 
                 return device;
             }
         });
         return device;
+    }
+
+    @Override
+    public boolean checkDeviceNameExists(String deviceName){
+        //using RowMapper anonymous class, we can create a separate RowMapper for reuse
+        try {
+            Device user = jdbcTemplate.queryForObject(Constants.SELECT_DEVICE_NAME_QUERY, new Object[]{deviceName}, new RowMapper<Device>() {
+
+                @Override
+                public Device mapRow(ResultSet rs, int rowNum)
+                        throws SQLException {
+                    Device device = new Device();
+                    device.setDeviceName(rs.getString("DEVICE_NAME"));
+                    return device;
+                }
+            });
+            return true;
+        }
+        catch(Exception e) {
+            return false;
+        }
     }
 
     @Override
@@ -153,9 +172,7 @@ public class DeviceDaoImpl implements DeviceDao {
             device.setDeviceName(String.valueOf(deviceRow.get("DEVICE_NAME")));
             device.setDeviceMac(String.valueOf(deviceRow.get("DEVICE_MAC")));
             device.setDeviceAddress(String.valueOf(deviceRow.get("DEVICE_ADDRESS")));
-            if (null != deviceRow.get("DEVICE_PORT")) {
-                device.setDevicePort(String.valueOf(deviceRow.get("DEVICE_PORT")));
-            }
+            device.setDevicePort(String.valueOf(deviceRow.get("DEVICE_PORT")));
             device.buildDeviceUrl(device.getDeviceAddress(), device.getDevicePort());
 
             deviceList.add(device);

@@ -16,17 +16,17 @@
 <form th:action="@{?addDevice}" th:object="${device}" method="post" id="devices" class="in-line" align="center">
 
     <div id="centered">
-        <input type="text" class="in-line" id="deviceName" th:field="*{deviceName}" placeholder="Device Name"/>
-        <input type="text" class="in-line" id="deviceMac" th:field="*{deviceMac}" placeholder="Device MAC"/>
-        <input type="text" class="in-line" id="deviceAddress" th:field="*{deviceAddress}" placeholder="Device Address"/>
+        <input type="text" class="in-line" id="deviceName" th:field="*{deviceName}" placeholder="Device Name (Required)"/>
+        <input type="text" class="in-line" id="deviceMac" th:field="*{deviceMac}" placeholder="Device MAC (Required)"/>
+        <input type="text" class="in-line" id="deviceAddress" th:field="*{deviceAddress}" placeholder="Device Address (Required)"/>
         <input type="text" class="in-line" id="devicePort" th:field="*{devicePort}"
-               placeholder="Device Port (Optional)"/>
+               placeholder="Device Port (Required)"/>
         <button type="submit" class="btn btn-success" id="btn-add">Add Device</button>
         <button class="btn btn-info" onclick="clearText()">Clear</button>
 
     </div>
     <span class="help-block" style="color: red" th:text="${errorMessage}"></span>
-    <span class="help-block" th:if="${successMessage != null}" th:text="${successMessage}"></span>
+    <span class="help-block" style="color: green" th:if="${successMessage != null}" th:text="${successMessage}"></span>
 
 </form>
 <br/>
