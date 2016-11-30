@@ -179,3 +179,9 @@ span.glyphicon-home {
     color: black;
 }
 /* End glyphicon section */
+
+.divider{
+    width:10px;
+    height:auto;
+    display:inline-block;
+}

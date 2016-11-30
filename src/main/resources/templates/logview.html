@@ -15,6 +15,7 @@
 <div class="container">
     <div ng-app="myApp" ng-controller="tagController">
         <br />
+        <h3>{{myTags.join(", ")}}</h3>
         <h1 align="center">Video Log</h1>
         <div align="center">
             <p style="color: red; width: 700px" th:if="${cameraNotExistsMessage} == true">
@@ -29,31 +30,33 @@
                         <th></th>
                         <th align="center">Date</th>
                         <th align="center">Time recorded</th>
-                        <th align="center">Length</th>
                         <th align="center">Camera</th>
                         <th align="center">Tags</th>
+                        <th></th>
                         <th colspan="2"><input type="search" class="form-control" placeholder="Type to search" ng-model="searchKeyword" /></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="x in tableList | filter: searchKeyword as results" class="ng-scope">
                         <td>
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#playModal">Play
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#playModal-{{x.vid_id}}">Play
                             </button>
 
                             <!-- Play Modal -->
-                            <div id="playModal" class="modal fade" role="dialog">
+                            <div id="playModal-{{x.vid_id}}" class="modal fade" role="dialog">
                                 <div class="modal-dialog">
 
                                     <!-- Modal content-->
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">Log Playback</h4>
+                                            <h4 class="modal-title">Video Player</h4>
                                         </div>
                                         <div class="modal-body">
-                                            <iframe width="560" height="315" src="https://www.youtube.com/embed/PZUiT7yoEPg"
-                                                    frameborder="0"></iframe>
+                                            <video width="560" height="315" frameborder="0" controls="true">
+                                                <source src="{{'/videos/' + x.vid_id | trustUrl}}" />
+                                                Browser does not support this file type
+                                            </video>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -66,7 +69,6 @@
                         </td>
                         <td>{{x.date}}</td>
                         <td>{{x.startTime}}</td>
-                        <td>{{x.length}}</td>
                         <td>{{x.camera}}</td>
                         <td>{{x.tags}}</td>
 
@@ -86,21 +88,21 @@
                                             </div>
                                             <div class="modal-body" >
                                                 <table class="table">
-                                                    <tr ng-repeat="tag in x.tagList">
+                                                    <tr style="width: 100%" ng-repeat="tag in x.tagList">
                                                         <td>{{tag.tagName}}</td>
                                                         <td>
-                                                            <input type="button" value="Delete Tag" class="btn btn-danger" ng-click="removeTag(x.id, x.vid_id, tag.tagId)" />
+                                                            <input style="float: right;" type="button" value="Delete Tag" class="btn btn-danger" ng-click="removeTag(x.id, x.vid_id, tag.tagId, tag.tagName)" />
                                                         </td>
                                                     </tr>
                                                 </table>
                                                 <form role="form" ng-submit="addTagRow()">
-                                                    <table  style="width: 76%">
+                                                    <table align="center" style="width: 100%">
                                                         <tr>
                                                             <td>
                                                                 <input type="text" class="form-control" name="tagName" ng-model="newTag" placeholder="New Tag" />
                                                             </td>
                                                             <td>
-                                                                <button type="submit" class="btn btn-success" ng-click="addTagRow(x.id, newTag, x.vid_id)">Add Tag</button>
+                                                                <button style="float: right;" type="submit" align="right" class="btn btn-success" ng-click="addTagRow(x.id, newTag, x.vid_id)">Add Tag</button>
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -118,7 +120,9 @@
                         <td>
                             <input type="button" value="Remove" class="btn btn-danger" ng-click="removeRow(x.id, x.vid_id)" />
                         </td>
-
+                        <td>
+                            <a type="button" class="btn btn-warning" href="/videos/{{x.vid_id}}?download=true" download="download">Download</a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -128,22 +132,29 @@
 
 <script type="text/javascript" th:inline="javascript">
     var myApp = angular.module("myApp", []);
+    var myTags = ["foo", "bar", "baz"];
 
     var json = /*[[${logListJson}]]*/ "default";
 
     myApp.config(['$httpProvider', function ($httpProvider) {
-        $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+        $httpProvider.defaults.headers.post['Content-Type'] = 'application/json';
+    }]);
+
+    myApp.filter("trustUrl", ['$sce', function ($sce) {
+        return function (url) {
+            return $sce.trustAsResourceUrl(url);
+        };
     }]);
 
     myApp.controller('tagController', function($scope, $http) {
         $scope.tableList = JSON.parse(json);
-        $scope.ta
         console.log($scope.tableList);
 
         /*<![CDATA[*/
         $scope.addTagRow = function(id, newTag, vid_id){
             var newTagData = 'id' + $scope.id + 'newTag' + $scope.newTag + 'vid_id' + $scope.vid_id;
             var tagExists = 0;
+
             var videoArray = eval( $scope.tableList );
                 for( var i = 0; i < videoArray.length; i++ ) {
                     if (videoArray[i].id === id) {
@@ -155,20 +166,38 @@
                                 break;
                             }
                         }
-                        if (tagExists === 0) {
-                            tagList[tagList.length] = { "tagId": null, "tagName": newTag };
-                            $scope.tableList[id].tagList = tagList;
-                        }
                     }
                 }
-            $http.put('/logview/tag/' + vid_id + '/' + newTag)
-                    .success(function(newTagData, status, headers, config) {
-                        $scope.message = newTagData;
-                        console.log('Added new tag');
-                    })
-                    .error(function(newTagData, status, headers, config) {
-                        alert( "failure message: " + JSON.stringify({data: newTagData}));
-                    });
+            if(/^\s*$/.test(newTag)){
+                console.log('Tag contains only whitespace');
+            } else {
+                $http.post('/logview/videos/' + vid_id + '/tags', {tag: newTag})
+                        .success(function(newTagData, status, headers, config) {
+                            console.log(newTagData);
+                            $scope.message = newTagData;
+                            var tags = $scope.tableList[id].tags;
+                            if (tagExists === 0) {
+                                $scope.tableList[id].tagList.push({
+                                    tagId: newTagData.id,
+                                    tagName: newTag
+                                });
+                            }
+                            console.log($scope.tableList);
+                            console.log(tags);
+                            if (tags === '')  {
+                                tags = newTag;
+                                console.log(tags);
+                            } else if(tags.indexOf(newTag) == -1) {
+                                tags = tags + ', ' + newTag;
+                                console.log(tags);
+                            }
+                            $scope.tableList[id].tags = tags;
+                            console.log('Added new tag');
+                        })
+                        .error(function(newTagData, status, headers, config) {
+                            alert( "failure message: " + JSON.stringify({data: newTagData}));
+                        });
+            }
             /*]]>*/
         };
 
@@ -199,8 +228,8 @@
         };
 
         /*<![CDATA[*/
-        $scope.removeTag = function(id, vid_id, tagId){
-            var tagData = 'id' + id + 'tagId' + $scope.tagId + 'vid_id' + $scope.vid_id;
+        $scope.removeTag = function(id, vid_id, tagId, tagName){
+            var tagData = 'id' + id + 'tagId' + $scope.tagId + 'vid_id' + $scope.vid_id + 'tagName' + tagName;
             var tagListIndex = -1;
             var videoArray = eval( $scope.tableList );
             for( var i = 0; i < videoArray.length; i++ ) {
@@ -221,6 +250,20 @@
             $http.delete('/logview/tag/' + vid_id + '/' + tagId)
                     .success(function(data, status, headers, config) {
                         $scope.message = tagData;
+                        var tags = $scope.tableList[id].tags;
+                        console.log(tags);
+                        if (tags === tagName) {
+                            tags = '';
+                            console.log(tags);
+                        }
+                        else if (tags.indexOf(tagName) == 0) {
+                          tags = tags.replace(tagName + ', ', '');
+                        }
+                        else {
+                            tags = tags.replace(', ' + tagName, '');
+                            console.log(tags);
+                        }
+                        $scope.tableList[id].tags = tags;
                         console.log('Deleted tag');
                     })
                     .error(function(tagData, status, headers, config) {
