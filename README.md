@@ -202,12 +202,12 @@ Queries for the User are written in the UserDaoImpl
 		(more restrictive permissions than this are recommended for security)  
 		`sudo chmod 777 path/to/script/script.sh`
 
-		3. Create crontab to schedule running the script
+		c. Create crontab to schedule running the script
 		 `crontab -u pi -e`
 
-		4. Specify the schedule to run the script inside the crontab file in format:
+		d. Specify the schedule to run the script inside the crontab file in format:
 		minute hour dayOfMonth month dayOfWeek command
 		 I.e. run every minute:
 		 * * * * * /home/pi/ftpupload_remote.sh`
 
-		5. Save file
+		e. Save file
