@@ -50,7 +50,12 @@ public class DeviceManagerController {
             }
             else if (!isValidPort(device.getDevicePort()) || !device.getDevicePort().equals(device.getDevicePort())) {
                 model.addAttribute("errorMessage", "Port field must be a number between 1 and 65,535.");
-            } else {
+            }
+            else if (deviceDao.checkDeviceNameExists(device.getDeviceName())) {
+                model.addAttribute("errorMessage", "A device with this name already exists." +
+                        " Please enter a unqiue device name.");
+            }
+            else {
                 deviceDao.save(device);
                 model.addAttribute("successMessage", "Device successfully saved.");
             }
