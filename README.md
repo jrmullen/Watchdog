@@ -161,12 +161,16 @@ Queries for the User are written in the UserDaoImpl
 	
 	
 ##FTP Setup on Pi
-	1. First, do a sudo apt-get install ncftp on the Raspberry Pi.
+	1. First, do a `sudo apt-get install` ncftp on the Raspberry Pi.
+	
+	2. Install the files needed to be able to convert from .avi to .mp4 in script:
+		`sudo apt-get install libavcodec-extra`
+		`sudo apt-get install libav-tools`
 
-	2. We'll be using a bash script to upload log videos via FTP. You can create it using a CLI text 
+	3. We'll be using a bash script to upload log videos via FTP. You can create it using a CLI text 
 	editor such as vim/nano or you can do it in windows and transfer via sftp.
 
-	3. The script, watchdog.sh, is as follows:
+	4. The script, watchdog.sh, is as follows:
 		`#!/bin/bash`
 		`mac="$(cat /sys/class/net/eth0/address)"`
 		`path="/tmp/motion/*.avi"`
@@ -182,16 +186,16 @@ Queries for the User are written in the UserDaoImpl
 		`ncftpput -R -v -u watchdog -p cit480 projectwatchdog.ddns.net /video /tmp/motion/*`
 		`sudo rm -fr /tmp/motion/*`
 
-	4. /tmp/motion is our default recording location on the pi. If you've changed it you'll need to 
+	5. /tmp/motion is our default recording location on the pi. If you've changed it you'll need to 
 	modify the script.
 	
 	Pick ONE of the following for running the script
-	5. Option 1. edit motion.conf
+	6. Option 1. edit motion.conf
 		`sudo vim /etc/motion/motion.conf`
 	remove comment for on_movie_end command and add script (this is w/ script in /tmp/ dir)
 		`on_movie_end /tmp/script.sh %f`
 		
-	5. Option 2. Schedule script to run with crontab
+	6. Option 2. Schedule script to run with crontab
 		a. put script in directory on Raspberry Pi (/home/pi is recommended)
 
 		b. Change permissions to allow script to be run
