@@ -80,7 +80,7 @@ public class DeviceDaoImpl implements DeviceDao {
                 public Device mapRow(ResultSet rs, int rowNum)
                         throws SQLException {
                     Device device = new Device();
-                    device.setDeviceMac(rs.getString("DEVICE_MAC"));
+                    device.setDeviceName(rs.getString("DEVICE_NAME"));
                     return device;
                 }
             });
