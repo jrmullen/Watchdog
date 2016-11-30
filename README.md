@@ -88,6 +88,8 @@ password: password
 
 Queries for the User are written in the UserDaoImpl
 
+
+
 ##Install and configure Motion
 	1. 	Install motion
 		a) 	From raspberry pi terminal execute the following commands:
@@ -156,7 +158,9 @@ Queries for the User are written in the UserDaoImpl
 		Type the following every time the system is restarted to run motion:
 		`sudo service motion start`
 
-##FTP setup on Pi
+	
+	
+##FTP Setup on Pi
 	1. First, do a sudo apt-get install ncftp on the Raspberry Pi.
 
 	2. We'll be using a bash script to upload log videos via FTP. You can create it using a CLI text 
@@ -164,13 +168,42 @@ Queries for the User are written in the UserDaoImpl
 
 	3. The script, watchdog.sh, is as follows:
 		`#!/bin/bash`
+		`mac="$(cat /sys/class/net/eth0/address)"`
+		`path="/tmp/motion/*.avi"`
+		
+		`for file in $path;`
+			`do sudo mv "${file}" "${file%.avi}_$mac.avi";`
+		`done;`
+
+		`set -- *:*`
+		`for file in $path; do`
+			`sudo mv -- "$file" "${file//:/}"`
+		`done`
 		`ncftpput -R -v -u watchdog -p cit480 projectwatchdog.ddns.net /video /tmp/motion/*`
-		`rm -fr /tmp/motion/*`
+		`sudo rm -fr /tmp/motion/*`
 
 	4. /tmp/motion is our default recording location on the pi. If you've changed it you'll need to 
 	modify the script.
 	
-	5. edit motion.conf
+	Pick ONE of the following for running the script
+	5. Option 1. edit motion.conf
 		`sudo vim /etc/motion/motion.conf`
 	remove comment for on_movie_end command and add script (this is w/ script in /tmp/ dir)
 		`on_movie_end /tmp/script.sh %f`
+		
+	5. Option 2. Schedule script to run with crontab
+		a. put script in directory on Raspberry Pi (/home/pi is recommended)
+
+		b. Change permissions to allow script to be run
+		(more restrictive permissions than this are recommended for security)  
+		`sudo chmod 777 path/to/script/script.sh`
+
+		3. Create crontab to schedule running the script
+		 `crontab -u pi -e`
+
+		4. Specify the schedule to run the script inside the crontab file in format:
+		minute hour dayOfMonth month dayOfWeek command
+		 I.e. run every minute:
+		 * * * * * /home/pi/ftpupload_remote.sh`
+
+		5. Save file
