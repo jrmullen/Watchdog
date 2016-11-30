@@ -1,9 +1,6 @@
 package com.watchdog;
 
 import com.watchdog.business.Video;
-import com.watchdog.dao.tag.TagDao;
-import com.watchdog.dao.user.UserDao;
-import com.watchdog.dao.video.VideoDao;
 import com.watchdog.services.VideoInsertDeleteService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,11 +22,6 @@ public class Application {
 
         //Get the Spring Context
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring.xml");
-
-        //To use JdbcTemplate
-        UserDao userDao = ctx.getBean("userDaoImpl", UserDao.class);
-        TagDao tagDao = ctx.getBean("tagDaoImpl", TagDao.class);
-
 
         // Run thread to check for add or delete video files and add the video info to the database
         ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();

@@ -60,19 +60,16 @@ public class VideoInsertDeleteService {
                 video.getSize() + " " + video.getTitle() +
                                  " " +video.getDeviceMac());
 
-        // LEAVE THIS COMMENTED OUT UNTIL SCRIPT FOR APPENDING MAC ADDRESSES TO END OF
-        // VIDEO FILES NAMES IS FULLY FUNCTIONAL
-        //if ((deviceDao.checkMacExists(video.getDeviceMac()))) {
+
+        if ((deviceDao.checkMacExists(video.getDeviceMac()))) {
             videoDao.save(video);
-        //}
-        /*else {
+        }
+        else {
             System.out.println("No registered recording device with mac address of: " +
             video.getDeviceMac() + " in database. Video file " + video.getTitle() +
             " will now be deleted from directory.");
                     file.delete();
-        }*/
-
-
+        }
     }
 
 
