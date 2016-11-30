@@ -1,6 +1,6 @@
 package com.watchdog.business;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Time;
 
 public class Video {
@@ -9,8 +9,8 @@ public class Video {
     private int userId;
     private String filePath;
     private Time length;
-    private Date date;
-    private Time time;
+    private String date;
+    private String time;
     private String title;
     private double location;
     private String description;
@@ -18,7 +18,6 @@ public class Video {
     private boolean isEncrypted;
     private long size;
     private String deviceMac;
-    private String device_mac;
 
     public void setVideoId(int videoId){
         this.videoId = videoId;
@@ -38,19 +37,19 @@ public class Video {
         return length;
     }
 
-    public void setDate(Date date){
+    public void setDate(String date){
         this.date = date;
     }
 
-    public Date getDate(){
+    public String getDate(){
         return date;
     }
 
-    public void setTime(Time time){
+    public void setTime(String time){
         this.time = time;
     }
 
-    public Time getTime(){
+    public String getTime(){
         return time;
     }
 

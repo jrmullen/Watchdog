@@ -6,11 +6,13 @@ package com.watchdog.dao.video;
 
 import com.watchdog.business.Video;
 import com.watchdog.dao.Constants;
+import com.watchdog.services.VideoInsertDeleteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
+import java.io.File;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,8 +25,8 @@ public class VideoDaoImpl implements VideoDao {
 
     @Autowired
     private DataSource dataSource;
-
     private JdbcTemplate jdbcTemplate;
+    private static File directory = new File("c:/ftp/video");
 
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -70,8 +72,8 @@ public class VideoDaoImpl implements VideoDao {
                 video.setIsCompressed(rs.getBoolean("VID_IS_COMPRESSED"));
                 video.setIsEncrypted(rs.getBoolean("VID_IS_ENCRYPTED"));
                 video.setSize(rs.getLong("VID_SIZE_ON_DISK"));
-                video.setDate(rs.getDate("VID_DATE"));
-                video.setTime(rs.getTime("VID_TIME"));
+                video.setDate(rs.getString("VID_DATE"));
+                video.setTime(rs.getString("VID_TIME"));
                 video.setTitle(rs.getString("VID_TITLE"));
                 video.setLocation(rs.getDouble("VID_LOCATION"));
                 video.setDescription(rs.getString("VID_DESCRIPTION"));
@@ -81,6 +83,41 @@ public class VideoDaoImpl implements VideoDao {
             }
         });
         return video;
+    }
+
+    @Override
+    public boolean checkVideoExists(String videoTitle) {
+
+       try {
+           Video video = jdbcTemplate.queryForObject(Constants.GET_VIDEO_BY_VID_TITLE, new Object[]{videoTitle}, new RowMapper<Video>() {
+
+               @Override
+               public Video mapRow(ResultSet rs, int rowNum)
+                       throws SQLException {
+                   Video video = new Video();
+
+                   video.setVideoId(rs.getInt("VID_ID"));
+                   video.setUserId(rs.getInt("USER_ID"));
+                   video.setFilePath(rs.getString("VID_FILE_PATH"));
+                   video.setLength(rs.getTime("VID_LENGTH"));
+                   video.setIsCompressed(rs.getBoolean("VID_IS_COMPRESSED"));
+                   video.setIsEncrypted(rs.getBoolean("VID_IS_ENCRYPTED"));
+                   video.setSize(rs.getLong("VID_SIZE_ON_DISK"));
+                   video.setDate(rs.getString("VID_DATE"));
+                   video.setTime(rs.getString("VID_TIME"));
+                   video.setTitle(rs.getString("VID_TITLE"));
+                   video.setLocation(rs.getDouble("VID_LOCATION"));
+                   video.setDescription(rs.getString("VID_DESCRIPTION"));
+                   video.setDeviceMac(rs.getString("DEVICE_MAC"));
+
+                   return video;
+               }
+           });
+           return true;
+       }
+       catch(Exception e) {
+          return false;
+       }
     }
 
     @Override
@@ -101,8 +138,8 @@ public class VideoDaoImpl implements VideoDao {
                 video.setIsCompressed(rs.getBoolean("VID_IS_COMPRESSED"));
                 video.setIsEncrypted(rs.getBoolean("VID_IS_ENCRYPTED"));
                 video.setSize(rs.getLong("VID_SIZE_ON_DISK"));
-                video.setDate(rs.getDate("VID_DATE"));
-                video.setTime(rs.getTime("VID_TIME"));
+                video.setDate(rs.getString("VID_DATE"));
+                video.setTime(rs.getString("VID_TIME"));
                 video.setTitle(rs.getString("VID_TITLE"));
                 video.setLocation(rs.getDouble("VID_LOCATION"));
                 video.setDescription(rs.getString("VID_DESCRIPTION"));
@@ -154,10 +191,25 @@ public class VideoDaoImpl implements VideoDao {
     @Override
     public void deleteByVidId(int videoId) {
 
+        Video video = getByVidId(videoId);
+
         int out = jdbcTemplate.update(Constants.DELETE_VIDEO_BY_ID_QUERY, videoId);
         if (out != 0) {
             System.out.println("Video deleted with id= " + videoId);
-        } else System.out.println("No Video found with id= " + videoId);
+            VideoInsertDeleteService videoInsertDeleteService = new VideoInsertDeleteService();
+            List<File> fileList = videoInsertDeleteService.getFiles(directory);
+
+            // Iterate through files in directory
+            for (final File file : fileList) {
+                if(videoInsertDeleteService.fileExistsInFolder(video.getTitle(), directory) &&
+                        file.getName().equals(video.getTitle())) {
+                    file.delete();
+                }
+            }
+        }
+        else{
+            System.out.println("No Video found with id= " + videoId);
+        }
     }
 
     @Override
@@ -166,14 +218,25 @@ public class VideoDaoImpl implements VideoDao {
         int out = jdbcTemplate.update(Constants.DELETE_VIDEO_BY_TITLE_QUERY, videoName);
         if (out != 0) {
             System.out.println("Video deleted with name = " + videoName);
-        } else System.out.println("No Video found with name = " + videoName);
+            VideoInsertDeleteService videoInsertDeleteService = new VideoInsertDeleteService();
+            List<File> fileList = videoInsertDeleteService.getFiles(directory);
+
+            // Iterate through files in directory
+            for (final File file : fileList) {
+                if(videoInsertDeleteService.fileExistsInFolder(videoName, directory) &&
+                        file.getName().equals(videoName)) {
+                    file.delete();
+                }
+            }
+        } else {
+            System.out.println("No Video found with name = " + videoName);
+        }
     }
 
     @Override
     public List<Video> getAll() {
 
         List<Video> videoList = new ArrayList<Video>();
-
         List<Map<String, Object>> videoRows = jdbcTemplate.queryForList(Constants.GET_ALL_VIDEOS_QUERY);
 
         for (Map<String, Object> videoRow : videoRows) {
@@ -186,8 +249,8 @@ public class VideoDaoImpl implements VideoDao {
             video.setIsCompressed(Boolean.valueOf(String.valueOf(videoRow.get("VID_IS_COMPRESSED")))); // will error?, stored in db as tinyint
             video.setIsEncrypted(Boolean.valueOf(String.valueOf(videoRow.get("VID_IS_ENCRYPTED")))); // will error?, stored in db as tinyint
             video.setSize(Long.valueOf(String.valueOf(videoRow.get("VID_SIZE_ON_DISK"))));
-            video.setDate(Date.valueOf(String.valueOf(videoRow.get("VID_DATE"))));
-            video.setTime(Time.valueOf(String.valueOf(videoRow.get("VID_TIME"))));
+            video.setDate(String.valueOf(videoRow.get("VID_DATE")));
+            video.setTime(String.valueOf(videoRow.get("VID_TIME")));
             video.setTitle(String.valueOf(videoRow.get("VID_TITLE")));
             video.setLocation(Double.valueOf(String.valueOf(videoRow.get("VID_LOCATION"))));
             video.setDescription(String.valueOf(videoRow.get("VID_DESCRIPTION")));
