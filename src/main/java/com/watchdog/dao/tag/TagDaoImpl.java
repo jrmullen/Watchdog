@@ -117,8 +117,8 @@ public class TagDaoImpl implements TagDao {
     public void deleteTagFromVideo(int tagId, int videoId) {
         int out = jdbcTemplate.update(Constants.DELETE_VIDEO_TAG_QUERY, tagId, videoId);
         if (out != 0) {
-            System.out.println("TTV tag " + tagId + " deleted from video " + videoId);
-        } else System.out.println("No TTV found for tag " + tagId + " and video " + videoId);
+            System.out.println("Tag to video tag " + tagId + " deleted from video " + videoId);
+        } else System.out.println("No Tag to video found for tag " + tagId + " and video " + videoId);
     }
 
     @Override
@@ -180,7 +180,6 @@ public class TagDaoImpl implements TagDao {
 
     @Override
     public void addTagToVid(int videoId, int tagId) {
-        System.out.println("video id: " + videoId + " tag id: " + tagId);
         int out = jdbcTemplate.update(Constants.ADD_TAG_TO_VID_QUERY, videoId, tagId);
         if (out != 0) {
             System.out.println("Tag with tagId: " + tagId + " added to video with videoId: " + videoId);
@@ -193,9 +192,9 @@ public class TagDaoImpl implements TagDao {
     public void deleteTagToVidByTagId(int tag_id){
         int out = jdbcTemplate.update(Constants.DELETE_TTV_BY_TAG_ID_QUERY, tag_id);
         if(out != 0){
-            System.out.println("TTV deleted with tag_id = " + tag_id);
+            System.out.println("Deleted with tag_id = " + tag_id + " from tag to video table.");
         } else {
-            System.out.println("Unable to delete TTV with tag_id = " + tag_id);
+            System.out.println("Unable to delete tag_id = " + tag_id + " from tag to video table.");
         }
     }
 

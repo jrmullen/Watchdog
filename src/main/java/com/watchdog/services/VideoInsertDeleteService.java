@@ -56,10 +56,6 @@ public class VideoInsertDeleteService {
         video.setLocation(0.0);
         video.setDescription("Video description here");
         video.setDeviceMac(parseDeviceMac(file.getName()));
-        System.out.println(video.getFilePath() + " " +
-                video.getSize() + " " + video.getTitle() +
-                                 " " +video.getDeviceMac());
-
 
         if ((deviceDao.checkMacExists(video.getDeviceMac()))) {
             videoDao.save(video);
@@ -120,9 +116,6 @@ public class VideoInsertDeleteService {
             Date currentDate = dateFormat.parse(nowStr);
             days = calculateDaysBetweenDates(dateCreated, currentDate);
 
-            System.out.println("\nDate video created: " + dateCreated + "  Current Date: " +
-                            currentDate + "\nDays between dates: " + days);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -176,7 +169,6 @@ public class VideoInsertDeleteService {
 
                 fileMac = new StringBuilder(fileMac).insert(2, ":")
                         .insert(5, ":").insert(8, ":").insert(11, ":").insert(14, ":").toString();
-                System.out.println("File mac: " + fileMac);
 
                 return fileMac;
             } else {

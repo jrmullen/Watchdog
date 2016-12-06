@@ -42,16 +42,12 @@ public class Application {
                             // if it is stored in the database and directory
                             if (videoInsertDeleteService.overMaxAllowedAge(file) &&
                                     videoInsertDeleteService.videoInfoExistsInDatabase(file.getName())) {
-                                System.out.println("Delete file:  " + file.getName());
-
                                 videoInsertDeleteService.deleteFileFromFolderAndDatabase(file);
                             }
                             // Delete old file from ONLY the directory if it is in the directory but NOT
                             // stored in the database
                             else if (videoInsertDeleteService.overMaxAllowedAge(file) &&
                                         !videoInsertDeleteService.videoInfoExistsInDatabase(file.getName())) {
-                                System.out.println("Delete file from folder ONLY:  " + file.getName());
-
                                 file.delete();
                             }
                             // Add new video file found in folder
@@ -70,8 +66,6 @@ public class Application {
 
                                 if (!videoInsertDeleteService.fileExistsInFolder(video.getTitle(), directory) &&
                                         videoInsertDeleteService.videoInfoExistsInDatabase(video.getTitle())) {
-
-                                    System.out.println("Video will be deleted from database: " + video.getTitle());
                                     videoInsertDeleteService.deleteVideoInfoFromDatabase(video.getTitle());
                                 }
                             }
